@@ -77,6 +77,9 @@
         "unique": true,
         "autoIncrement": true
       },
+      "app": {
+        "type": "integer"
+      },
       "name": {
         "type": "string",
         "unique": true
