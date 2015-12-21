@@ -22,6 +22,12 @@ module.exports = {
 		autoIncrement: true,
 		unique: true
 	},
+	app: {
+		//description: 'App',
+		//hide: true,
+		type: 'integer',
+		required: true
+	},
 	name: {
 		//description: 'Name',
 		type: 'string',
