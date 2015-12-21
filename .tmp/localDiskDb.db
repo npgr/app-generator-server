@@ -1,0 +1,683 @@
+{
+  "data": {
+    "model": [],
+    "attribute": [],
+    "modelfunction": [],
+    "functionattribute": [],
+    "language": [],
+    "user": [
+      {
+        "id": 1,
+        "usr": "Nuno",
+        "pwd": "Prueba",
+        "account": 1,
+        "name": "Nuno",
+        "profile": 1,
+        "email": "",
+        "photo": "",
+        "status": "A",
+        "updatedAt": "2015-09-03T17:01:26.839Z"
+      }
+    ],
+    "profile": [
+      {
+        "name": "Admin",
+        "createdAt": "2015-09-03T17:01:07.678Z",
+        "updatedAt": "2015-09-03T17:01:07.678Z",
+        "id": 1
+      }
+    ],
+    "profileresource": [],
+    "resource": [],
+    "account": [
+      {
+        "name": "Cuenta Personal",
+        "users": 6,
+        "createdAt": "2015-09-03T16:56:47.079Z",
+        "updatedAt": "2015-09-03T16:56:47.079Z",
+        "id": 1
+      },
+      {
+        "name": "Cuenta Actividades",
+        "users": 3,
+        "createdAt": "2015-09-03T16:57:05.021Z",
+        "updatedAt": "2015-09-03T16:57:05.021Z",
+        "id": 2
+      },
+      {
+        "name": "Cuenta Tickets",
+        "users": 2,
+        "createdAt": "2015-09-03T16:57:31.014Z",
+        "updatedAt": "2015-09-03T16:57:31.014Z",
+        "id": 3
+      }
+    ],
+    "functionlist": [],
+    "app": [
+      {
+        "name": "App01",
+        "version": "1.0.0",
+        "description": "First Web App",
+        "type": "web",
+        "db": "disk",
+        "path": "c:\\Program Files\\app01",
+        "port": 3030,
+        "repository": "",
+        "createdAt": "2015-12-21T18:12:06.246Z",
+        "updatedAt": "2015-12-21T18:12:06.246Z",
+        "id": 1
+      }
+    ]
+  },
+  "schema": {
+    "model": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "name": {
+        "type": "string",
+        "unique": true
+      },
+      "title": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "attribute": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "pos": {
+        "type": "integer"
+      },
+      "model": {
+        "type": "integer",
+        "model": "model",
+        "foreignKey": true,
+        "alias": "model"
+      },
+      "attribute": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "integer",
+          "string",
+          "float",
+          "date",
+          "boolean"
+        ]
+      },
+      "required": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      },
+      "hide": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      },
+      "textarea_cols": {
+        "type": "integer"
+      },
+      "textarea_rows": {
+        "type": "integer"
+      },
+      "enum": {
+        "type": "string"
+      },
+      "enumdes": {
+        "type": "string"
+      },
+      "omit": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      },
+      "ref_model": {
+        "type": "integer",
+        "model": "model",
+        "foreignKey": true,
+        "alias": "ref_model"
+      },
+      "model_key": {
+        "type": "string"
+      },
+      "key_type": {
+        "type": "string",
+        "enum": [
+          "integer",
+          "string",
+          "float",
+          "date",
+          "boolean"
+        ]
+      },
+      "model_display": {
+        "type": "integer",
+        "model": "attribute",
+        "foreignKey": true,
+        "alias": "model_display"
+      },
+      "top_label": {
+        "type": "string"
+      },
+      "left_label": {
+        "type": "string"
+      },
+      "filter": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      },
+      "list": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      },
+      "display": {
+        "type": "string",
+        "enum": [
+          "s",
+          "h"
+        ]
+      },
+      "create": {
+        "type": "string",
+        "enum": [
+          "c",
+          "r",
+          "h"
+        ]
+      },
+      "update": {
+        "type": "string",
+        "enum": [
+          "u",
+          "r",
+          "h"
+        ]
+      },
+      "delete": {
+        "type": "string",
+        "enum": [
+          "s",
+          "h"
+        ]
+      },
+      "help": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "modelfunction": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "model": {
+        "type": "integer",
+        "model": "model",
+        "foreignKey": true,
+        "alias": "model"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "list",
+          "display",
+          "edit",
+          "new",
+          "delete",
+          "columns",
+          "download",
+          "print",
+          "ga",
+          "https",
+          "relic",
+          "pingdom"
+        ]
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "functionattribute": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "model": {
+        "type": "integer",
+        "model": "model",
+        "foreignKey": true,
+        "alias": "model"
+      },
+      "functionx": {
+        "type": "integer",
+        "model": "modelfunction",
+        "foreignKey": true,
+        "alias": "functionx"
+      },
+      "attribute": {
+        "type": "integer",
+        "model": "attribute",
+        "foreignKey": true,
+        "alias": "attribute"
+      },
+      "display": {
+        "type": "string",
+        "enum": [
+          "Yes",
+          "ReadOnly",
+          "No"
+        ]
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "language": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "language": {
+        "type": "string",
+        "enum": [
+          "en",
+          "es",
+          "pt",
+          "fr",
+          "de"
+        ]
+      },
+      "word": {
+        "type": "string"
+      },
+      "translate": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "user": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "account": {
+        "type": "integer",
+        "model": "account",
+        "foreignKey": true,
+        "alias": "account"
+      },
+      "usr": {
+        "type": "string",
+        "unique": true
+      },
+      "name": {
+        "type": "string"
+      },
+      "pwd": {
+        "type": "string"
+      },
+      "profile": {
+        "type": "integer",
+        "model": "profile",
+        "foreignKey": true,
+        "alias": "profile"
+      },
+      "email": {
+        "type": "string"
+      },
+      "photo": {
+        "type": "string",
+        "defaultsTo": ""
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "A",
+          "I"
+        ]
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "profile": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "name": {
+        "type": "string"
+      },
+      "firstpage": {
+        "type": "integer",
+        "model": "resource",
+        "foreignKey": true,
+        "alias": "firstpage"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "profileresource": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "profile": {
+        "type": "integer",
+        "model": "profile",
+        "foreignKey": true,
+        "alias": "profile"
+      },
+      "resource": {
+        "type": "integer",
+        "model": "resource",
+        "foreignKey": true,
+        "alias": "resource"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "Group": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "resource": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "name": {
+        "type": "string"
+      },
+      "method": {
+        "type": "string",
+        "enum": [
+          "get",
+          "post",
+          "put",
+          "delete",
+          "all"
+        ]
+      },
+      "path": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "page",
+          "api",
+          "option",
+          "component"
+        ]
+      },
+      "requireaut": {
+        "type": "string",
+        "enum": [
+          "Yes",
+          "No"
+        ]
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "account": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "name": {
+        "type": "string"
+      },
+      "users": {
+        "type": "integer"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "functionlist": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "model": {
+        "type": "integer",
+        "model": "model",
+        "foreignKey": true,
+        "alias": "model"
+      },
+      "new": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "display": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "edit": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "delete": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "columns": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "download": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "print": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "ga": {
+        "type": "string",
+        "enum": [
+          "e",
+          "d"
+        ]
+      },
+      "dialog_width": {
+        "type": "string"
+      },
+      "card_width": {
+        "type": "string"
+      },
+      "btn_left": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "app": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "name": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "web",
+          "web2",
+          "desktop",
+          "mobil"
+        ]
+      },
+      "db": {
+        "type": "string",
+        "enum": [
+          "postgres",
+          "mysql",
+          "mongodb",
+          "disk",
+          "rethinkdb",
+          "cassandra",
+          "leveldb"
+        ]
+      },
+      "path": {
+        "type": "string"
+      },
+      "port": {
+        "type": "integer"
+      },
+      "repository": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "model": {},
+    "attribute": {},
+    "modelfunction": {},
+    "functionattribute": {},
+    "language": {},
+    "user": {
+      "id": 1
+    },
+    "profile": {
+      "id": 1
+    },
+    "profileresource": {},
+    "resource": {},
+    "account": {
+      "id": 3
+    },
+    "functionlist": {},
+    "app": {
+      "id": 1
+    }
+  }
+}
