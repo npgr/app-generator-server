@@ -42,7 +42,7 @@ module.exports = {
 							/*_.remove(data2, function (e) {
 								return e.resource.type != 'page'
 							})*/
-						  var firstpage = 'Task/list'
+						  var firstpage = 'App/list'
 						  _.forEach(data2, function(n, key) {
 							if (n.resource.id == data.profile.firstpage)
 								firstpage = n.resource.path							
