@@ -16117,8 +16117,6 @@ paper-menu {
 </script>
 </dom-module>
 
-
-
 <dom-module id="Model-list">
 <template>
 <!--USER POINT - List Style-->
@@ -16131,6 +16129,11 @@ paper-menu {
 	<Model-delete id="Model_delete_dialog" on-close="reload"></Model-delete>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Model"))%></div>-->
 <!--USER POINT - List Header-->
+	<label class="left_label" for="app"><%= lng('App')%></label>
+	<input id="app" type="string" name="app" value="{{app.name}}" disabled>
+	<label class="left_label" for="path"><%= lng('Path')%></label>
+	<input id="path" type="string" name="path" value="{{app.path}}" disabled>
+	<br>
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>  <%= lng('Name')%>
@@ -16238,6 +16241,8 @@ Polymer({
 	},
 	ready: function() {
 //USER POINT - List Start Ready
+		this.app = <%- app %>
+		console.log('App : ', this.app)
 //END USER POINT - List Start Ready
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
@@ -16278,6 +16283,7 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
+		
 //END USER POINT - List End Ready
 	},
 	help: function() {

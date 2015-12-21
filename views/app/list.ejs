@@ -16444,6 +16444,7 @@ paper-menu {
 			<paper-item on-click="edit" style="min-height:20px;line-height:35px;"><%= lng('Edit')%></paper-item>
 			<paper-item on-click="delete" style="min-height:20px;line-height:35px;"><%= lng('Delete')%></paper-item>
 <!--USER POINT - List Detail Menu-->
+			<paper-item on-click="models" style="min-height:20px;line-height:35px;"><%= lng('Models')%></paper-item>
 <!--END USER POINT - List Detail Menu-->
 		</paper-menu>
 	</paper-dialog>
@@ -16944,6 +16945,13 @@ Polymer({
 	alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
   }
 //USER POINT - List Functions
+  ,models: function() {
+	this.$.menu_dialog.close()
+	var rs = this.data.find({id: this.key})[0]
+	var post_data = {id: this.key, name: rs.name, path: rs.path, type: rs.type, db: rs.db}
+	
+	post(config_server() + "Model/list", post_data, 'post')
+  }
 //END USER POINT - List Functions
 });
 </script>
