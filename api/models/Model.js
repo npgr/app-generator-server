@@ -11,9 +11,17 @@ module.exports = {
 
   attributes: {
 	//_title: 'Model',
-	//_card_width: '60em',
-	//_btn_left: '30px',
+	//_dialog_width: '30em',
+	//_card_width: '60em',  
+	//_btn_left: '30px', 		
+	//_columns: 'disabled', 	
+	//_new: 'enabled',
+	//_edit: 'enabled',
 	//_display: 'disabled',
+	//_delete: 'disabled',
+	//_print: 'enabled',
+	//_download: 'enabled',
+	//_ga: 'disabled',
 	id: {
 		//description: 'Id',
 		//hide: true,
@@ -28,6 +36,7 @@ module.exports = {
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
+		//hide: true,
 		model: 'App'
 	},
 	name: {

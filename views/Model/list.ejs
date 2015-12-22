@@ -15783,98 +15783,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- list-columns: version 5.10 -->
 
-<dom-module id="Model-list-columns">
-<template>
-<style>
-	/*#dialog {
-		width: 24em;
-	}*/
-	.green {
-		background-color: green;
-		color: white;
-		height: 30px;
-	}
-	.orange {
-		color: white;
-		background-color: orange;
-		height: 30px;
-	}
-</style>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Columns"),lng("Model"))%></h2>
-			<paper-dialog-scrollable>
-			<table class="table_dialog" style="width:100%">
-			<tr>
-				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
-				<td><div id="id" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="app_name"><%= lng('App')%></label></td>
-				<td><div id="app_name" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><div id="name" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="title"><%= lng('Title')%></label></td>
-				<td><div id="title" on-click="change_field"></div></td>
-			</tr>
-			</table>
-			</paper-dialog-scrollable>
-		<div class="buttons">
-			<div class="card_line">
-				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
-				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
-			</div>
-		</div>
-	</paper-dialog>
-</template>
-<script>
-	Polymer({
-		is: "Model-list-columns",
-		properties: {
-			//updated: false,
-			//column: {}
-		},
-		open_list_columns: function(column) {
-			this.updated= false,
-			this.column= column
-			this.show_field("id")
-			this.show_field("app_name")
-			this.show_field("name")
-			this.show_field("title")
-			this.$.dialog.open()
-		},
-		change_field: function(e) {
-			var field = e.toElement.id
-			this.column[field] = !this.column[field]
-			this.show_field(field)
-		},
-		show_field: function(field) {
-			if (this.column[field])
-			{  
-				this.$[field].innerHTML = "<%= lng('Show')%>"
-				this.$[field].classList.remove("orange")
-				this.$[field].classList.add("green")
-			}
-			else
-			{
-				this.$[field].innerHTML = "<%= lng('Hide')%>"
-				this.$[field].classList.remove("green")
-				this.$[field].classList.add("orange")
-			}
-		},
-		submit_form: function() {
-			this.updated = true
-			this.$.dialog.close()
-			this.fire('close')
-		}
-	})
-</script>
-</dom-module>
 
 <!-- new-form: version 5.10 -->
 
@@ -16006,7 +15915,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
-				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key={{item.app_id}} value="{{item.app_name}}" on-click="select_field" readonly></td>
+				<td><iron-icon icon="find-in-page" field="app"></iron-icon><input id="app" type="text" name="app" key={{item.app_id}} value="{{item.app_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
@@ -16076,73 +15985,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.10 -->
 
-<dom-module id="Model-delete">
-<template>
-	<iron-ajax id="ajax" method='DELETE' handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("Model"))%></h2>
-		<paper-dialog-scrollable>
-		<form id="form" action="javascript:void(0);" on-submit="delete">
-			<table class="table_dialog" style="width:100%">
-			<tr>
-				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
-				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
-				<td><input id="app" type="text" name="app" value="{{item.app_name}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="title"><%= lng('Title')%></label></td>
-				<td><input id="title" type="text" name="title" value="{{item.title}}" disabled></td>
-			</tr>
-			</table>
-		<div class="buttons">
-			<input id="submit_delete" class="hide" type="submit" value="BORRAR">
-			<div class="card_line">
-				<paper-button id="delete_btn" class="btn" on-click="form_submit" raised><%= lng('Delete')%></paper-button>
-				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
-			</div>
-		</div>
-		</form>
-		</paper-dialog-scrollable>
-	</paper-dialog>
-</template>
-<script>
-	Polymer({
-		is: "Model-delete",
-		open_delete_dialog: function(item) {
-			this.item = item
-			this.set_select_fields(item)
-			this.$.dialog.open()
-		},
-		set_select_fields(item) {
-			},
-		form_submit: function() {
-			this.$.submit_delete.click()
-		},
-		delete: function() {
-			this.$.ajax.url = config_server() + "Model/"+this.item.id
-			this.$.ajax.generateRequest()
-		},
-		record_deleted: function() {
-			alert("<%= lng('Record Deleted')%>")
-			this.$.dialog.close()
-			this.fire('close')
-		},
-		ajax_error: function() {
-			console.log(this.$.ajax.lastError)
-			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
-		}
-	})
-</script>
-</dom-module>
 
 
 <!-- select-model: version 5.10 -->
@@ -16230,11 +16073,11 @@ paper-menu {
 	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Model"))%></div>-->
 <!--USER POINT - List Header-->
-	<label class="left_label" for="app"><%= lng('App')%></label>
+<!--	<label class="left_label" for="app"><%= lng('App')%></label>
 	<input id="app" type="string" name="app" value="{{app.name}}" disabled>
 	<label class="left_label" for="path"><%= lng('Path')%></label>
 	<input id="path" type="string" name="path" value="{{app.path}}" disabled>
-	<br>
+	<br>-->
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
@@ -16294,7 +16137,6 @@ paper-menu {
 	<paper-dialog id="menu_dialog"> 
 		<paper-menu>
 			<paper-item on-click="edit" style="min-height:20px;line-height:35px;"><%= lng('Edit')%></paper-item>
-			<paper-item on-click="delete" style="min-height:20px;line-height:35px;"><%= lng('Delete')%></paper-item>
 <!--USER POINT - List Detail Menu-->
 			<paper-item on-click="attributes" style="min-height:20px;line-height:35px;"><%= lng('Attributes')%></paper-item>
 			<paper-item on-click="functions" style="min-height:20px;line-height:35px;"><%= lng('Functions')%></paper-item>
@@ -16349,7 +16191,7 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 		this.app = <%- app %>
-		console.log('App : ', this.app)
+		//console.log('App : ', this.app)
 		this.$.filter.value = 'app_name'
 		this.$.op.value = '$eq'
 //END USER POINT - List Start Ready
@@ -16365,7 +16207,7 @@ Polymer({
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
 				{column: "app_id", type: "integer", model: "App", display: false},
-				{column: "app_name", type: "string", model: "App", display: true},
+				{column: "app_name", type: "string", model: "App", display: false},
 				{column: "name", type: "string", display: true},
 				{column: "title", type: "string", display: true}
 		]
@@ -16425,17 +16267,11 @@ Polymer({
 				{element: '#data_table',
 				intro: 'Lista de registros filtrados',
 				position: 'top'},
-				{element: '#th_ops',
-				intro: 'Consigurar columnas a mostrar en lista de registros'},
 				{element: '#td_ops',
 				intro: 'Opciones para:<br> - Visualizar Registro<br> - Editar Registro<br> - Borrar Registro'}
 			]
 		})
 		intro.start()
-	},
-	list_columns: function() {
-
-		this.$.Model_list_columns.open_list_columns(this.column)
 	},
 	update_columns: function() {
 		var columns = {}
@@ -16736,13 +16572,6 @@ Polymer({
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
 	this.$.Model_edit_dialog.open_dialog(item)
-  },
-  delete: function(e) {
-
-	this.$.menu_dialog.close()
-	var filtro = {"id": this.key}
-	var item = this.data.find(filtro)[0]
-	this.$.Model_delete_dialog.open_delete_dialog(item)
   },
   new: function() {
 
