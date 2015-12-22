@@ -1,6 +1,37 @@
 {
   "data": {
-    "attribute": [],
+    "attribute": [
+      {
+        "pos": 0,
+        "model": 1,
+        "attribute": "name",
+        "description": "Name",
+        "type": "string",
+        "required": true,
+        "hide": false,
+        "textarea_cols": 0,
+        "textarea_rows": 0,
+        "enum": "",
+        "enumdes": "",
+        "omit": false,
+        "ref_model": 0,
+        "model_key": "",
+        "key_type": "integer",
+        "model_display": 0,
+        "top_label": "Name",
+        "left_label": "Name",
+        "filter": true,
+        "list": true,
+        "display": "s",
+        "create": "c",
+        "update": "u",
+        "delete": "s",
+        "help": "",
+        "createdAt": "2015-12-22T21:05:14.140Z",
+        "updatedAt": "2015-12-22T21:05:14.140Z",
+        "id": 1
+      }
+    ],
     "modelfunction": [
       {
         "model": 1,
@@ -17,7 +48,17 @@
         "id": 2
       }
     ],
-    "functionattribute": [],
+    "functionattribute": [
+      {
+        "model": 1,
+        "functionx": 1,
+        "attribute": 1,
+        "display": "Yes",
+        "createdAt": "2015-12-22T21:05:14.183Z",
+        "updatedAt": "2015-12-22T21:05:14.183Z",
+        "id": 1
+      }
+    ],
     "language": [],
     "user": [
       {
@@ -748,11 +789,15 @@
     "model": {
       "id": 2
     },
-    "attribute": {},
+    "attribute": {
+      "id": 1
+    },
     "modelfunction": {
       "id": 2
     },
-    "functionattribute": {},
+    "functionattribute": {
+      "id": 1
+    },
     "language": {},
     "user": {
       "id": 1

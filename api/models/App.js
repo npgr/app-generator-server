@@ -10,6 +10,18 @@ module.exports = {
 	//migrate: 'alter',
 	
   attributes: {
+	//_title: 'App',
+	//_dialog_width: '30em',
+	//_card_width: '60em',  
+	//_btn_left: '30px', 		
+	//_columns: 'enabled', 	
+	//_new: 'enabled',
+	//_edit: 'enabled',
+	//_display: 'enabled',
+	//_delete: 'disabled',
+	//_print: 'enabled',
+	//_download: 'enabled',
+	//_ga: 'disabled',
 	id: {
 		//description: 'Id',
 		//hide: true,
@@ -29,6 +41,7 @@ module.exports = {
 	},
 	description: {
 		//description: 'Description',
+		//hide: true,
 		type: 'string'
 	},
 	type: {
@@ -55,6 +68,7 @@ module.exports = {
 	},
 	repository: {
 		//description: 'Repository',
+		//hide: true,
 		type: 'string'
 	},
 //End Attributes	
