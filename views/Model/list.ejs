@@ -15811,6 +15811,10 @@ paper-menu {
 				<td><div id="id" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="app_name"><%= lng('App')%></label></td>
+				<td><div id="app_name" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
 				<td><div id="name" on-click="change_field"></div></td>
 			</tr>
@@ -15839,6 +15843,7 @@ paper-menu {
 			this.updated= false,
 			this.column= column
 			this.show_field("id")
+			this.show_field("app_name")
 			this.show_field("name")
 			this.show_field("title")
 			this.$.dialog.open()
@@ -15878,6 +15883,7 @@ paper-menu {
 	<iron-ajax id="ajax" handle-as="json" on-response="validate_record" on-error="ajax_error"></iron-ajax>
 	<iron-ajax id="ajax2" method="POST" handle-as="json" on-response="record_created" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+		<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("Model"))%></h2>
 		<paper-dialog-scrollable>
 		  <form id="form" action="javascript:void(0);" on-submit="create">
@@ -15885,6 +15891,10 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key=0 on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
@@ -15910,13 +15920,14 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-new",
-		open_dialog: function(app) {
-			this.app = app
+		open_dialog: function() {
 			this.clear()
 			this.$.dialog.open()
 		},
 		clear: function() {
 			this.$.id.value = ''
+			this.$.app.value = ''
+			this.$.app.key = 0
 			this.$.name.value = ''
 			this.$.title.value = ''
 		},
@@ -15925,6 +15936,8 @@ paper-menu {
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
+			if (this.field == "app")
+				this.$.App_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -15933,10 +15946,9 @@ paper-menu {
 		create: function() {
 			this.$.ajax2.url = config_server() + "Model"
 			var record = {}
-			record.app = this.app
-			record.name = this.$.name.value
-			record.title = this.$.title.value
-			  
+			record.app = this.$.app.key
+			  record.name = this.$.name.value
+			  record.title = this.$.title.value			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
@@ -15983,6 +15995,7 @@ paper-menu {
 <template>
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+		<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Model"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
@@ -15990,6 +16003,10 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key={{item.app_id}} value="{{item.app_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
@@ -16026,6 +16043,8 @@ paper-menu {
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
+			if (this.field == "app")
+				this.$.App_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16037,6 +16056,7 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
+			record.app = this.$.app.key
 			record.name = this.$.name.value
 			record.title = this.$.title.value
 			this.$.ajax.url = config_server() + "Model/" +record.id
@@ -16069,6 +16089,10 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><input id="app" type="text" name="app" value="{{item.app_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
@@ -16121,6 +16145,77 @@ paper-menu {
 </dom-module>
 
 
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+
+<dom-module id="App-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('App')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "App-select",
+		open_select_dialog: function() {
+			this.$.filtro.value = ""
+			this.$.ajax.url= config_server() +"App"
+			var db = new loki()
+			this.data = db.addCollection("data_App")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			this.$.dialog.close()
+			//this.close()
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
 
 <dom-module id="Model-list">
 <template>
@@ -16131,7 +16226,8 @@ paper-menu {
 	<Model-new id="Model_new_dialog" on-close="reload"></Model-new>
 	<Model-display id="Model_display_dialog"></Model-display>
 	<Model-edit id="Model_edit_dialog" on-close="reload"></Model-edit>
-	<Model-delete id="Model_delete_dialog" on-close="reload"></Model-delete>	
+	<Model-delete id="Model_delete_dialog" on-close="reload"></Model-delete>
+	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Model"))%></div>-->
 <!--USER POINT - List Header-->
 	<label class="left_label" for="app"><%= lng('App')%></label>
@@ -16140,12 +16236,13 @@ paper-menu {
 	<input id="path" type="string" name="path" value="{{app.path}}" disabled>
 	<br>
 <!--END USER POINT - List Header-->
-	<select id="filter" on-change="input_type">  <%= lng('Id')%>
-		<option value="id"><%= lng('Id')%></option>  <%= lng('Name')%>
+	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
+		<option value="id"><%= lng('Id')%></option>
+		<option value="app_name"><%= lng('App')%></option>  <%= lng('Name')%>
 		<option value="name"><%= lng('Name')%></option>  <%= lng('Title')%>
 		<option value="title"><%= lng('Title')%></option>
 	</select>
-	<select id="op">   
+	<select id="op" disabled>   
 		<option value="$eq"><%= lng('Equal to')%></option>
 		<option value="$ne"><%= lng('Different to')%></option>
 		<option value="$contains"><%= lng('Contains')%></option>
@@ -16176,6 +16273,7 @@ paper-menu {
 	<br>
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
+		<option value="app_name"><%= lng('App')%></option>
 		<option value="name"><%= lng('Name')%></option>
 		<option value="title"><%= lng('Title')%></option>
 	</select>
@@ -16209,6 +16307,8 @@ paper-menu {
 		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
 		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_app_name" on-click="sort_by_field"><%= lng('App')%><div id="app_name_sort_d" class="hide">
+			<iron-icon id="app_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
 			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_title" on-click="sort_by_field"><%= lng('Title')%><div id="title_sort_d" class="hide">
@@ -16219,6 +16319,7 @@ paper-menu {
 	<tr>
 		<td class="ops"></td>
 		<td class="col_id"></td>
+		<td class="col_app_name"></td>
 		<td class="col_name"></td>
 		<td class="col_title"></td>
 	</tr>
@@ -16230,6 +16331,7 @@ paper-menu {
 			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
+		<template is="dom-if" if="{{column.app_name}}"><td>{{item.app_name}}</td></template>
 		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
 		<template is="dom-if" if="{{column.title}}"><td>{{item.title}}</td></template>
 	</tr>
@@ -16248,6 +16350,8 @@ Polymer({
 //USER POINT - List Start Ready
 		this.app = <%- app %>
 		console.log('App : ', this.app)
+		this.$.filter.value = 'app_name'
+		this.$.op.value = '$eq'
 //END USER POINT - List Start Ready
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
@@ -16260,6 +16364,8 @@ Polymer({
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
+				{column: "app_id", type: "integer", model: "App", display: false},
+				{column: "app_name", type: "string", model: "App", display: true},
 				{column: "name", type: "string", display: true},
 				{column: "title", type: "string", display: true}
 		]
@@ -16396,6 +16502,11 @@ Polymer({
 		}
 		if (filter != "")
 		{
+		  if (this.$[filter].value == "app_name"){
+			this.$.App_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.App_select_dialog.style.left = "-100px"
+			this.$.App_select_dialog.open_select_dialog()
+		  }
 		}
 	},
 	set_select_field: function(e) {
@@ -16497,6 +16608,7 @@ Polymer({
 	},
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
+		this.$.app_name_sort_d.classList.add("hide")
 		this.$.name_sort_d.classList.add("hide")
 		this.$.title_sort_d.classList.add("hide")
 	},
@@ -16633,7 +16745,8 @@ Polymer({
 	this.$.Model_delete_dialog.open_delete_dialog(item)
   },
   new: function() {
-	this.$.Model_new_dialog.open_dialog(this.app.id)
+
+	this.$.Model_new_dialog.open_dialog()
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16644,7 +16757,15 @@ Polymer({
         this.data.remove(this.data.data[0])
       }
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
-	{	
+	{
+		if (this.$.ajax.lastResponse[i].app){
+			this.$.ajax.lastResponse[i].app_id = this.$.ajax.lastResponse[i].app.id
+			this.$.ajax.lastResponse[i].app_name = this.$.ajax.lastResponse[i].app.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].app_id = 0
+			this.$.ajax.lastResponse[i].app_name = ""
+		}	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()

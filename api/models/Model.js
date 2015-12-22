@@ -24,9 +24,11 @@ module.exports = {
 	},
 	app: {
 		//description: 'App',
-		//omit: true,
-		type: 'integer',
-		required: true
+		//key: id,
+		//key_type: 'integer',
+		//display: 'name',
+		//type: 'string',
+		model: 'App'
 	},
 	name: {
 		//description: 'Name',
