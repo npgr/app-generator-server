@@ -15811,10 +15811,6 @@ paper-menu {
 				<td><div id="id" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
-				<td><div id="app" on-click="change_field"></div></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
 				<td><div id="name" on-click="change_field"></div></td>
 			</tr>
@@ -15843,7 +15839,6 @@ paper-menu {
 			this.updated= false,
 			this.column= column
 			this.show_field("id")
-			this.show_field("app")
 			this.show_field("name")
 			this.show_field("title")
 			this.$.dialog.open()
@@ -15892,10 +15887,6 @@ paper-menu {
 				<td><input id="id" type="number" name="id" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="app"><%= lng('App')%><strong class="red"> *</strong></label></td>
-				<td><input id="app" type="number" name="app" required></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
 				<td><input id="name" type="text" name="name" required></td>
 			</tr>
@@ -15919,13 +15910,13 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-new",
-		open_dialog: function() {
+		open_dialog: function(app) {
+			this.app = app
 			this.clear()
 			this.$.dialog.open()
 		},
 		clear: function() {
 			this.$.id.value = ''
-			this.$.app.value = ''
 			this.$.name.value = ''
 			this.$.title.value = ''
 		},
@@ -15942,9 +15933,10 @@ paper-menu {
 		create: function() {
 			this.$.ajax2.url = config_server() + "Model"
 			var record = {}
-			record.app = Number(this.$.app.value)
-			  record.name = this.$.name.value
-			  record.title = this.$.title.value			
+			record.app = this.app
+			record.name = this.$.name.value
+			record.title = this.$.title.value
+			  
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
@@ -16000,10 +15992,6 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="app"><%= lng('App')%><strong class="red"> *</strong></label></td>
-				<td><input id="app" type="number" name="app" value="{{item.app}}" required></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
 				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
 			</tr>
@@ -16049,7 +16037,6 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
-			record.app = Number(this.$.app.value)
 			record.name = this.$.name.value
 			record.title = this.$.title.value
 			this.$.ajax.url = config_server() + "Model/" +record.id
@@ -16082,10 +16069,6 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
-				<td><input id="app" type="number" name="app" value="{{item.app}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
@@ -16158,8 +16141,7 @@ paper-menu {
 	<br>
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
-		<option value="id"><%= lng('Id')%></option>  <%= lng('App')%>
-		<option value="app"><%= lng('App')%></option>  <%= lng('Name')%>
+		<option value="id"><%= lng('Id')%></option>  <%= lng('Name')%>
 		<option value="name"><%= lng('Name')%></option>  <%= lng('Title')%>
 		<option value="title"><%= lng('Title')%></option>
 	</select>
@@ -16194,7 +16176,6 @@ paper-menu {
 	<br>
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
-		<option value="app"><%= lng('App')%></option>
 		<option value="name"><%= lng('Name')%></option>
 		<option value="title"><%= lng('Title')%></option>
 	</select>
@@ -16228,8 +16209,6 @@ paper-menu {
 		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
 		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_app" on-click="sort_by_field"><%= lng('App')%><div id="app_sort_d" class="hide">
-			<iron-icon id="app_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
 			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_title" on-click="sort_by_field"><%= lng('Title')%><div id="title_sort_d" class="hide">
@@ -16240,7 +16219,6 @@ paper-menu {
 	<tr>
 		<td class="ops"></td>
 		<td class="col_id"></td>
-		<td class="col_app"></td>
 		<td class="col_name"></td>
 		<td class="col_title"></td>
 	</tr>
@@ -16252,7 +16230,6 @@ paper-menu {
 			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
-		<template is="dom-if" if="{{column.app}}"><td>{{item.app}}</td></template>
 		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
 		<template is="dom-if" if="{{column.title}}"><td>{{item.title}}</td></template>
 	</tr>
@@ -16283,7 +16260,6 @@ Polymer({
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
-				{column: "app", type: "integer", display: false},
 				{column: "name", type: "string", display: true},
 				{column: "title", type: "string", display: true}
 		]
@@ -16521,7 +16497,6 @@ Polymer({
 	},
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
-		this.$.app_sort_d.classList.add("hide")
 		this.$.name_sort_d.classList.add("hide")
 		this.$.title_sort_d.classList.add("hide")
 	},
@@ -16658,8 +16633,7 @@ Polymer({
 	this.$.Model_delete_dialog.open_delete_dialog(item)
   },
   new: function() {
-
-	this.$.Model_new_dialog.open_dialog()
+	this.$.Model_new_dialog.open_dialog(this.app.id)
   },
   reload: function() {
 	this.$.ajax.generateRequest()

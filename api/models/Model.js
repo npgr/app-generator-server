@@ -24,7 +24,7 @@ module.exports = {
 	},
 	app: {
 		//description: 'App',
-		//hide: true,
+		//omit: true,
 		type: 'integer',
 		required: true
 	},
