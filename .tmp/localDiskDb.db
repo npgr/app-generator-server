@@ -348,6 +348,12 @@
         "unique": true,
         "autoIncrement": true
       },
+      "app": {
+        "type": "integer",
+        "model": "app",
+        "foreignKey": true,
+        "alias": "app"
+      },
       "model": {
         "type": "integer",
         "model": "model",

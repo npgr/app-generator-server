@@ -1,4 +1,4 @@
-<!-- list template: version 6.33 -->
+<!-- list template: version 6.34 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -20,6 +20,9 @@
 	<link rel="stylesheet" href="/bower_components/intro.js/minified/introjs.min.css">
 <!-- INICIA -->
 	<script>	
+// Redirect to https
+  if (window.location.protocol != "https:" && window.location.href.indexOf('localhost') == -1)
+	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 (function () {
 function resolve() {
 document.body.removeAttribute('unresolved');
@@ -15808,28 +15811,16 @@ paper-menu {
 				<td><div id="id" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="app_name"><%= lng('App')%></label></td>
+				<td><div id="app_name" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="model_name"><%= lng('Model')%></label></td>
 				<td><div id="model_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><div id="name" on-click="change_field"></div></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
 				<td><div id="type" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="enable"><%= lng('Enable')%></label></td>
-				<td><div id="enable" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="save_filter"><%= lng('Save Filter')%></label></td>
-				<td><div id="save_filter" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="width"><%= lng('Width')%></label></td>
-				<td><div id="width" on-click="change_field"></div></td>
 			</tr>
 			</table>
 			</paper-dialog-scrollable>
@@ -15852,12 +15843,9 @@ paper-menu {
 			this.updated= false,
 			this.column= column
 			this.show_field("id")
+			this.show_field("app_name")
 			this.show_field("model_name")
-			this.show_field("name")
 			this.show_field("type")
-			this.show_field("enable")
-			this.show_field("save_filter")
-			this.show_field("width")
 			this.$.dialog.open()
 		},
 		change_field: function(e) {
@@ -15898,6 +15886,7 @@ paper-menu {
 <template>
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+		<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Funcion"))%></h2>
 		<paper-dialog-scrollable>
@@ -15908,12 +15897,12 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key={{item.app_id}} value="{{item.app_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
+				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
+				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%><strong class="red"> *</strong></label></td>
@@ -15924,29 +15913,13 @@ paper-menu {
 						<option value="new"><%= lng('New')%></option>
 						<option value="delete"><%= lng('Delete')%></option>
 						<option value="columns"><%= lng('Columns')%></option>
-						<option value="select"><%= lng('Select')%></option>
 						<option value="download"><%= lng('Download')%></option>
 						<option value="print"><%= lng('Print')%></option>
 						<option value="ga"><%= lng('Analytics')%></option>
+						<option value="https"><%= lng('Https')%></option>
+						<option value="relic"><%= lng('NewRelic')%></option>
+						<option value="pingdom"><%= lng('pingdom')%></option>
 					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="enable"><%= lng('Enable')%></label></td>
-				<td><select id="enable" name="enable">
-						<option value="true"><%= lng('Yes')%></option>
-						<option value="false"><%= lng('No')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="save_filter"><%= lng('Save Filter')%></label></td>
-				<td><select id="save_filter" name="save_filter">
-						<option value="true"><%= lng('Yes')%></option>
-						<option value="false"><%= lng('No')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="width"><%= lng('Width')%><strong class="red"> *</strong></label></td>
-				<td><input id="width" type="text" name="width" value="{{item.width}}" required></td>
 			</tr>
 			</table>
 			<div class="buttons">
@@ -15970,14 +15943,14 @@ paper-menu {
 		},
 		set_select_fields(item) {
 			this.$.type.value = item.type
-			this.$.enable.value = item.enable
-			this.$.save_filter.value = item.save_filter
 			},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
+			if (this.field == "app")
+				this.$.App_select_dialog.open_select_dialog()
 			if (this.field == "model")
 				this.$.Model_select_dialog.open_select_dialog()
 		},
@@ -15991,12 +15964,9 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
+			record.app = this.$.app.key
 			record.model = this.$.model.key
-			record.name = this.$.name.value
 			record.type = this.$.type.value
-			record.enable = this.$.enable.value
-			record.save_filter = this.$.save_filter.value
-			record.width = this.$.width.value
 			this.$.ajax.url = config_server() + "ModelFunction/" +record.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
@@ -16017,6 +15987,77 @@ paper-menu {
 
 
 
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+
+<dom-module id="App-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('App')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "App-select",
+		open_select_dialog: function() {
+			this.$.filtro.value = ""
+			this.$.ajax.url= config_server() +"App"
+			var db = new loki()
+			this.data = db.addCollection("data_App")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			this.$.dialog.close()
+			//this.close()
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
 <!-- select-model: version 5.10 -->
  <% 
  function lng(word) {
@@ -16089,176 +16130,6 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.10 -->
-
-<dom-module id="FunctionList-edit">
-<template>
-	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
-		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("FunctionList"))%></h2>
-		<paper-dialog-scrollable>
-		<form id="form" action="javascript:void(0);" on-submit="update">
-			<table class="table_dialog" style="width:100%">
-			<tr hide>
-				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
-				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" disabled>
-					<option value="l" selected><%= lng('List')%></option>
-				</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
-				<td><select id="new" name="new">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="display"><%= lng('Display')%></label></td>
-				<td><select id="display" name="display">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="edit"><%= lng('Edit')%></label></td>
-				<td><select id="edit" name="edit">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="delete"><%= lng('Delete')%></label></td>
-				<td><select id="delete" name="delete">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="columns"><%= lng('Columns')%></label></td>
-				<td><select id="columns" name="columns">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="download"><%= lng('Download')%></label></td>
-				<td><select id="download" name="download">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="print"><%= lng('Print')%></label></td>
-				<td><select id="print" name="print">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="ga"><%= lng('Google Analytics')%></label></td>
-				<td><select id="ga" name="ga">
-						<option value="e"><%= lng('Enabled')%></option>
-						<option value="d"><%= lng('Disabled')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="dialog_width"><%= lng('Dialog Width')%></label></td>
-				<td><input id="dialog_width" type="text" name="dialog_width" value="{{item.dialog_width}}"></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="card_width"><%= lng('Card Width')%></label></td>
-				<td><input id="card_width" type="text" name="card_width" value="{{item.card_width}}"></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="btn_left"><%= lng('Button Left')%></label></td>
-				<td><input id="btn_left" type="text" name="btn_left" value="{{item.btn_left}}"></td>
-			</tr>
-			</table>
-			<div class="buttons">
-			  <input id="submit_update" class="hide" type="submit" value="CAMBIAR">
-			  <div class="card_line">
-				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
-				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
-			  </div>
-			</div>
-		</form>
-		</paper-dialog-scrollable>
-	</paper-dialog>
-</template>
-<script>
-	Polymer({
-		is: "FunctionList-edit",
-		open_dialog: function(item) {
-			this.item = item
-			this.set_select_fields(item)
-			this.$.dialog.open()
-		},
-		set_select_fields(item) {
-			this.$.new.value = item.new
-			this.$.display.value = item.display
-			this.$.edit.value = item.edit
-			this.$.delete.value = item.delete
-			this.$.columns.value = item.columns
-			this.$.download.value = item.download
-			this.$.print.value = item.print
-			this.$.ga.value = item.ga
-			},
-		select_field_b: function(e) {
-			this.$[e.toElement.getAttribute("field")].click()
-		},
-		select_field: function(e) {
-			this.field = e.toElement.id
-			if (this.field == "model")
-				this.$.Model_select_dialog.open_select_dialog()
-		},
-		set_select_field: function(e) {
-			this.$[this.field].value = this.$[e.srcElement.id].item.name
-			this.$[this.field].key = this.$[e.srcElement.id].item.key
-		},
-		submit_form: function() {
-			this.$.submit_update.click()
-		},
-		update: function() {
-			var record = {}
-			record.id = Number(this.$.id.value)
-			record.model = this.$.model.key
-			record.new = this.$.new.value
-			record.display = this.$.display.value
-			record.edit = this.$.edit.value
-			record.delete = this.$.delete.value
-			record.columns = this.$.columns.value
-			record.download = this.$.download.value
-			record.print = this.$.print.value
-			record.ga = this.$.ga.value
-			record.dialog_width = this.$.dialog_width.value
-			record.card_width = this.$.card_width.value
-			record.btn_left = this.$.btn_left.value
-			this.$.ajax.url = config_server() + "FunctionList/" +record.id
-			this.$.ajax.params = record
-			this.$.ajax.generateRequest()
-		},
-		record_updated: function() {
-			alert("<%= lng('Record Updated')%>")
-			this.$.dialog.close()
-			this.fire('close')
-		},
-		ajax_error: function() {
-			console.log(this.$.ajax.lastError)
-			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
-		}
-	})
-</script>
-</dom-module>
-
 <dom-module id="ModelFunction-list">
 <template>
 <!--USER POINT - List Style-->
@@ -16267,9 +16138,9 @@ paper-menu {
 	<ModelFunction-list-columns id="ModelFunction_list_columns" on-close="update_columns"></ModelFunction-list-columns>
 	<ModelFunction-new id="ModelFunction_new_dialog" on-close="reload"></ModelFunction-new>
 	<ModelFunction-display id="ModelFunction_display_dialog"></ModelFunction-display>
-	<FunctionList-edit id="FunctionList_edit_dialog"></FunctionList-edit>
-	<!--<ModelFunction-edit id="ModelFunction_edit_dialog" on-close="reload"></ModelFunction-edit>-->
+	<ModelFunction-edit id="ModelFunction_edit_dialog" on-close="reload"></ModelFunction-edit>
 	<ModelFunction-delete id="ModelFunction_delete_dialog" on-close="reload"></ModelFunction-delete>
+	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Funcion"))%></div>-->
 <!--USER POINT - List Header-->
@@ -16282,12 +16153,9 @@ paper-menu {
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
-		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Name')%>
-		<option value="name"><%= lng('Name')%></option>  <%= lng('Type')%>
-		<option value="type"><%= lng('Type')%></option>  <%= lng('Enable')%>
-		<option value="enable"><%= lng('Enable')%></option>  <%= lng('Save Filter')%>
-		<option value="save_filter"><%= lng('Save Filter')%></option>  <%= lng('Width')%>
-		<option value="width"><%= lng('Width')%></option>
+		<option value="app_name"><%= lng('App')%></option>
+		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Type')%>
+		<option value="type"><%= lng('Type')%></option>
 	</select>
 	<select id="op">   
 		<option value="$eq"><%= lng('Equal to')%></option>
@@ -16319,12 +16187,9 @@ paper-menu {
 	<br>
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
+		<option value="app_name"><%= lng('App')%></option>
 		<option value="model_name"><%= lng('Model')%></option>
-		<option value="name"><%= lng('Name')%></option>
 		<option value="type"><%= lng('Type')%></option>
-		<option value="enable"><%= lng('Enable')%></option>
-		<option value="save_filter"><%= lng('Save Filter')%></option>
-		<option value="width"><%= lng('Width')%></option>
 	</select>
 	<select id="op2" class="hide" >   
 		<option value="$eq"><%= lng('Equal to')%></option>
@@ -16354,30 +16219,21 @@ paper-menu {
 		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
 		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_app_name" on-click="sort_by_field"><%= lng('App')%><div id="app_name_sort_d" class="hide">
+			<iron-icon id="app_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_model_name" on-click="sort_by_field"><%= lng('Model')%><div id="model_name_sort_d" class="hide">
 			<iron-icon id="model_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
-			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_type" on-click="sort_by_field"><%= lng('Type')%><div id="type_sort_d" class="hide">
 			<iron-icon id="type_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_enable" on-click="sort_by_field"><%= lng('Enable')%><div id="enable_sort_d" class="hide">
-			<iron-icon id="enable_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_save_filter" on-click="sort_by_field"><%= lng('Save Filter')%><div id="save_filter_sort_d" class="hide">
-			<iron-icon id="save_filter_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_width" on-click="sort_by_field"><%= lng('Width')%><div id="width_sort_d" class="hide">
-			<iron-icon id="width_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
 	</thead>
 	<!--<tfoot>
 	<tr>
 		<td class="ops"></td>
 		<td class="col_id"></td>
+		<td class="col_app_name"></td>
 		<td class="col_model_name"></td>
-		<td class="col_name"></td>
 		<td class="col_type"></td>
-		<td class="col_enable"></td>
-		<td class="col_save_filter"></td>
-		<td class="col_width"></td>
 	</tr>
 	</tfoot>-->
 	<tbody>
@@ -16387,12 +16243,9 @@ paper-menu {
 			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
+		<template is="dom-if" if="{{column.app_name}}"><td>{{item.app_name}}</td></template>
 		<template is="dom-if" if="{{column.model_name}}"><td>{{item.model_name}}</td></template>
-		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
 		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
-		<template is="dom-if" if="{{column.enable}}"><td>{{item.enable_des}}</td></template>
-		<template is="dom-if" if="{{column.save_filter}}"><td>{{item.save_filter_des}}</td></template>
-		<template is="dom-if" if="{{column.width}}"><td>{{item.width}}</td></template>
 	</tr>
 	</template>
 	</tbody>
@@ -16417,33 +16270,26 @@ Polymer({
 				return this.indexOf(str) === 0;
 			}
 		}
-		//this.$.ajax.url = config_server() + "ModelFunction"
+		this.$.ajax.url = config_server() + "ModelFunction"
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
+				{column: "app_id", type: "integer", model: "App", display: false},
+				{column: "app_name", type: "string", model: "App", display: true},
 				{column: "model_id", type: "integer", model: "Model", display: false},
 				{column: "model_name", type: "string", model: "Model", display: true},
-				{column: "name", type: "string", display: true},
-				{column: "type", enum: ["list","display","edit","new","delete","columns","select","download","print","ga"], enumdes: ["<%= lng("List")%>","<%= lng("Display")%>","<%= lng("Edit")%>","<%= lng("New")%>","<%= lng("Delete")%>","<%= lng("Columns")%>","<%= lng("Select")%>","<%= lng("Download")%>","<%= lng("Print")%>","<%= lng("Analytics")%>"], display: true},
-				{column: "enable", enum: [true,false], enumdes: ["<%= lng("Yes")%>","<%= lng("No")%>"], display: true},
-				{column: "save_filter", enum: [true,false], enumdes: ["<%= lng("Yes")%>","<%= lng("No")%>"], display: true},
-				{column: "width", type: "string", display: true}
+				{column: "type", enum: ["list","display","edit","new","delete","columns","download","print","ga","https","relic","pingdom"], enumdes: ["<%= lng("List")%>","<%= lng("Display")%>","<%= lng("Edit")%>","<%= lng("New")%>","<%= lng("Delete")%>","<%= lng("Columns")%>","<%= lng("Download")%>","<%= lng("Print")%>","<%= lng("Analytics")%>","<%= lng("Https")%>","<%= lng("NewRelic")%>","<%= lng("pingdom")%>"], display: true}
 		]
 		this.enums = {}
-		this.enums.type = {list:"<%= lng('List')%>",display:"<%= lng('Display')%>",edit:"<%= lng('Edit')%>",new:"<%= lng('New')%>",delete:"<%= lng('Delete')%>",columns:"<%= lng('Columns')%>",select:"<%= lng('Select')%>",download:"<%= lng('Download')%>",print:"<%= lng('Print')%>",ga:"<%= lng('Analytics')%>"}
-		this.enums.enable = {true:"<%= lng('Yes')%>",false:"<%= lng('No')%>"}
-		this.enums.save_filter = {true:"<%= lng('Yes')%>",false:"<%= lng('No')%>"}
+		this.enums.type = {list:"<%= lng('List')%>",display:"<%= lng('Display')%>",edit:"<%= lng('Edit')%>",new:"<%= lng('New')%>",delete:"<%= lng('Delete')%>",columns:"<%= lng('Columns')%>",download:"<%= lng('Download')%>",print:"<%= lng('Print')%>",ga:"<%= lng('Analytics')%>",https:"<%= lng('Https')%>",relic:"<%= lng('NewRelic')%>",pingdom:"<%= lng('pingdom')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
 		this.data = db.addCollection("data_ModelFunction")
 		this.model = db.addCollection("model_ModelFunction")
-		this.load_data2(_data)
+		this.reload()
 		for (i=0; i< _model.length ; i++)
 			this.model.insert(_model[i])
 		_model = {}
-		/*for (i=0; i< _data.length ; i++)
-			this.data.insert(_data[i])
-		_data = {}*/
 		this.input_type()
 		this.set_filter() //and columns & sort from localStorage
 		var intro = introJs()
@@ -16498,6 +16344,7 @@ Polymer({
 		intro.start()
 	},
 	list_columns: function() {
+
 		this.$.ModelFunction_list_columns.open_list_columns(this.column)
 	},
 	update_columns: function() {
@@ -16565,6 +16412,11 @@ Polymer({
 		}
 		if (filter != "")
 		{
+		  if (this.$[filter].value == "app_name"){
+			this.$.App_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.App_select_dialog.style.left = "-100px"
+			this.$.App_select_dialog.open_select_dialog()
+		  }
 		  if (this.$[filter].value == "model_name"){
 			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Model_select_dialog.style.left = "-100px"
@@ -16671,12 +16523,9 @@ Polymer({
 	},
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
+		this.$.app_name_sort_d.classList.add("hide")
 		this.$.model_name_sort_d.classList.add("hide")
-		this.$.name_sort_d.classList.add("hide")
 		this.$.type_sort_d.classList.add("hide")
-		this.$.enable_sort_d.classList.add("hide")
-		this.$.save_filter_sort_d.classList.add("hide")
-		this.$.width_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
 		var field = e.target.classList[0].replace('col_','')
@@ -16792,27 +16641,16 @@ Polymer({
 	},
 	item_menu_toggle: function(e){
 		this.key = Number(e.toElement.offsetParent.key)
-		/*var reg = this.data.find({'id': this.key})
-		if (reg[0].type == 'list') 
-			this.$.generate_opc.style.display = 'block'
-		 else 
-			this.$.generate_opc.style.display = 'none'*/
 		this.$.menu_dialog.style.top = e.toElement.offsetParent.offsetTop+20+"px"
 		this.$.menu_dialog.style.left = "30px"
 		this.$.menu_dialog.open()
 	},
   edit: function(e) {
+
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
-	//this.$.ModelFunction_edit_dialog.open_dialog(item)
-	switch(item.type) {
-		case 'list':
-			this.$.FunctionList_edit_dialog.open_dialog(item.list)
-			break;
-		default:
-			alert('Function Type Does not recognized')
-	} 
+	this.$.ModelFunction_edit_dialog.open_dialog(item)
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16824,6 +16662,14 @@ Polymer({
       }
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
 	{
+		if (this.$.ajax.lastResponse[i].app){
+			this.$.ajax.lastResponse[i].app_id = this.$.ajax.lastResponse[i].app.id
+			this.$.ajax.lastResponse[i].app_name = this.$.ajax.lastResponse[i].app.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].app_id = 0
+			this.$.ajax.lastResponse[i].app_name = ""
+		}
 		if (this.$.ajax.lastResponse[i].model){
 			this.$.ajax.lastResponse[i].model_id = this.$.ajax.lastResponse[i].model.id
 			this.$.ajax.lastResponse[i].model_name = this.$.ajax.lastResponse[i].model.name
@@ -16832,34 +16678,8 @@ Polymer({
 			this.$.ajax.lastResponse[i].model_id = 0
 			this.$.ajax.lastResponse[i].model_name = ""
 		}
-		this.$.ajax.lastResponse[i].type_des= this.enums.type[this.$.ajax.lastResponse[i].type]
-		this.$.ajax.lastResponse[i].enable_des= this.enums.enable[this.$.ajax.lastResponse[i].enable]
-		this.$.ajax.lastResponse[i].save_filter_des= this.enums.save_filter[this.$.ajax.lastResponse[i].save_filter]	
+		this.$.ajax.lastResponse[i].type_des= this.enums.type[this.$.ajax.lastResponse[i].type]	
 		this.data.insert(this.$.ajax.lastResponse[i])
-	}
-	this.filter()
-  },
-  load_data2: function(data) {
-
-	while(this.data.data[0]) {
-        this.data.remove(this.data.data[0])
-      }
-	if (!data) data = this.$.ajax.lastResponse
-	
-	for (i=0; i< data.length; i++)
-	{
-		if (data[i].model){
-			data[i].model_id = data[i].model.id
-			data[i].model_name = data[i].model.name
-		} else
-		{
-			data[i].model_id = 0
-			data[i].model_name = ""
-		}
-		data[i].type_des= this.enums.type[data[i].type]
-		data[i].enable_des= this.enums.enable[data[i].enable]
-		data[i].save_filter_des= this.enums.save_filter[data[i].save_filter]	
-		this.data.insert(data[i])
 	}
 	this.filter()
   },

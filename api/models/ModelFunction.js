@@ -21,6 +21,14 @@ module.exports = {
 		unique: true,
 		autoIncrement: true
 	},
+	app: {
+		//description: 'App',
+		//key: id,
+		//key_type: 'integer',
+		//display: 'name',
+		//type: 'string',
+		model: 'App'
+	},
 	model: {
 		//description: 'Model',
 		//key: id,
