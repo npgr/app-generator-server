@@ -36,6 +36,19 @@
         "createdAt": "2015-12-21T18:12:06.246Z",
         "updatedAt": "2015-12-21T18:12:06.246Z",
         "id": 1
+      },
+      {
+        "name": "App02",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "c:\\Program Files\\app02",
+        "port": 8037,
+        "repository": "",
+        "createdAt": "2015-12-22T03:19:43.650Z",
+        "updatedAt": "2015-12-22T03:19:43.650Z",
+        "id": 2
       }
     ],
     "attribute": [],
@@ -753,7 +766,7 @@
       "id": 2
     },
     "app": {
-      "id": 1
+      "id": 3
     }
   }
 }
