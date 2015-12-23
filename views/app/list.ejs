@@ -16135,6 +16135,9 @@ paper-menu {
 
 <dom-module id="App-edit">
 <template>
+	<style>
+		#path { width: 15em;}
+	</style>
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("App"))%></h2>
@@ -16180,7 +16183,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" value="{{item.path}}" required></td>
+				<td><input id="path" type="text" name="path" on-change="load_path" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -16209,6 +16212,9 @@ paper-menu {
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
+		},
+		load_path: function() {
+			console.log('file: ', this.$.path.files)
 		},
 		set_select_fields(item) {
 			this.$.type.value = item.type
@@ -16811,8 +16817,19 @@ Polymer({
 	this.$.App_edit_dialog.open_dialog(item)
   },
   new: function() {
+	
+	console.log('Creating Application ...')
+	
+	var spawn = require('child_process').spawn;
+	var child = spawn('unzip',['templates/webserver.zip','-d','apps/app01']);
 
-	this.$.App_new_dialog.open_dialog()
+	/*child.stdout.on('data', function(data) {
+		console.log(data)
+	})*/
+	child.on('close', function (code, signal) {
+		console.log('child process terminated due to receipt of signal ' + signal);
+	});
+  
   },
   reload: function() {
 	this.$.ajax.generateRequest()
