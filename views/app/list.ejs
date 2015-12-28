@@ -16817,19 +16817,62 @@ Polymer({
 	this.$.App_edit_dialog.open_dialog(item)
   },
   new: function() {
-	
+	// Move to User Point
+  
+	//this.$.App_new_dialog.open_dialog()
 	console.log('Creating Application ...')
 	
+	//const remote = require('electron').remote
+	//var app_util = remote.require('./app_util.js')
+	
+	//console.log(app_util.npm_install())
+	
 	var spawn = require('child_process').spawn;
-	var child = spawn('unzip',['templates/webserver.zip','-d','apps/app01']);
+	var child = spawn('unzip',['templates/webserver.zip','-d','apps/app01'] );
 
-	/*child.stdout.on('data', function(data) {
-		console.log(data)
-	})*/
-	child.on('close', function (code, signal) {
-		console.log('child process terminated due to receipt of signal ' + signal);
+	child.stdout.on('data', function(data) {
+		console.log(data.toString())
+	})
+	
+	child.stderr.on('data', function (data) {
+		console.log('stderr: ', data.toString());
 	});
-  
+	
+	child.on('close', function (code, signal) {
+		//console.log('child process terminated due to receipt of signal ' + signal);	
+		if (code == 0)
+		{
+			console.log('Application Created Sunccefully on Path Apps/')
+			console.log('Running npm install')
+			document.getElementById('app_list').copy_node_modules()
+		}
+		  else 
+			console.log('Process End with code: ', code)
+	});
+	
+  },
+  copy_node_modules: function() {
+	var spawn = require('child_process').spawn;
+	
+	var child2 = spawn('cp',['-R', '-v', '../server/node_modules/*', 'apps/app01/node_modules/']);
+	//var execFile = require('child_process').execFile;
+	
+	//var child2 = execFile('npm',['install'], {cwd: 'apps/app01'} );
+	
+	child2.stdout.on('data', function(data) {
+		console.log(data.toString())
+	})
+	
+	child2.stderr.on('data', function (data) {
+		console.log('stderr: ', data.toString());
+	});
+	
+	child2.on('close', function (code, signal) {
+		if (code == 0)
+			console.log('Applicaction Installed. For start Server, run node app')
+		  else 
+			console.log('Process End with code: ', code)
+	})
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16866,7 +16909,7 @@ Polymer({
 </dom-module>
 <top-bar><%= lng("%s %s",lng("List"),lng("App"))%></top-bar>
 <paper-material class="card" elevation="2">
-	<App-list></App-list>
+	<App-list id='app_list'></App-list>
 </paper-material>
 </body>
 </html>
