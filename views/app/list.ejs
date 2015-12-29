@@ -16827,7 +16827,10 @@ Polymer({
 	
 	//console.log(app_util.npm_install())
 	
-	var spawn = require('child_process').spawn;
+	const ipcRenderer = require('electron').ipcRenderer;
+	ipcRenderer.send('new-app');
+	
+	/*var spawn = require('child_process').spawn;
 	var child = spawn('unzip',['templates/webserver.zip','-d','apps/app01'] );
 
 	child.stdout.on('data', function(data) {
@@ -16848,7 +16851,7 @@ Polymer({
 		}
 		  else 
 			console.log('Process End with code: ', code)
-	});
+	});*/
 	
   },
   copy_node_modules: function() {
