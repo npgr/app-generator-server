@@ -16829,30 +16829,6 @@ Polymer({
 	
 	const ipcRenderer = require('electron').ipcRenderer;
 	ipcRenderer.send('new-app');
-	
-	/*var spawn = require('child_process').spawn;
-	var child = spawn('unzip',['templates/webserver.zip','-d','apps/app01'] );
-
-	child.stdout.on('data', function(data) {
-		console.log(data.toString())
-	})
-	
-	child.stderr.on('data', function (data) {
-		console.log('stderr: ', data.toString());
-	});
-	
-	child.on('close', function (code, signal) {
-		//console.log('child process terminated due to receipt of signal ' + signal);	
-		if (code == 0)
-		{
-			console.log('Application Created Sunccefully on Path Apps/')
-			console.log('Running npm install')
-			document.getElementById('app_list').copy_node_modules()
-		}
-		  else 
-			console.log('Process End with code: ', code)
-	});*/
-	
   },
   copy_node_modules: function() {
 	var spawn = require('child_process').spawn;
