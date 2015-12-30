@@ -16828,7 +16828,7 @@ Polymer({
 	//console.log(app_util.npm_install())
 	
 	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('new-app');
+	ipcRenderer.send('new-app', 'app002');
   },
   copy_node_modules: function() {
 	var spawn = require('child_process').spawn;
