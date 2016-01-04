@@ -16015,7 +16015,10 @@ paper-menu {
 			this.$.ajax2.generateRequest()
 		},
 		record_created: function() {
-			alert("Created App id="+this.$.ajax2.lastResponse.id)
+			alert("Click OK for Creating the Application "+ this.$.name.value+". It Will take about 1 minute...")
+			
+			this.create_app()
+			
 			// ask for create another one
 			if (!this.$.repeat.checked) {
 				this.$.dialog.close()
@@ -16044,7 +16047,17 @@ paper-menu {
 		ajax_error: function() {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
-		}  
+		}
+//USER POINT - New Functions (Not Implemented yet in Generator)
+		,create_app: function() {
+			//const remote = require('electron').remote
+			//var app_util = remote.require('./app_util.js')
+			//console.log(app_util.npm_install())
+	
+			const ipcRenderer = require('electron').ipcRenderer;
+			ipcRenderer.send('new-app', this.$.name.value);
+		}
+//END USER POINT - New Functions		
 	})
 </script>
 </dom-module>
@@ -16261,10 +16274,6 @@ paper-menu {
 </script>
 </dom-module>
 
-
-
-
-
 <dom-module id="App-list">
 <template>
 <!--USER POINT - List Style-->
@@ -16349,6 +16358,7 @@ paper-menu {
 			<paper-item on-click="edit" style="min-height:20px;line-height:35px;"><%= lng('Edit')%></paper-item>
 <!--USER POINT - List Detail Menu-->
 			<paper-item on-click="models" style="min-height:20px;line-height:35px;"><%= lng('Models')%></paper-item>
+			<paper-item on-click="start" style="min-height:20px;line-height:35px;"><%= lng('Start Server')%></paper-item>
 <!--END USER POINT - List Detail Menu-->
 		</paper-menu>
 	</paper-dialog>
@@ -16816,42 +16826,8 @@ Polymer({
 	var item = this.data.find(filtro)[0]
 	this.$.App_edit_dialog.open_dialog(item)
   },
-  new: function() {
-	// Move to User Point
-  
-	//this.$.App_new_dialog.open_dialog()
-	console.log('Creating Application ...')
-	
-	//const remote = require('electron').remote
-	//var app_util = remote.require('./app_util.js')
-	
-	//console.log(app_util.npm_install())
-	
-	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('new-app', 'app002');
-  },
-  copy_node_modules: function() {
-	var spawn = require('child_process').spawn;
-	
-	var child2 = spawn('cp',['-R', '-v', '../server/node_modules/*', 'apps/app01/node_modules/']);
-	//var execFile = require('child_process').execFile;
-	
-	//var child2 = execFile('npm',['install'], {cwd: 'apps/app01'} );
-	
-	child2.stdout.on('data', function(data) {
-		console.log(data.toString())
-	})
-	
-	child2.stderr.on('data', function (data) {
-		console.log('stderr: ', data.toString());
-	});
-	
-	child2.on('close', function (code, signal) {
-		if (code == 0)
-			console.log('Applicaction Installed. For start Server, run node app')
-		  else 
-			console.log('Process End with code: ', code)
-	})
+  new: function() {  
+	this.$.App_new_dialog.open_dialog()
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16881,7 +16857,15 @@ Polymer({
 	var post_data = {id: this.key, name: rs.name, path: rs.path, type: rs.type, db: rs.db}
 	
 	post(config_server() + "Model/list", post_data, 'post')
-  }
+  },
+  start: function() {
+	this.$.menu_dialog.close()
+	var filtro = {"id": this.key}
+	var item = this.data.find(filtro)[0]
+	
+	const ipcRenderer = require('electron').ipcRenderer;
+	ipcRenderer.send('start-app', item.name);
+  },
 //END USER POINT - List Functions
 });
 </script>
