@@ -15918,7 +15918,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" required></td>
+				<td><input id="name" type="text" name="name" on-keyup="valid_file_chars" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
@@ -16056,6 +16056,9 @@ paper-menu {
 	
 			const ipcRenderer = require('electron').ipcRenderer;
 			ipcRenderer.send('new-app', this.$.name.value);
+		},
+		valid_file_chars: function() {	
+			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
 		}
 //END USER POINT - New Functions		
 	})
@@ -16163,7 +16166,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" on-keyup="valid_file_chars" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
@@ -16270,6 +16273,11 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+//USER POINT - Edit Functions (Not Implemented yet in Generator)
+		,valid_file_chars: function() {	
+			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
+		},
+//USER POINT - Edit Functions 
 	})
 </script>
 </dom-module>
