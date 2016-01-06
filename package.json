@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "nodemon .",
+	"prod": "nodemon app --prod",
     "debug": "node debug app.js"
   },
   "main": "app.js",
