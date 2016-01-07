@@ -16265,6 +16265,10 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_updated: function() {
+			const remote = require('electron').remote
+			var app_util = remote.require('./app_util.js')
+			app_util.set_port(this.$.name.value, this.$.port.value)
+			
 			alert("<%= lng('Record Updated')%>")
 			this.$.dialog.close()
 			this.fire('close')
