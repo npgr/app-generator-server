@@ -1,7 +1,7 @@
 <!-- app-config: version 5.00 -->
 
 function config_server() {
-	return "http://localhost:1337/"
+	return "http://localhost:4343/"
 }
 
 function config_base_url() {
