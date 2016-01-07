@@ -16442,6 +16442,8 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 //END USER POINT - List Start Ready
+		var regex = /[/:]/
+		console.log(location.href.split(regex))
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
 			// see below for better implementation!
@@ -16876,7 +16878,7 @@ Polymer({
 	var item = this.data.find(filtro)[0]
 	
 	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('start-app', item.name);
+	ipcRenderer.send('start-app', {app: item.name, port: item.port});
   },
 //END USER POINT - List Functions
 });
