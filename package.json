@@ -31,7 +31,7 @@
     "winston": "^1.1.0"
   },
   "scripts": {
-    "start": "nodemon .",
+    "start": "rm -r .tmp/public & nodemon app",
 	"prod": "nodemon app --prod",
     "debug": "node debug app.js"
   },
