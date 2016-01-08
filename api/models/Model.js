@@ -42,8 +42,7 @@ module.exports = {
 	name: {
 		//description: 'Name',
 		type: 'string',
-		required: true,
-		unique: true
+		required: true
 	},
 	title: {
 		//description: 'Title',
