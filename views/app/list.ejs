@@ -16055,7 +16055,7 @@ paper-menu {
 			//console.log(app_util.npm_install())
 	
 			const ipcRenderer = require('electron').ipcRenderer;
-			ipcRenderer.send('new-app', this.$.name.value);
+			ipcRenderer.send('new-app', {app: this.$.name.value, port: this.$.port.value});
 		},
 		valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
@@ -16442,8 +16442,6 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 //END USER POINT - List Start Ready
-		var regex = /[/:]/
-		console.log(location.href.split(regex))
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
 			// see below for better implementation!
