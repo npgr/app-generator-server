@@ -46,6 +46,27 @@
         "createdAt": "2015-12-22T03:13:30.318Z",
         "updatedAt": "2015-12-22T03:13:30.319Z",
         "id": 2
+      },
+      {
+        "model": 3,
+        "type": "list",
+        "createdAt": "2016-01-08T21:40:22.582Z",
+        "updatedAt": "2016-01-08T21:40:22.582Z",
+        "id": 3
+      },
+      {
+        "model": 4,
+        "type": "list",
+        "createdAt": "2016-01-08T21:41:09.172Z",
+        "updatedAt": "2016-01-08T21:41:09.173Z",
+        "id": 4
+      },
+      {
+        "model": 5,
+        "type": "list",
+        "createdAt": "2016-01-08T21:46:06.905Z",
+        "updatedAt": "2016-01-08T21:46:06.905Z",
+        "id": 5
       }
     ],
     "functionattribute": [
@@ -78,12 +99,110 @@
       {
         "name": "Admin",
         "createdAt": "2015-09-03T17:01:07.678Z",
-        "updatedAt": "2015-09-03T17:01:07.678Z",
-        "id": 1
+        "updatedAt": "2016-01-15T18:24:33.907Z",
+        "id": 1,
+        "firstpage": 1
       }
     ],
-    "profileresource": [],
-    "resource": [],
+    "profileresource": [
+      {
+        "profile": 1,
+        "resource": 1,
+        "order": 100,
+        "Group": "App",
+        "createdAt": "2016-01-15T18:00:23.510Z",
+        "updatedAt": "2016-01-15T18:00:23.510Z",
+        "id": 1
+      },
+      {
+        "profile": 1,
+        "resource": 2,
+        "order": 100,
+        "Group": "Security",
+        "createdAt": "2016-01-15T18:00:52.143Z",
+        "updatedAt": "2016-01-15T18:00:52.143Z",
+        "id": 2
+      },
+      {
+        "profile": 1,
+        "resource": 3,
+        "order": 110,
+        "Group": "Security",
+        "createdAt": "2016-01-15T18:01:16.146Z",
+        "updatedAt": "2016-01-15T18:01:16.146Z",
+        "id": 3
+      },
+      {
+        "profile": 1,
+        "resource": 4,
+        "order": 120,
+        "Group": "Security",
+        "createdAt": "2016-01-15T18:01:32.421Z",
+        "updatedAt": "2016-01-15T18:01:32.421Z",
+        "id": 4
+      },
+      {
+        "profile": 1,
+        "resource": 5,
+        "order": 130,
+        "Group": "Security",
+        "createdAt": "2016-01-15T18:02:01.594Z",
+        "updatedAt": "2016-01-15T18:02:01.594Z",
+        "id": 5
+      }
+    ],
+    "resource": [
+      {
+        "name": "App",
+        "method": "get",
+        "path": "/App/list",
+        "type": "page",
+        "requireaut": "Yes",
+        "createdAt": "2016-01-15T17:57:42.976Z",
+        "updatedAt": "2016-01-15T17:57:42.976Z",
+        "id": 1
+      },
+      {
+        "name": "Users",
+        "method": "get",
+        "path": "/User/list",
+        "type": "page",
+        "requireaut": "Yes",
+        "createdAt": "2016-01-15T17:58:19.444Z",
+        "updatedAt": "2016-01-15T17:58:19.444Z",
+        "id": 2
+      },
+      {
+        "name": "Profiles",
+        "method": "get",
+        "path": "/Profile/list",
+        "type": "page",
+        "requireaut": "Yes",
+        "createdAt": "2016-01-15T17:58:40.314Z",
+        "updatedAt": "2016-01-15T17:58:40.314Z",
+        "id": 3
+      },
+      {
+        "name": "Resources",
+        "method": "get",
+        "path": "/Resource/list",
+        "type": "page",
+        "requireaut": "Yes",
+        "createdAt": "2016-01-15T17:59:09.270Z",
+        "updatedAt": "2016-01-15T17:59:09.270Z",
+        "id": 4
+      },
+      {
+        "name": "ProfileResource",
+        "method": "get",
+        "path": "/ProfileResource/list",
+        "type": "page",
+        "requireaut": "Yes",
+        "createdAt": "2016-01-15T17:59:32.427Z",
+        "updatedAt": "2016-01-15T17:59:32.427Z",
+        "id": 5
+      }
+    ],
     "account": [
       {
         "name": "Cuenta Personal",
@@ -141,6 +260,99 @@
         "createdAt": "2015-12-22T03:13:30.430Z",
         "updatedAt": "2015-12-22T03:13:30.430Z",
         "id": 2
+      },
+      {
+        "model": 3,
+        "new": "e",
+        "display": "e",
+        "edit": "e",
+        "delete": "e",
+        "columns": "e",
+        "print": "e",
+        "download": "e",
+        "ga": "e",
+        "dialog_width": "30em",
+        "card_width": "86em",
+        "btn_left": "80px",
+        "createdAt": "2016-01-08T21:40:22.587Z",
+        "updatedAt": "2016-01-08T21:40:22.587Z",
+        "id": 3
+      },
+      {
+        "model": 4,
+        "new": "e",
+        "display": "e",
+        "edit": "e",
+        "delete": "e",
+        "columns": "e",
+        "print": "e",
+        "download": "e",
+        "ga": "e",
+        "dialog_width": "30em",
+        "card_width": "86em",
+        "btn_left": "80px",
+        "createdAt": "2016-01-08T21:41:09.178Z",
+        "updatedAt": "2016-01-08T21:41:09.178Z",
+        "id": 4
+      },
+      {
+        "model": 5,
+        "new": "e",
+        "display": "e",
+        "edit": "e",
+        "delete": "e",
+        "columns": "e",
+        "print": "e",
+        "download": "e",
+        "ga": "e",
+        "dialog_width": "30em",
+        "card_width": "86em",
+        "btn_left": "80px",
+        "createdAt": "2016-01-08T21:46:06.946Z",
+        "updatedAt": "2016-01-08T21:46:06.946Z",
+        "id": 5
+      }
+    ],
+    "model": [
+      {
+        "app": 1,
+        "name": "Task",
+        "title": "Task",
+        "createdAt": "2015-12-22T03:13:13.027Z",
+        "updatedAt": "2015-12-22T03:13:13.027Z",
+        "id": 1
+      },
+      {
+        "app": 1,
+        "name": "Expense",
+        "title": "Expense",
+        "createdAt": "2015-12-22T03:13:30.230Z",
+        "updatedAt": "2015-12-22T03:13:30.230Z",
+        "id": 2
+      },
+      {
+        "app": 6,
+        "name": "Product",
+        "title": "Product",
+        "createdAt": "2016-01-08T21:40:22.555Z",
+        "updatedAt": "2016-01-08T21:40:22.555Z",
+        "id": 3
+      },
+      {
+        "app": 1,
+        "name": "Producto",
+        "title": "Product",
+        "createdAt": "2016-01-08T21:41:09.153Z",
+        "updatedAt": "2016-01-08T21:41:09.153Z",
+        "id": 4
+      },
+      {
+        "app": 6,
+        "name": "Producto",
+        "title": "Product",
+        "createdAt": "2016-01-08T21:46:06.880Z",
+        "updatedAt": "2016-01-08T21:46:36.934Z",
+        "id": 5
       }
     ],
     "app": [
@@ -169,24 +381,45 @@
         "createdAt": "2015-12-22T03:19:43.650Z",
         "updatedAt": "2015-12-22T03:19:43.650Z",
         "id": 2
-      }
-    ],
-    "model": [
-      {
-        "app": 1,
-        "name": "Task",
-        "title": "Task",
-        "createdAt": "2015-12-22T03:13:13.027Z",
-        "updatedAt": "2015-12-22T03:13:13.027Z",
-        "id": 1
       },
       {
-        "app": 1,
-        "name": "Expense",
-        "title": "Expense",
-        "createdAt": "2015-12-22T03:13:30.230Z",
-        "updatedAt": "2015-12-22T03:13:30.230Z",
-        "id": 2
+        "name": "NewApp01",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "xx",
+        "port": 1010,
+        "repository": "",
+        "createdAt": "2016-01-04T21:41:03.834Z",
+        "updatedAt": "2016-01-04T21:41:03.834Z",
+        "id": 4
+      },
+      {
+        "name": "App03",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "xx",
+        "port": 123,
+        "repository": "",
+        "createdAt": "2016-01-05T21:38:55.065Z",
+        "updatedAt": "2016-01-05T21:38:55.065Z",
+        "id": 5
+      },
+      {
+        "name": "newApp03",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "xx",
+        "port": 4141,
+        "repository": "",
+        "createdAt": "2016-01-06T20:03:13.843Z",
+        "updatedAt": "2016-01-07T14:16:54.002Z",
+        "id": 6
       }
     ]
   },
@@ -710,6 +943,32 @@
         "type": "datetime"
       }
     },
+    "model": {
+      "id": {
+        "type": "integer",
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "app": {
+        "type": "integer",
+        "model": "app",
+        "foreignKey": true,
+        "alias": "app"
+      },
+      "name": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
     "app": {
       "id": {
         "type": "integer",
@@ -762,44 +1021,17 @@
       "updatedAt": {
         "type": "datetime"
       }
-    },
-    "model": {
-      "id": {
-        "type": "integer",
-        "primaryKey": true,
-        "unique": true,
-        "autoIncrement": true
-      },
-      "app": {
-        "type": "integer",
-        "model": "app",
-        "foreignKey": true,
-        "alias": "app"
-      },
-      "name": {
-        "type": "string",
-        "unique": true
-      },
-      "title": {
-        "type": "string"
-      },
-      "createdAt": {
-        "type": "datetime"
-      },
-      "updatedAt": {
-        "type": "datetime"
-      }
     }
   },
   "counters": {
     "model": {
-      "id": 2
+      "id": 5
     },
     "attribute": {
       "id": 1
     },
     "modelfunction": {
-      "id": 2
+      "id": 5
     },
     "functionattribute": {
       "id": 1
@@ -811,16 +1043,20 @@
     "profile": {
       "id": 1
     },
-    "profileresource": {},
-    "resource": {},
+    "profileresource": {
+      "id": 5
+    },
+    "resource": {
+      "id": 5
+    },
     "account": {
       "id": 3
     },
     "functionlist": {
-      "id": 2
+      "id": 5
     },
     "app": {
-      "id": 3
+      "id": 6
     }
   }
 }
