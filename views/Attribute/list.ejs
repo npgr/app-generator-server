@@ -17152,7 +17152,7 @@ paper-menu {
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Atributo"))%></div>-->
 <!--USER POINT - List Header-->
 <!--END USER POINT - List Header-->
-	<select id="filter" on-change="input_type">  <%= lng('Id')%>
+	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>  <%= lng('Pos')%>
 		<option value="pos"><%= lng('Pos')%></option>
 		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Attribute')%>
@@ -17180,7 +17180,7 @@ paper-menu {
 		<option value="delete"><%= lng('Delete')%></option>  <%= lng('Help')%>
 		<option value="help"><%= lng('Help')%></option>
 	</select>
-	<select id="op">   
+	<select id="op" disabled>   
 		<option value="$eq"><%= lng('Equal to')%></option>
 		<option value="$ne"><%= lng('Different to')%></option>
 		<option value="$contains"><%= lng('Contains')%></option>
@@ -17457,7 +17457,7 @@ Polymer({
 			this.model.insert(_model[i])
 		_model = {}
 		this.input_type()
-		this.set_filter() //and columns & sort from localStorage
+		//this.set_filter() //and columns & sort from localStorage
 		var intro = introJs()
 		intro.setOptions({
 			doneLabel: '<%= lng('Exit')%>',
@@ -17472,6 +17472,13 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
+		this.model_par = <%- model %>
+		this.$.filter.value = 'model_name'
+		this.input_type()
+		this.$.op.value = '$eq'
+		this.$.filtro.value = this.model_par.model
+		this.filter()
+		this.show_columns()
 //END USER POINT - List End Ready
 	},
 	help: function() {
