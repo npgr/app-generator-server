@@ -17868,7 +17868,11 @@ Polymer({
 	this.$.Attribute_delete_dialog.open_delete_dialog(item)
   },
   new: function() {
-
+	//var win = require('electron').remote.BrowserWindow.getFocusedWindow()
+	//win.close()
+	//var webContents = win.webContents;
+	//webContents.goBack()
+	
 	this.$.Attribute_new_dialog.open_dialog()
   },
   reload: function() {
