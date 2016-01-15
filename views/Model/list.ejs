@@ -16193,11 +16193,7 @@ Polymer({
 		//cur_filter: {}
 	},
 	ready: function() {
-//USER POINT - List Start Ready
-		this.app = <%- app %>
-		//console.log('App : ', this.app)
-		this.$.filter.value = 'app_name'
-		this.$.op.value = '$eq'
+//USER POINT - List Start Ready	
 //END USER POINT - List Start Ready
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
@@ -16225,7 +16221,7 @@ Polymer({
 			this.model.insert(_model[i])
 		_model = {}
 		this.input_type()
-		this.set_filter() //and columns & sort from localStorage
+		//this.set_filter() //and columns & sort from localStorage
 		var intro = introJs()
 		intro.setOptions({
 			doneLabel: '<%= lng('Exit')%>',
@@ -16240,7 +16236,14 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
-		
+		this.app = <%- app %>
+		//console.log('App : ', this.app)
+		this.$.filter.value = 'app_name'
+		this.input_type()
+		this.$.op.value = '$eq'
+		this.$.filtro.value = this.app.name
+		this.filter()
+		this.show_columns()
 //END USER POINT - List End Ready
 	},
 	help: function() {
@@ -16618,7 +16621,7 @@ Polymer({
   attributes: function() {
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
-	var post_data = {id: this.key, model: rs.name}
+	var post_data = {id: this.key, model: rs.name, app: rs.app}
 	
 	this.post(config_server() + "Attribute/list", post_data, 'post')
   },
