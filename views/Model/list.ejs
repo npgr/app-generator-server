@@ -16236,12 +16236,11 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
-		this.app = <%- app %>
-		//console.log('App : ', this.app)
+		//this.app = >%- app %<
 		this.$.filter.value = 'app_name'
 		this.input_type()
 		this.$.op.value = '$eq'
-		this.$.filtro.value = this.app.name
+		this.$.filtro.value = url_params().app
 		this.filter()
 		this.show_columns()
 //END USER POINT - List End Ready
@@ -16615,15 +16614,16 @@ Polymer({
   ,functions: function() {
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
-	var post_data = {id: this.key, model: rs.name}
-	this.post(config_server() + "ModelFunction/list", post_data, 'post')
+	//var post_data = {id: this.key, model: rs.name}
+	//this.post(config_server() + "ModelFunction/list", post_data, 'post')
+	location.href = config_server() + "ModelFunction/list?model="+ rs.name
   },
   attributes: function() {
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
-	var post_data = {id: this.key, model: rs.name, app: rs.app}
-	
-	this.post(config_server() + "Attribute/list", post_data, 'post')
+	//var post_data = {id: this.key, model: rs.name, app: rs.app}
+	//this.post(config_server() + "Attribute/list", post_data, 'post')
+	location.href = config_server() + "Attribute/list?model="+rs.name
   },
   post: function(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.

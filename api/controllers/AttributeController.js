@@ -23,7 +23,7 @@ module.exports = {
 				res.locals.user = {user: req.session.user, name: req.session.username}
 		//		res.locals.data = JSON.stringify(data)
 				res.locals.data = []
-				res.locals.model = JSON.stringify(req.body)
+				//res.locals.model = JSON.stringify(req.body)
 				res.view("Attribute/list")
 		//	})
 	}

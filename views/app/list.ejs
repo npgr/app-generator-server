@@ -16870,9 +16870,9 @@ Polymer({
   ,models: function() {
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
-	var post_data = {id: this.key, name: rs.name, path: rs.path, type: rs.type, db: rs.db}
-	
-	post(config_server() + "Model/list", post_data, 'post')
+//	var post_data = {id: this.key, name: rs.name, path: rs.path, type: rs.type, db: rs.db}	
+//	post(config_server() + "Model/list", post_data, 'post')
+	window.location.href = config_server() + "Model/list?app="+rs.name
   },
   start: function() {
 	this.$.menu_dialog.close()

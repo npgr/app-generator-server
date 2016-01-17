@@ -17472,11 +17472,12 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
-		this.model_par = <%- model %>
+		//this.model_par = >%- model %<
 		this.$.filter.value = 'model_name'
 		this.input_type()
 		this.$.op.value = '$eq'
-		this.$.filtro.value = this.model_par.model
+		//this.$.filtro.value = this.model_par.model
+		this.$.filtro.value = url_params().model
 		this.filter()
 		this.show_columns()
 //END USER POINT - List End Ready

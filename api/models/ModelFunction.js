@@ -10,6 +10,7 @@ module.exports = {
 	
   attributes: {
 	//_title: 'Funcion',
+	//_card_width: '60em',
 	//_delete: 'disabled',
 	//_new: 'disabled',
 	//_display: 'disabled',
