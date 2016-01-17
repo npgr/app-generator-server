@@ -16155,13 +16155,13 @@ paper-menu {
 	<!-- Generate List -->
 	<iron-ajax id="ajax_gen_list" handle-as="json" method='post' handleAs="json" on-response="generated_list" on-error="ajax_error"></iron-ajax>
 <!--END USER POINT - List Header-->
-	<select id="filter" on-change="input_type">  <%= lng('Id')%>
+	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
 		<option value="app_name"><%= lng('App')%></option>
 		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Type')%>
 		<option value="type"><%= lng('Type')%></option>
 	</select>
-	<select id="op">   
+	<select id="op" disabled>
 		<option value="$eq"><%= lng('Equal to')%></option>
 		<option value="$ne"><%= lng('Different to')%></option>
 		<option value="$contains"><%= lng('Contains')%></option>
@@ -16311,6 +16311,14 @@ Polymer({
 		}, false);*/
 //USER POINT - List End Ready
 		this.load_funcs_data()
+		//this.model_par = >%- model %<
+		this.$.filter.value = 'model_name'
+		this.input_type()
+		this.$.op.value = '$eq'
+		//this.$.filtro.value = this.model_par.model
+		this.$.filtro.value = url_params().model
+		this.filter()
+		this.show_columns()
 //END USER POINT - List End Ready
 	},
 	help: function() {
