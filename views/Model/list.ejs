@@ -16068,7 +16068,11 @@ paper-menu {
 <template>
 <!--USER POINT - List Style-->
 <!--END USER POINT - List Style-->
+	<!-- Load List of Models -->
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
+	<!-- Load Attributes of Model -->
+	<iron-ajax id="ajax2" handle-as="json" on-response="generate_model" on-error="ajax_error"></iron-ajax>
+	
 	<Model-list-columns id="Model_list_columns" on-close="update_columns"></Model-list-columns>
 	<Model-new id="Model_new_dialog" on-close="reload"></Model-new>
 	<Model-display id="Model_display_dialog"></Model-display>
@@ -16144,6 +16148,7 @@ paper-menu {
 <!--USER POINT - List Detail Menu-->
 			<paper-item on-click="attributes" style="min-height:20px;line-height:35px;"><%= lng('Attributes')%></paper-item>
 			<paper-item on-click="functions" style="min-height:20px;line-height:35px;"><%= lng('Functions')%></paper-item>
+			<paper-item on-click="generate" style="min-height:20px;line-height:35px;"><%= lng('Generate')%></paper-item>
 <!--END USER POINT - List Detail Menu-->
 		</paper-menu>
 	</paper-dialog>
@@ -16622,30 +16627,28 @@ Polymer({
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
 	//var post_data = {id: this.key, model: rs.name, app: rs.app}
-	//this.post(config_server() + "Attribute/list", post_data, 'post')
+	//post(config_server() + "Attribute/list", post_data, 'post')
 	location.href = config_server() + "Attribute/list?model="+rs.name
   },
-  post: function(path, params, method) {
-    method = method || "post"; // Set method to post by default if not specified.
-
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for(var key in params) {
-        if(params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-         }
-    }
-    document.body.appendChild(form);
-    form.submit();
+  generate: function() {
+	this.$.menu_dialog.close()
+	
+	this.$.ajax2.url = config_server() + "Attribute?model=" + this.key
+	this.$.ajax2.generateRequest()
+  },
+  generate_model: function() {
+	var filtro = {"id": this.key}
+	var item = this.data.find(filtro)[0]
+	
+	if (this.$.ajax2.lastResponse.length != 0)
+	{
+		const remote = require('electron').remote
+		var generate = remote.require('./generate.js')
+		msg = generate.generate_model(item.app.name, item.name, this.$.ajax2.lastResponse)
+		alert(msg, 'Generate Model')
+	}
+	else
+		alert('No Attributes Found for model '+item.name, 'Generate Model')
   }
 //END USER POINT - List Functions
 });
