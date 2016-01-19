@@ -12,13 +12,19 @@ module.exports = {
 		//ModelFunction.find({'model': model})
 			//.populate('model')
 			//.exec(function(err, data){
-				res.locals.resources = req.session.resources
-				res.locals.user = {user: req.session.user, name: req.session.username}
-				//res.locals.data = JSON.stringify(data)
-				res.locals.data = []
-				//res.locals.model = JSON.stringify(req.body)
-				//console.log('data: ', res.locals.data)
-				res.view("ModelFunction/list")
+				var model_id = req.param('model_id')
+				Attribute.find({'model':model_id})
+				 .exec(function(err, attrs) {
+					res.locals.resources = req.session.resources
+					res.locals.user = {user: req.session.user, name: req.session.username}
+					//res.locals.data = JSON.stringify(data)
+					res.locals.data = []
+					res.locals.attrs = JSON.stringify(attrs)
+					//res.locals.model = JSON.stringify(req.body)
+					//console.log('data: ', res.locals.data)
+					res.view("ModelFunction/list")
+				})
+				
 			//})
 	},
 	

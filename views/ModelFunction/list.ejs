@@ -16265,6 +16265,7 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 		//var _data = <%- data %>
+		this.attrs = <%- attrs %>
 //END USER POINT - List Start Ready
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
@@ -16733,6 +16734,7 @@ Polymer({
 			}
 		}
 	},
+	/*  Old Version
 	generate: function() {
 		this.$.menu_dialog.close()
 		var filtro = {"id": this.key}
@@ -16762,6 +16764,35 @@ Polymer({
 		this.$.ajax_gen_list.body = 'model_id='+post_data.model_id+'&model_name='+post_data.model_name
 				
 		this.$.ajax_gen_list.generateRequest()
+	},*/
+	generate: function() {
+		this.$.menu_dialog.close()
+		var filtro = {"id": this.key}
+		var modelfunction = this.data.find(filtro)[0]
+		
+		switch(modelfunction.type) {
+			case 'list':
+				this.$.ajax_gen_list.url = config_server() + "FunctionList?model=" + modelfunction.model.id
+				this.$.ajax_gen_list.generateRequest()
+			default:
+				alert('Function Type Does not recognized')
+		}
+	},
+	generate_list: function() {
+		var filtro = {"id": this.key}
+		var mfunction = this.data.find(filtro)[0]
+	
+		if (this.$.ajax2.lastResponse.length != 0)
+		{
+			const remote = require('electron').remote
+			var generate = remote.require('./generate.js')
+			
+			console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', this.$.ajax2.lastResponse)
+			//msg = generate.generate_function(mfunction.model.app, mfunction.model.name, this.attrs, /*options*/ this.$.ajax2.lastResponse, 'path')
+			//alert(msg, 'Generate Function')
+		}
+		else
+			alert('No Attributes Found for model '+modelfunction.model.name, 'Generate Function')
 	},
 	generated_list: function() {
 		console.log('Response from generate list: ', this.$.ajax_gen_list.lastResponse)	
