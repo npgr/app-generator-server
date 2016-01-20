@@ -16149,9 +16149,7 @@ paper-menu {
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Funcion"))%></div>-->
 <!--USER POINT - List Header-->
 	<!-- Get Functionlist attributes -->
-	<iron-ajax id="ajax_list" handle-as="json" method='post' handleAs="json" on-response="load_list_data" on-error="ajax_error"></iron-ajax>
-	<!-- Generate Model -->
-	<iron-ajax id="ajax_gen_model" handle-as="json" method='post' handleAs="json" on-response="generate_list" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax_list" handle-as="json" method='get' handleAs="json" on-response="load_list_data" on-error="ajax_error"></iron-ajax>
 	<!-- Generate List -->
 	<iron-ajax id="ajax_gen_list" handle-as="json" method='post' handleAs="json" on-response="generated_list" on-error="ajax_error"></iron-ajax>
 <!--END USER POINT - List Header-->
@@ -16310,7 +16308,7 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
-		this.load_funcs_data()
+		//this.load_funcs_data()
 		//this.model_par = >%- model %<
 		this.$.filter.value = 'model_name'
 		this.input_type()
@@ -16694,6 +16692,7 @@ Polymer({
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()
+	this.load_funcs_data()
   },
   ajax_error: function() {
 
@@ -16702,6 +16701,11 @@ Polymer({
   }
 //USER POINT - List Functions
 	,load_funcs_data: function() {
+		
+		this.$.ajax_list.url = config_server() + "FunctionList"
+		this.$.ajax_list.generateRequest()
+		/* Old Version
+		
 		for (i=0; i < this.data.data.length; i++)
 		{
 			//console.log(this.data.data.type)
@@ -16719,20 +16723,25 @@ Polymer({
 			  default:
 				//alert('Function Type Does not recognized')
 			}
-		}
+		}*/
 	},
 	load_list_data: function() {
-		for (i=0; i<this.data.data.length; i++) 
+		console.log('this.data: ', this.data.data)
+		console.log('lastResponse: ', this.lastResponse)
+		/*for (i=0; i<this.data.data.length; i++) 
 		{
 			if (this.data.data[i].type == 'list')
 			{
+				for(j=0; j < this.$.ajax_list.lastResponse.length; j++)
+					
+				
 				this.data.data[i].list = this.$.ajax_list.lastResponse
 				this.data.data[i].list.model_id = this.data.data[i].list.model.id 
 				this.data.data[i].list.model_name = this.data.data[i].list.model.name 
 				//console.log('data: ', this.data.data[i])
 				break
 			}
-		}
+		}*/
 	},
 	/*  Old Version
 	generate: function() {
@@ -16768,15 +16777,16 @@ Polymer({
 	generate: function() {
 		this.$.menu_dialog.close()
 		var filtro = {"id": this.key}
-		var modelfunction = this.data.find(filtro)[0]
+		var mfunction = this.data.find(filtro)[0]
 		
-		switch(modelfunction.type) {
+		console.log(mfunction)
+		/*switch(modelfunction.type) {
 			case 'list':
 				this.$.ajax_gen_list.url = config_server() + "FunctionList?model=" + modelfunction.model.id
 				this.$.ajax_gen_list.generateRequest()
 			default:
 				alert('Function Type Does not recognized')
-		}
+		}*/
 	},
 	generate_list: function() {
 		var filtro = {"id": this.key}
@@ -16793,9 +16803,6 @@ Polymer({
 		}
 		else
 			alert('No Attributes Found for model '+modelfunction.model.name, 'Generate Function')
-	},
-	generated_list: function() {
-		console.log('Response from generate list: ', this.$.ajax_gen_list.lastResponse)	
 	}
 //END USER POINT - List Functions
 });
