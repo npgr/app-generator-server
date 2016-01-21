@@ -28,6 +28,7 @@ module.exports = {
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
+		//hide: true,
 		model: 'App'
 	},
 	model: {
