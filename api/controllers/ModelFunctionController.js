@@ -28,6 +28,22 @@ module.exports = {
 			//})
 	},
 	
+	get: function(req, res) {
+		//var app = req.body.app
+		var app = req.param('app')
+		ModelFunction.find()
+		 .populate('model')
+		 .exec(function(err, funcs) {
+			for (i=0; i < funcs.length; i++)
+			  if (funcs[i].model.app != app)
+			  {
+				funcs.splice(i, 1)
+				i--
+			  }
+			return res.json(funcs)
+		})
+	},
+	
 	generate: function(req, res) {
 		//console.log('generate: ', req.body)
 		//var atrs = sails.controllers.Attribute.get({'model': req.body.model_id})
