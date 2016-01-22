@@ -40,7 +40,14 @@ module.exports = {
 				funcs.splice(i, 1)
 				i--
 			  }
-			return res.json(funcs)
+			FunctionList.find()
+			  .exec(function(err, funcs2) {
+				for (i=0; i < funcs.length; i++)
+				   for (j=0; j < funcs2.length; j++)
+					if (funcs[i].model.id == funcs2[j].model)
+						funcs[i].list = funcs2[j]
+				return res.json(funcs)
+			})
 		})
 	},
 	
