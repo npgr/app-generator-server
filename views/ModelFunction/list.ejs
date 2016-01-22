@@ -16148,10 +16148,7 @@ paper-menu {
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Funcion"))%></div>-->
 <!--USER POINT - List Header-->
-	<!-- Get Functionlist attributes -->
-	<iron-ajax id="ajax_list" handle-as="json" method='get' handleAs="json" on-response="load_list_data" on-error="ajax_error"></iron-ajax>
-	<!-- Generate List -->
-	<iron-ajax id="ajax_gen_list" handle-as="json" method='post' handleAs="json" on-response="generated_list" on-error="ajax_error"></iron-ajax>
+
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
@@ -16716,48 +16713,33 @@ Polymer({
 			default:
 				alert('Function Type Does not recognized')
 		}
-	},
-	generate_list: function() {	
-		console.log('Response from generate model: ', this.$.ajax_gen_model.lastResponse)
-		var filtro = {"id": this.key}
-		var post_data = this.data.find(filtro)[0]
-		
-		this.$.ajax_gen_list.url = config_server() + "FunctionList/generate"
-		this.$.ajax_gen_list.method = 'POST'
-		this.$.ajax_gen_list.contentType="application/x-www-form-urlencoded"
-		this.$.ajax_gen_list.body = 'model_id='+post_data.model_id+'&model_name='+post_data.model_name
-				
-		this.$.ajax_gen_list.generateRequest()
-	},*/
-	,generate: function() {
+	}*/
+	,generate: function()  /* Generate Function */
+	{
 		this.$.menu_dialog.close()
 		var filtro = {"id": this.key}
 		var mfunction = this.data.find(filtro)[0]
 		
-		console.log(mfunction)
-		/*switch(modelfunction.type) {
+		console.log('Function: ', mfunction)
+		console.log('Attributes: ', this. attrs)
+		/*if (this.attrs.length != 0)
+		  switch(mfunction.type) {
 			case 'list':
-				this.$.ajax_gen_list.url = config_server() + "FunctionList?model=" + modelfunction.model.id
-				this.$.ajax_gen_list.generateRequest()
+				const remote = require('electron').remote
+				var generate = remote.require('./generate.js')
+				
+				console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', mfunction)
+			
+				msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, 'path')
+				//alert(msg, 'Generate Function')
+				
+				break
 			default:
 				alert('Function Type Does not recognized')
-		}*/
-	},
-	generate_list: function() {
-		var filtro = {"id": this.key}
-		var mfunction = this.data.find(filtro)[0]
-	
-		if (this.$.ajax2.lastResponse.length != 0)
-		{
-			const remote = require('electron').remote
-			var generate = remote.require('./generate.js')
-			
-			console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', this.$.ajax2.lastResponse)
-			//msg = generate.generate_function(mfunction.model.app, mfunction.model.name, this.attrs, /*options*/ this.$.ajax2.lastResponse, 'path')
-			//alert(msg, 'Generate Function')
-		}
-		else
+		  }
+		else 
 			alert('No Attributes Found for model '+modelfunction.model.name, 'Generate Function')
+		*/
 	}
 //END USER POINT - List Functions
 });
