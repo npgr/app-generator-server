@@ -16272,7 +16272,7 @@ Polymer({
 				return this.indexOf(str) === 0;
 			}
 		}
-		this.$.ajax.url = config_server() + "ModelFunction"
+		this.$.ajax.url = config_server() + "ModelFunction/get?app="+url_params().app
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
@@ -16308,7 +16308,6 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
-		//this.load_funcs_data()
 		//this.model_par = >%- model %<
 		this.$.filter.value = 'model_name'
 		this.input_type()
@@ -16692,7 +16691,6 @@ Polymer({
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()
-	this.load_funcs_data()
   },
   ajax_error: function() {
 
@@ -16700,49 +16698,6 @@ Polymer({
 	alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
   }
 //USER POINT - List Functions
-	,load_funcs_data: function() {
-		
-		this.$.ajax_list.url = config_server() + "FunctionList"
-		this.$.ajax_list.generateRequest()
-		/* Old Version
-		
-		for (i=0; i < this.data.data.length; i++)
-		{
-			//console.log(this.data.data.type)
-			switch(this.data.data[i].type) {
-			  case 'list':
-				this.$.ajax_list.url = config_server() + "FunctionList/get"
-				this.$.ajax_list.method = 'POST'
-				this.$.ajax_list.contentType="application/x-www-form-urlencoded"
-				this.$.ajax_list.body = 'id='+this.data.data[i].model.id
-				//this.$.ajax_list.body = JSON.stringify(this.data.data[i].model)
-				//this.$.ajax_list.body = this.data.data[i].model
-				
-				this.$.ajax_list.generateRequest()
-				break;
-			  default:
-				//alert('Function Type Does not recognized')
-			}
-		}*/
-	},
-	load_list_data: function() {
-		console.log('this.data: ', this.data.data)
-		console.log('lastResponse: ', this.lastResponse)
-		/*for (i=0; i<this.data.data.length; i++) 
-		{
-			if (this.data.data[i].type == 'list')
-			{
-				for(j=0; j < this.$.ajax_list.lastResponse.length; j++)
-					
-				
-				this.data.data[i].list = this.$.ajax_list.lastResponse
-				this.data.data[i].list.model_id = this.data.data[i].list.model.id 
-				this.data.data[i].list.model_name = this.data.data[i].list.model.name 
-				//console.log('data: ', this.data.data[i])
-				break
-			}
-		}*/
-	},
 	/*  Old Version
 	generate: function() {
 		this.$.menu_dialog.close()
@@ -16774,7 +16729,7 @@ Polymer({
 				
 		this.$.ajax_gen_list.generateRequest()
 	},*/
-	generate: function() {
+	,generate: function() {
 		this.$.menu_dialog.close()
 		var filtro = {"id": this.key}
 		var mfunction = this.data.find(filtro)[0]

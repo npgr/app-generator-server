@@ -16621,7 +16621,7 @@ Polymer({
 	var rs = this.data.find({id: this.key})[0]
 	//var post_data = {id: this.key, model: rs.name}
 	//this.post(config_server() + "ModelFunction/list", post_data, 'post')
-	location.href = config_server() + "ModelFunction/list?model="+ rs.name+"&model_id="+ rs.id
+	location.href = config_server() + "ModelFunction/list?app="+rs.app_id+"&model="+ rs.name+"&model_id="+ rs.id
   },
   attributes: function() {
 	this.$.menu_dialog.close()
