@@ -51,7 +51,6 @@ module.exports = {
       var obj = this.toObject();
 	  delete obj.model.createdAt;
 	  delete obj.model.updatedAt;
-	  delete obj.model.title;
 	  delete obj.createdAt;
 	  delete obj.updatedAt;
 
