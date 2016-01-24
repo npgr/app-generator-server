@@ -41,7 +41,8 @@ module.exports = {
 	description: {
 		//description: 'Description',
 		type: "string",
-		required: true
+		cols: 60,
+		rows: 2
 	},
 	type: {
 		//description: 'Type',
@@ -61,13 +62,17 @@ module.exports = {
 		enum: [true, false]
 		//,enumdes: ['Yes', 'No']
 	},
+	width: {
+		//description: 'Width',
+		type: 'string'
+	},
 	textarea_cols:{
-		//description: 'textarea_cols',
+		//description: 'Textarea Cols',
 		//hide: true,
 		type: 'integer'
 	},
 	textarea_rows:{
-		//description: 'textarea_rows',
+		//description: 'Textarea Rows',
 		//hide: true,
 		type: 'integer'
 	},
@@ -118,15 +123,25 @@ module.exports = {
 		//description: 'Top Label',
 		//hide: true,
 		//hide: true,
-		type: 'string',
-		required: true
+		type: 'string'
 	},
 	left_label: {
 		//description: 'Left Label',
 		//hide: true,
 		//hide: true,
-		type: 'string',
-		required: true
+		type: 'string'
+	},
+	maxLength: {
+		//description: 'Max Length',
+		type: 'integer'
+	},
+	min: {
+		//description: 'Min Value',
+		type: 'integer'
+	},
+	max: {
+		//description: 'Max Value',
+		type: 'integer'
 	},
 	filter: {
 		//description: 'Filter',
@@ -171,8 +186,7 @@ module.exports = {
 		//,enumdes: ['Show', 'Hide']
 	},
 	help: {
-		//description: 'Help',
-		//hide: true,
+		//description: 'Help Text',
 		type: 'string'
 	}
 //End Attributes
