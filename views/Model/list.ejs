@@ -16644,7 +16644,7 @@ Polymer({
 	{
 		const remote = require('electron').remote
 		var generate = remote.require('./generate.js')
-		msg = generate.generate_model(item.app.name, item.name, this.$.ajax2.lastResponse, 'path')
+		msg = generate.generate_model(item.app.name, item.name, this.$.ajax2.lastResponse, item.app.path)
 		alert(msg, 'Generate Model')
 	}
 	else

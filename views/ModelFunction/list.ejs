@@ -16148,7 +16148,7 @@ paper-menu {
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Funcion"))%></div>-->
 <!--USER POINT - List Header-->
-
+	<iron-ajax id="ajax_app" handle-as="json" on-response="load_app" on-error="ajax_error"></iron-ajax>
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
@@ -16260,6 +16260,8 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 		//var _data = <%- data %>
+		this.$.ajax_app.url = config_server() + "App/"+url_params().app
+		this.$.ajax_app.generateRequest()
 		this.attrs = <%- attrs %>
 //END USER POINT - List Start Ready
 		// For Sharepoint
@@ -16714,7 +16716,11 @@ Polymer({
 				alert('Function Type Does not recognized')
 		}
 	}*/
-	,generate: function()  /* Generate Function */
+	,load_app: function() {
+		this.app = this.$.ajax_app.lastResponse
+		console.log('app: ',this.app)
+	},
+	generate: function()  /* Generate Function */
 	{
 		this.$.menu_dialog.close()
 		var filtro = {"id": this.key}
@@ -16730,7 +16736,7 @@ Polymer({
 				
 				console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', mfunction)
 			
-				msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, 'path')
+				msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, this.app.path)
 				//alert(msg, 'Generate Function')
 				
 				break

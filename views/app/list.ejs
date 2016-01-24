@@ -15596,7 +15596,7 @@ if (!window.Promise) {
 	margin-left: 30px;
 }
 #dialog {
-	width: 30em;
+	width: 39em;
 }
 .card {
 	width: 60em;
@@ -15622,6 +15622,18 @@ paper-menu {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+/*User Point: General Style*/
+#name {
+	width: 20em;
+}
+#path {
+	width: 20em;
+}
+#port {
+	width: 5em;
+}
+#
+/*End User Point: General Style*/
 </style>
 
 <!-- topBar template: version 1.21 -->
@@ -15915,7 +15927,7 @@ paper-menu {
 		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("App"))%></h2>
 		<paper-dialog-scrollable>
 		  <form id="form" action="javascript:void(0);" on-submit="create">
-			<table class="table_dialog" style="width:100%">
+			<table class="table_dialog" style="width:33em;">
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" disabled></td>
@@ -15955,7 +15967,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" required></td>
+				<td><textarea cols=30 rows=3 id="path" type="text" name="path" on-click="select_path" readOnly required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -15983,6 +15995,10 @@ paper-menu {
 		is: "App-new",
 		open_dialog: function() {
 			this.clear()
+			var path = __dirname
+			var end = path.indexOf('Generador\\client')
+			path = path.substring(0, end+16) + '\\apps'
+			this.$.path.value = path
 			this.$.dialog.open()
 		},
 		clear: function() {
@@ -16053,7 +16069,12 @@ paper-menu {
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
 //USER POINT - New Functions (Not Implemented yet in Generator)
-		,create_app: function() {
+		,select_path: function() {
+			const dialog = require('electron').remote.dialog;
+			var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]})
+			this.$.path.value = path[0]
+		},
+		create_app: function() {
 			//const remote = require('electron').remote
 			//var app_util = remote.require('./app_util.js')
 			//console.log(app_util.npm_install())
@@ -16170,7 +16191,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" on-keyup="valid_file_chars" required></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" on-keyup="valid_file_chars" disabled required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
@@ -16203,7 +16224,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" on-change="load_path" required></td>
+				<td><input id="path" type="text" name="path" disabled required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
