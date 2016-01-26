@@ -41,7 +41,8 @@ module.exports = {
 	},
 	description: {
 		//description: 'Description',
-		//hide: true,
+		//textarea_cols: 60,
+		//textarea_rows: 2,
 		type: 'string'
 	},
 	type: {
@@ -59,6 +60,8 @@ module.exports = {
 	path: {
 		//description: 'Path',
 		type: 'string',
+		//textarea_cols: 80,
+		//textarea_rows: 3,		
 		required: true
 	},
 	port: {
