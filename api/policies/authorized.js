@@ -17,6 +17,11 @@ module.exports = function(req, res, next) {
   
 	//Bypass Security
 	//if (req.route.path == '/Order/SalesCube') return next()
+	var d = new Date()
+	var min = d.getMinutes(); if (min < 10) min = '0'+min 
+	var seg = d.getSeconds(); if (seg < 10) seg = '0'+seg
+	
+	var time = d.getFullYear() + '/' + d.getMonth()+1 + '/' + d.getDate() + ' ' + d.getHours() + ':' + min + ':' + seg + ' - '
 	
 	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin')
 		return res.redirect('/login')
@@ -27,9 +32,9 @@ module.exports = function(req, res, next) {
 	
 		if (resource_name)
 			//console.log(req.method+' '+req.route.path+' Authorized')
-			console.log(req.method+' '+req.originalUrl+' Authorized')
+			console.log(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user)
 		else
-			console.log(req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user)
+			console.log(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user)
 	}
 	return next()
 
