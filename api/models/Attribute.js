@@ -41,8 +41,8 @@ module.exports = {
 	description: {
 		//description: 'Description',
 		type: "string",
-		cols: 60,
-		rows: 2
+		//textarea_cols: 60,
+		//textarea_rows: 2
 	},
 	type: {
 		//description: 'Type',
