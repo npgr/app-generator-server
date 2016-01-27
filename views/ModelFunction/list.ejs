@@ -16727,8 +16727,9 @@ Polymer({
 		var mfunction = this.data.find(filtro)[0]
 		
 		console.log('Function: ', mfunction)
-		console.log('Attributes: ', this. attrs)
-		/*if (this.attrs.length != 0)
+		console.log('Attributes: ', this.attrs)
+		
+		if (this.attrs.length != 0)
 		  switch(mfunction.type) {
 			case 'list':
 				const remote = require('electron').remote
@@ -16736,7 +16737,9 @@ Polymer({
 				
 				console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', mfunction)
 			
-				msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, this.app.path)
+				//msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, this.app.path)
+				
+				msg = generate.generate_function_list(this.app, mfunction, this.attrs)
 				//alert(msg, 'Generate Function')
 				
 				break
@@ -16745,7 +16748,6 @@ Polymer({
 		  }
 		else 
 			alert('No Attributes Found for model '+modelfunction.model.name, 'Generate Function')
-		*/
 	}
 //END USER POINT - List Functions
 });
