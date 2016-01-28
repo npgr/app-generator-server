@@ -16727,7 +16727,19 @@ Polymer({
 		var mfunction = this.data.find(filtro)[0]
 		
 		console.log('Function: ', mfunction)
-		console.log('Attributes: ', this.attrs)
+		console.log('Attributes 1: ', this.attrs)
+		
+		var attrs = {}
+		for (i=0; i < this.attrs.length; i++ )
+		{
+			attrs[this.attrs[i].attribute] = this.attrs[i]
+			if (typeof attrs[this.attrs[i].attribute].ref_model !== 'undefined')
+				attrs[this.attrs[i].attribute].model = attrs[this.attrs[i].attribute].ref_model.name	
+			 else 
+				attrs[this.attrs[i].attribute].model = ''
+			delete attrs[this.attrs[i].attribute].attribute
+		}
+		console.log('Attributes: ', attrs)
 		
 		if (this.attrs.length != 0)
 		  switch(mfunction.type) {
@@ -16735,12 +16747,8 @@ Polymer({
 				const remote = require('electron').remote
 				var generate = remote.require('./generate.js')
 				
-				console.log('App: ', mfunction.model.app, 'Model: ', mfunction.model.name, 'Attrs: ', this.attrs, 'Options: ', mfunction)
-			
-				//msg = generate.generate_function_list(mfunction.model.app, mfunction.model.name, this.attrs, mfunction, this.app.path)
-				
-				msg = generate.generate_function_list(this.app, mfunction, this.attrs)
-				//alert(msg, 'Generate Function')
+				msg = generate.generate_function_list(this.app, mfunction, attrs)
+				alert(msg, 'Generate Function')
 				
 				break
 			default:
