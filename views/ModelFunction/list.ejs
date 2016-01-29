@@ -16005,7 +16005,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
+				<td><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16091,8 +16091,8 @@ paper-menu {
 	Polymer({
 		is: "FunctionList-edit",
 		open_dialog: function(item) {
-			this.item = item.list
-			this.set_select_fields(item.list)
+			this.item = item
+			this.set_select_fields(item)
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -16304,7 +16304,8 @@ paper-menu {
 	<ModelFunction-list-columns id="ModelFunction_list_columns" on-close="update_columns"></ModelFunction-list-columns>
 	<ModelFunction-new id="ModelFunction_new_dialog" on-close="reload"></ModelFunction-new>
 	<ModelFunction-display id="ModelFunction_display_dialog"></ModelFunction-display>
-	<ModelFunction-edit id="ModelFunction_edit_dialog" on-close="reload"></ModelFunction-edit>
+	<FunctionList-edit id="FunctionList_edit_dialog" on-close="reload"></FunctionList-edit>
+	<!--<ModelFunction-edit id="ModelFunction_edit_dialog" on-close="reload"></ModelFunction-edit>-->
 	<ModelFunction-delete id="ModelFunction_delete_dialog" on-close="reload"></ModelFunction-delete>
 	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
@@ -16820,7 +16821,10 @@ Polymer({
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
-	this.$.ModelFunction_edit_dialog.open_dialog(item)
+	//this.$.ModelFunction_edit_dialog.open_dialog(item)
+	item.list.model_id = item.model_id
+	item.list.model_name = item.model_name
+	this.$.FunctionList_edit_dialog.open_dialog(item.list)
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16911,7 +16915,6 @@ Polymer({
 				
 				msg = generate.generate_function_list(this.app, mfunction, attrs)
 				alert(msg, 'Generate Function')
-				
 				break
 			default:
 				alert('Function Type Does not recognized')
