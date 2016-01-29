@@ -16197,8 +16197,10 @@ paper-menu {
 		select_field: function(e) {
 			this.field = e.toElement.id
 			if (this.field == "model")
+				//x43
 				this.$.Model_select_dialog.open_select_dialog()
 			if (this.field == "ref_model")
+				//
 				this.$.Model_select_dialog.open_select_dialog()
 			if (this.field == "model_display")
 				this.$.Attribute_select_dialog.open_select_dialog()
@@ -16657,11 +16659,11 @@ paper-menu {
 		select_field: function(e) {
 			this.field = e.toElement.id
 			if (this.field == "model")
-				this.$.Model_select_dialog.open_select_dialog()
+				this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 			if (this.field == "ref_model")
-				this.$.Model_select_dialog.open_select_dialog()
+				this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 			if (this.field == "model_display")
-				this.$.Attribute_select_dialog.open_select_dialog()
+				this.$.Attribute_select_dialog.open_select_dialog(url_params().app_id)
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16950,7 +16952,7 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-select",
-		open_select_dialog: function() {
+		open_select_dialog: function(app) {
 			this.$.filtro.value = ""
 			this.$.ajax.url= config_server() +"Model"
 			var db = new loki()
@@ -17021,7 +17023,7 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-select",
-		open_select_dialog: function() {
+		open_select_dialog: function(app) {
 			this.$.filtro.value = ""
 			this.$.ajax.url= config_server() +"Model"
 			var db = new loki()
@@ -17092,7 +17094,7 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Attribute-select",
-		open_select_dialog: function() {
+		open_select_dialog: function(app) {
 			this.$.filtro.value = ""
 			this.$.ajax.url= config_server() +"Attribute"
 			var db = new loki()
@@ -17480,6 +17482,9 @@ Polymer({
 		this.$.op.value = '$eq'
 		//this.$.filtro.value = this.model_par.model
 		this.$.filtro.value = url_params().model
+		this.app = {}
+		this.app.id = url_params().app_id
+		this.app.name = url_params().app
 		this.model_par = {}
 		this.model_par.id = url_params().model_id
 		this.model_par.name = url_params().model
@@ -17595,17 +17600,17 @@ Polymer({
 		  if (this.$[filter].value == "model_name"){
 			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Model_select_dialog.style.left = "-100px"
-			this.$.Model_select_dialog.open_select_dialog()
+			this.$.Model_select_dialog.open_select_dialog(this.app)
 		  }
 		  if (this.$[filter].value == "ref_model_name"){
 			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Model_select_dialog.style.left = "-100px"
-			this.$.Model_select_dialog.open_select_dialog()
+			this.$.Model_select_dialog.open_select_dialog(this.app)
 		  }
 		  if (this.$[filter].value == "model_display_name"){
 			this.$.Attribute_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Attribute_select_dialog.style.left = "-100px"
-			this.$.Attribute_select_dialog.open_select_dialog()
+			this.$.Attribute_select_dialog.open_select_dialog(this.app)
 		  }
 		}
 	},
