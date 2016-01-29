@@ -14,6 +14,7 @@ module.exports = {
 			//.exec(function(err, data){
 				var model_id = req.param('model_id')
 				Attribute.find({'model':model_id})
+				 .populate('ref_model')
 				 .exec(function(err, attrs) {
 					res.locals.resources = req.session.resources
 					res.locals.user = {user: req.session.user, name: req.session.username}
