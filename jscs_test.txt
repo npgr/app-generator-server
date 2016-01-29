@@ -1,0 +1,399 @@
+Invalid line break at generate.js :
+     1 |//var colors = require('colors');
+-----------------------------------------^
+     2 |var fs = require('fs')
+     3 |var jsonic = require('jsonic')
+
+Missing semicolon after statement at generate.js :
+     1 |//var colors = require('colors');
+     2 |var fs = require('fs')
+------------------------------^
+     3 |var jsonic = require('jsonic')
+     4 |//var format = require('string-template')
+
+Missing semicolon after statement at generate.js :
+     1 |//var colors = require('colors');
+     2 |var fs = require('fs')
+     3 |var jsonic = require('jsonic')
+--------------------------------------^
+     4 |//var format = require('string-template')
+     5 |var crud1 = require('./templates/crud1')
+
+Line comments must be preceded with a blank line at generate.js :
+     1 |//var colors = require('colors');
+     2 |var fs = require('fs')
+     3 |var jsonic = require('jsonic')
+--------------------------------------^
+     4 |//var format = require('string-template')
+     5 |var crud1 = require('./templates/crud1')
+
+Missing semicolon after statement at generate.js :
+     3 |var jsonic = require('jsonic')
+     4 |//var format = require('string-template')
+     5 |var crud1 = require('./templates/crud1')
+------------------------------------------------^
+     6 |var crud2 = require('./templates/crud2')
+     7 |var crud3 = require('./templates/crud3')
+
+Missing semicolon after statement at generate.js :
+     4 |//var format = require('string-template')
+     5 |var crud1 = require('./templates/crud1')
+     6 |var crud2 = require('./templates/crud2')
+------------------------------------------------^
+     7 |var crud3 = require('./templates/crud3')
+     8 |var crud4 = require('./templates/crud4')
+
+Missing semicolon after statement at generate.js :
+     5 |var crud1 = require('./templates/crud1')
+     6 |var crud2 = require('./templates/crud2')
+     7 |var crud3 = require('./templates/crud3')
+------------------------------------------------^
+     8 |var crud4 = require('./templates/crud4')
+     9 |//var crud5 = require('./templates/crud5/crud5')
+
+Missing semicolon after statement at generate.js :
+     6 |var crud2 = require('./templates/crud2')
+     7 |var crud3 = require('./templates/crud3')
+     8 |var crud4 = require('./templates/crud4')
+------------------------------------------------^
+     9 |//var crud5 = require('./templates/crud5/crud5')
+    10 |var crud5 = require('crud5')
+
+Line comments must be preceded with a blank line at generate.js :
+     6 |var crud2 = require('./templates/crud2')
+     7 |var crud3 = require('./templates/crud3')
+     8 |var crud4 = require('./templates/crud4')
+------------------------------------------------^
+     9 |//var crud5 = require('./templates/crud5/crud5')
+    10 |var crud5 = require('crud5')
+
+Missing semicolon after statement at generate.js :
+     8 |var crud4 = require('./templates/crud4')
+     9 |//var crud5 = require('./templates/crud5/crud5')
+    10 |var crud5 = require('crud5')
+------------------------------------^
+    11 |
+    12 |option = process.argv[2]
+
+Missing semicolon after statement at generate.js :
+    10 |var crud5 = require('crud5')
+    11 |
+    12 |option = process.argv[2]
+--------------------------------^
+    13 |
+    14 |switch(option) {
+
+One space required after "switch" keyword at generate.js :
+    12 |option = process.argv[2]
+    13 |
+    14 |switch(option) {
+--------------^
+    15 | case '?':
+    16 |        console.log('arguments for this commando are: ')
+
+Expected indentation of 2 characters at generate.js :
+    13 |
+    14 |switch(option) {
+    15 | case '?':
+----------^
+    16 |        console.log('arguments for this commando are: ')
+    17 |        break;
+
+Expected indentation of 4 characters at generate.js :
+    14 |switch(option) {
+    15 | case '?':
+    16 |        console.log('arguments for this commando are: ')
+------------^
+    17 |        break;
+    18 |    case 'crud1':
+
+Missing semicolon after statement at generate.js :
+    14 |switch(option) {
+    15 | case '?':
+    16 |        console.log('arguments for this commando are: ')
+----------------------------------------------------------------^
+    17 |        break;
+    18 |    case 'crud1':
+
+Expected indentation of 4 characters at generate.js :
+    15 | case '?':
+    16 |        console.log('arguments for this commando are: ')
+    17 |        break;
+------------^
+    18 |    case 'crud1':
+    19 |  //node generate crud1 Matheads
+
+Expected indentation of 2 characters at generate.js :
+    16 |        console.log('arguments for this commando are: ')
+    17 |        break;
+    18 |    case 'crud1':
+----------^
+    19 |  //node generate crud1 Matheads
+    20 |        crud(1)
+
+Line comments must be preceded with a blank line at generate.js :
+    16 |        console.log('arguments for this commando are: ')
+    17 |        break;
+    18 |    case 'crud1':
+-------------------------^
+    19 |  //node generate crud1 Matheads
+    20 |        crud(1)
+
+Expected indentation of 4 characters at generate.js :
+    17 |        break;
+    18 |    case 'crud1':
+    19 |  //node generate crud1 Matheads
+------------^
+    20 |        crud(1)
+    21 |        break;
+
+Expected indentation of 4 characters at generate.js :
+    18 |    case 'crud1':
+    19 |  //node generate crud1 Matheads
+    20 |        crud(1)
+------------^
+    21 |        break;
+    22 | case 'crud2':
+
+Missing semicolon after statement at generate.js :
+    18 |    case 'crud1':
+    19 |  //node generate crud1 Matheads
+    20 |        crud(1)
+-----------------------^
+    21 |        break;
+    22 | case 'crud2':
+
+Expected indentation of 4 characters at generate.js :
+    19 |  //node generate crud1 Matheads
+    20 |        crud(1)
+    21 |        break;
+------------^
+    22 | case 'crud2':
+    23 |        crud(2)
+
+Expected indentation of 2 characters at generate.js :
+    20 |        crud(1)
+    21 |        break;
+    22 | case 'crud2':
+----------^
+    23 |        crud(2)
+    24 |        break;
+
+Expected indentation of 4 characters at generate.js :
+    21 |        break;
+    22 | case 'crud2':
+    23 |        crud(2)
+------------^
+    24 |        break;
+    25 | case 'crud3':
+
+Missing semicolon after statement at generate.js :
+    21 |        break;
+    22 | case 'crud2':
+    23 |        crud(2)
+-----------------------^
+    24 |        break;
+    25 | case 'crud3':
+
+Expected indentation of 4 characters at generate.js :
+    22 | case 'crud2':
+    23 |        crud(2)
+    24 |        break;
+------------^
+    25 | case 'crud3':
+    26 |        crud(3)
+
+Expected indentation of 2 characters at generate.js :
+    23 |        crud(2)
+    24 |        break;
+    25 | case 'crud3':
+----------^
+    26 |        crud(3)
+    27 |        break;
+
+Expected indentation of 4 characters at generate.js :
+    24 |        break;
+    25 | case 'crud3':
+    26 |        crud(3)
+------------^
+    27 |        break;
+    28 | case 'crud4':
+
+Missing semicolon after statement at generate.js :
+    24 |        break;
+    25 | case 'crud3':
+    26 |        crud(3)
+-----------------------^
+    27 |        break;
+    28 | case 'crud4':
+
+Expected indentation of 4 characters at generate.js :
+    25 | case 'crud3':
+    26 |        crud(3)
+    27 |        break;
+------------^
+    28 | case 'crud4':
+    29 |  crud(4)
+
+Expected indentation of 2 characters at generate.js :
+    26 |        crud(3)
+    27 |        break;
+    28 | case 'crud4':
+----------^
+    29 |  crud(4)
+    30 |  break;
+
+Expected indentation of 4 characters at generate.js :
+    27 |        break;
+    28 | case 'crud4':
+    29 |  crud(4)
+------------^
+    30 |  break;
+    31 | case 'crud5': // Client Side
+
+Missing semicolon after statement at generate.js :
+    27 |        break;
+    28 | case 'crud4':
+    29 |  crud(4)
+-----------------^
+    30 |  break;
+    31 | case 'crud5': // Client Side
+
+Expected indentation of 4 characters at generate.js :
+    28 | case 'crud4':
+    29 |  crud(4)
+    30 |  break;
+------------^
+    31 | case 'crud5': // Client Side
+    32 |  crud(5)
+
+Expected indentation of 2 characters at generate.js :
+    29 |  crud(4)
+    30 |  break;
+    31 | case 'crud5': // Client Side
+----------^
+    32 |  crud(5)
+    33 |  break;
+
+Expected indentation of 4 characters at generate.js :
+    30 |  break;
+    31 | case 'crud5': // Client Side
+    32 |  crud(5)
+------------^
+    33 |  break;
+    34 | case 'crud6': // Server Side - i18n
+
+Missing semicolon after statement at generate.js :
+    30 |  break;
+    31 | case 'crud5': // Client Side
+    32 |  crud(5)
+-----------------^
+    33 |  break;
+    34 | case 'crud6': // Server Side - i18n
+
+Expected indentation of 4 characters at generate.js :
+    31 | case 'crud5': // Client Side
+    32 |  crud(5)
+    33 |  break;
+------------^
+    34 | case 'crud6': // Server Side - i18n
+    35 |  crud(6)
+
+Expected indentation of 2 characters at generate.js :
+    32 |  crud(5)
+    33 |  break;
+    34 | case 'crud6': // Server Side - i18n
+----------^
+    35 |  crud(6)
+    36 |  break;
+
+Expected indentation of 4 characters at generate.js :
+    33 |  break;
+    34 | case 'crud6': // Server Side - i18n
+    35 |  crud(6)
+------------^
+    36 |  break;
+    37 |    default:
+
+Missing semicolon after statement at generate.js :
+    33 |  break;
+    34 | case 'crud6': // Server Side - i18n
+    35 |  crud(6)
+-----------------^
+    36 |  break;
+    37 |    default:
+
+Expected indentation of 4 characters at generate.js :
+    34 | case 'crud6': // Server Side - i18n
+    35 |  crud(6)
+    36 |  break;
+------------^
+    37 |    default:
+    38 |        console.log('arguments for this commando are: ')
+
+Expected indentation of 2 characters at generate.js :
+    35 |  crud(6)
+    36 |  break;
+    37 |    default:
+----------^
+    38 |        console.log('arguments for this commando are: ')
+    39 |}
+
+Expected indentation of 4 characters at generate.js :
+    36 |  break;
+    37 |    default:
+    38 |        console.log('arguments for this commando are: ')
+------------^
+    39 |}
+    40 |
+
+Missing semicolon after statement at generate.js :
+    36 |  break;
+    37 |    default:
+    38 |        console.log('arguments for this commando are: ')
+----------------------------------------------------------------^
+    39 |}
+    40 |
+
+All identifiers must be camelCase or UPPER_CASE at generate.js :
+    39 |}
+    40 |
+    41 |function get_model_par() {
+-----------------^
+    42 | if (process.argv[3])
+    43 |  return process.argv[3]
+
+Expected indentation of 2 characters at generate.js :
+    40 |
+    41 |function get_model_par() {
+    42 | if (process.argv[3])
+----------^
+    43 |  return process.argv[3]
+    44 | else {
+
+Missing semicolon after statement at generate.js :
+    41 |function get_model_par() {
+    42 | if (process.argv[3])
+    43 |  return process.argv[3]
+--------------------------------^
+    44 | else {
+    45 |  console.log('Missing Model Name')
+
+Expected indentation of 2 characters at generate.js :
+    42 | if (process.argv[3])
+    43 |  return process.argv[3]
+    44 | else {
+----------^
+    45 |  console.log('Missing Model Name')
+    46 |  return false
+
+Expected indentation of 4 characters at generate.js :
+    43 |  return process.argv[3]
+    44 | else {
+    45 |  console.log('Missing Model Name')
+------------^
+    46 |  return false
+    47 | }
+
+
+50 code style errors found.
