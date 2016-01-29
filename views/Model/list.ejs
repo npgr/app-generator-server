@@ -15807,7 +15807,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
-				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key=0 on-click="select_field" readonly></td>
+				<td></iron-icon><input id="app" type="text" name="app" key=0 disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
@@ -15833,8 +15833,10 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-new",
-		open_dialog: function() {
+		open_dialog: function(app) {
 			this.clear()
+			this.$.app.value = app.name
+			this.$.app.key = app.id
 			this.$.dialog.open()
 		},
 		clear: function() {
@@ -15923,7 +15925,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="title"><%= lng('Title')%><strong class="red"> *</strong></label></td>
@@ -16246,6 +16248,9 @@ Polymer({
 		this.input_type()
 		this.$.op.value = '$eq'
 		this.$.filtro.value = url_params().app
+		this.app = {}
+		this.app.id = url_params().app_id
+		this.app.name = url_params().app
 		this.filter()
 		this.show_columns()
 //END USER POINT - List End Ready
@@ -16358,6 +16363,9 @@ Polymer({
 	},
 	set_select_field: function(e) {
 		this.$[this.field].value = this.$[e.srcElement.id].item.name
+		this.app.name = this.$[e.srcElement.id].item.name
+		this.app.id = this.$[e.srcElement.id].item.key
+		console.log('app selected: ', this.app)
 	},
 	set_filter: function() {
 		if (localStorage["Model-list-filter"])
@@ -16585,8 +16593,8 @@ Polymer({
 	this.$.Model_edit_dialog.open_dialog(item)
   },
   new: function() {
-
-	this.$.Model_new_dialog.open_dialog()
+	console.log('filtro', this.$.filtro.value)
+	this.$.Model_new_dialog.open_dialog(this.app)
   },
   reload: function() {
 	this.$.ajax.generateRequest()
@@ -16628,7 +16636,7 @@ Polymer({
 	var rs = this.data.find({id: this.key})[0]
 	//var post_data = {id: this.key, model: rs.name, app: rs.app}
 	//post(config_server() + "Attribute/list", post_data, 'post')
-	location.href = config_server() + "Attribute/list?model="+rs.name
+	location.href = config_server() + "Attribute/list?model="+rs.name + '&model_id=' + rs.id
   },
   generate: function() {
 	this.$.menu_dialog.close()

@@ -16014,7 +16014,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key=0 on-click="select_field" readonly></td>
+				<td><iron-icon icon="find-in-page" field="model"></iron-icon><input id="model" type="text" name="model" key=0 disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="attribute"><%= lng('Attribute')%><strong class="red"> *</strong></label></td>
@@ -16165,8 +16165,10 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Attribute-new",
-		open_dialog: function() {
+		open_dialog: function(model) {
 			this.clear()
+			this.$.model.value = model.name
+			this.$.model.key = model.id
 			this.$.dialog.open()
 		},
 		clear: function() {
@@ -16481,7 +16483,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
+				<td><iron-icon icon="find-in-page" field="model"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="attribute"><%= lng('Attribute')%><strong class="red"> *</strong></label></td>
@@ -17478,6 +17480,9 @@ Polymer({
 		this.$.op.value = '$eq'
 		//this.$.filtro.value = this.model_par.model
 		this.$.filtro.value = url_params().model
+		this.model_par = {}
+		this.model_par.id = url_params().model_id
+		this.model_par.name = url_params().model
 		this.filter()
 		this.show_columns()
 //END USER POINT - List End Ready
@@ -17606,6 +17611,8 @@ Polymer({
 	},
 	set_select_field: function(e) {
 		this.$[this.field].value = this.$[e.srcElement.id].item.name
+		this.model_par.name = this.$[e.srcElement.id].item.name
+		this.model_par.id = this.$[e.srcElement.id].item.key	
 	},
 	set_filter: function() {
 		if (localStorage["Attribute-list-filter"])
@@ -17874,7 +17881,7 @@ Polymer({
 	//var webContents = win.webContents;
 	//webContents.goBack()
 	
-	this.$.Attribute_new_dialog.open_dialog()
+	this.$.Attribute_new_dialog.open_dialog(this.model_par)
   },
   reload: function() {
 	this.$.ajax.generateRequest()
