@@ -16629,14 +16629,14 @@ Polymer({
 	var rs = this.data.find({id: this.key})[0]
 	//var post_data = {id: this.key, model: rs.name}
 	//this.post(config_server() + "ModelFunction/list", post_data, 'post')
-	location.href = config_server() + "ModelFunction/list?app="+rs.app_id+"&model="+ rs.name+"&model_id="+ rs.id
+	location.href = config_server() + "ModelFunction/list?app=" + rs.app_id + "&model=" + rs.name + "&model_id=" + rs.id
   },
   attributes: function() {
 	this.$.menu_dialog.close()
 	var rs = this.data.find({id: this.key})[0]
 	//var post_data = {id: this.key, model: rs.name, app: rs.app}
 	//post(config_server() + "Attribute/list", post_data, 'post')
-	location.href = config_server() + "Attribute/list?model="+rs.name + '&model_id=' + rs.id + '&app=' + this.app.name + '&app_id='+this.app.id
+	location.href = config_server() + "Attribute/list?model="+rs.name + "&model_id=" + rs.id + "&app=" + this.app.name + "&app_id="+this.app.id
   },
   generate: function() {
 	this.$.menu_dialog.close()

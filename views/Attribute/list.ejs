@@ -15998,7 +15998,6 @@ paper-menu {
 	<iron-ajax id="ajax2" method="POST" handle-as="json" on-response="record_created" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
 		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 		<Attribute-select id="Attribute_select_dialog" on-item_selected="set_select_field"></Attribute-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("Atributo"))%></h2>
 		<paper-dialog-scrollable>
@@ -16197,13 +16196,11 @@ paper-menu {
 		select_field: function(e) {
 			this.field = e.toElement.id
 			if (this.field == "model")
-				//x43
-				this.$.Model_select_dialog.open_select_dialog()
+				this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 			if (this.field == "ref_model")
-				//
-				this.$.Model_select_dialog.open_select_dialog()
+				this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 			if (this.field == "model_display")
-				this.$.Attribute_select_dialog.open_select_dialog()
+				this.$.Attribute_select_dialog.open_select_dialog(url_params().model_id)
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16468,7 +16465,6 @@ paper-menu {
 <template>
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 		<Attribute-select id="Attribute_select_dialog" on-item_selected="set_select_field"></Attribute-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Atributo"))%></h2>
@@ -16925,7 +16921,6 @@ paper-menu {
 </script>
 </dom-module>
 
-
 <!-- select-model: version 5.10 -->
  <% 
  function lng(word) {
@@ -16952,9 +16947,9 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-select",
-		open_select_dialog: function(app) {
+		open_select_dialog: function(app_id) {
 			this.$.filtro.value = ""
-			this.$.ajax.url= config_server() +"Model"
+			this.$.ajax.url= config_server() +"Model?app="+app_id
 			var db = new loki()
 			this.data = db.addCollection("data_Model")
 			this.filtered_data = []
@@ -17023,9 +17018,9 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Model-select",
-		open_select_dialog: function(app) {
+		open_select_dialog: function(app_id) {
 			this.$.filtro.value = ""
-			this.$.ajax.url= config_server() +"Model"
+			this.$.ajax.url= config_server() +"Model?app="+app_id
 			var db = new loki()
 			this.data = db.addCollection("data_Model")
 			this.filtered_data = []
@@ -17150,7 +17145,6 @@ paper-menu {
 	<Attribute-display id="Attribute_display_dialog"></Attribute-display>
 	<Attribute-edit id="Attribute_edit_dialog" on-close="reload"></Attribute-edit>
 	<Attribute-delete id="Attribute_delete_dialog" on-close="reload"></Attribute-delete>
-	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
 	<Attribute-select id="Attribute_select_dialog" on-item_selected="set_select_field"></Attribute-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Atributo"))%></div>-->
@@ -17482,9 +17476,6 @@ Polymer({
 		this.$.op.value = '$eq'
 		//this.$.filtro.value = this.model_par.model
 		this.$.filtro.value = url_params().model
-		this.app = {}
-		this.app.id = url_params().app_id
-		this.app.name = url_params().app
 		this.model_par = {}
 		this.model_par.id = url_params().model_id
 		this.model_par.name = url_params().model
@@ -17600,17 +17591,17 @@ Polymer({
 		  if (this.$[filter].value == "model_name"){
 			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Model_select_dialog.style.left = "-100px"
-			this.$.Model_select_dialog.open_select_dialog(this.app)
+			this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 		  }
 		  if (this.$[filter].value == "ref_model_name"){
 			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Model_select_dialog.style.left = "-100px"
-			this.$.Model_select_dialog.open_select_dialog(this.app)
+			this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 		  }
 		  if (this.$[filter].value == "model_display_name"){
 			this.$.Attribute_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
 			//this.$.Attribute_select_dialog.style.left = "-100px"
-			this.$.Attribute_select_dialog.open_select_dialog(this.app)
+			this.$.Attribute_select_dialog.open_select_dialog(url_params().model_id)
 		  }
 		}
 	},
