@@ -19,13 +19,14 @@ module.exports = {
 		unique: true,
 		autoIncrement: true
 	},
-	model: {
-		//description: 'Model',
+	mfunction: {
+		//description: 'Function',
 		//key: id,
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
-		model: 'Model'
+		//hide: true,
+		model: 'ModelFunction'
 	},
 	new: {
 		//description: 'New',

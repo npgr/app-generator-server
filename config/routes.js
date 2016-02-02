@@ -47,6 +47,7 @@ module.exports.routes = {
   ***************************************************************************/
   "/App/list": "AppController.list",
   "/Model/exist/:model": "ModelController.exist",
+  "post /Model": "ModelController.create",
   "post /Model/list": "ModelController.list",
   "post /ModelFunction/list": "ModelFunctionController.list",
   "post /ModelFunction/generate": "ModelFunctionController.generate",

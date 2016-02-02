@@ -15823,6 +15823,10 @@ paper-menu {
 				<td><div id="model_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
+				<td><div id="name" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
 				<td><div id="type" on-click="change_field"></div></td>
 			</tr>
@@ -15849,6 +15853,7 @@ paper-menu {
 			this.show_field("id")
 			this.show_field("app_name")
 			this.show_field("model_name")
+			this.show_field("name")
 			this.show_field("type")
 			this.$.dialog.open()
 		},
@@ -15880,10 +15885,6 @@ paper-menu {
 </script>
 </dom-module>
 
-
-
-
-
 <!-- edit-form: version 5.10 -->
 
 <dom-module id="ModelFunction-edit">
@@ -15907,6 +15908,10 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
 				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%><strong class="red"> *</strong></label></td>
@@ -15970,6 +15975,7 @@ paper-menu {
 			record.id = Number(this.$.id.value)
 			record.app = this.$.app.key
 			record.model = this.$.model.key
+			record.name = this.$.name.value
 			record.type = this.$.type.value
 			this.$.ajax.url = config_server() + "ModelFunction/" +record.id
 			this.$.ajax.params = record
@@ -15988,13 +15994,17 @@ paper-menu {
 </script>
 </dom-module>
 
+
 <!-- edit-form: version 5.10 -->
 
 <dom-module id="FunctionList-edit">
 <template>
+	<!-- FunctionList Update -->
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<!-- ModelFunction Update -->
+	<iron-ajax id="ajax2" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax2_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
+		<!--<ModelFunction-select id="ModelFunction_select_dialog" on-item_selected="set_select_field"></ModelFunction-select>-->
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("FunctionList"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
@@ -16003,9 +16013,13 @@ paper-menu {
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
+			<tr class="hide">
+				<td><label class="left_label" for="mfunction"><%= lng('Function')%></label></td>
+				<td><iron-icon icon="find-in-page" field="mfunction" on-click="select_field_b"></iron-icon><input id="mfunction" type="text" name="mfunction" key={{item.mfunction_id}} value="{{item.mfunction_name}}" on-click="select_field" readonly></td>
+			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" disabled></td>
+				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16091,6 +16105,7 @@ paper-menu {
 	Polymer({
 		is: "FunctionList-edit",
 		open_dialog: function(item) {
+			this.count = 0
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
@@ -16108,11 +16123,11 @@ paper-menu {
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
 		},
-		select_field: function(e) {
+		/*select_field: function(e) {
 			this.field = e.toElement.id
-			if (this.field == "model")
-				this.$.Model_select_dialog.open_select_dialog()
-		},
+			if (this.field == "mfunction")
+				this.$.ModelFunction_select_dialog.open_select_dialog()
+		},*/
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
@@ -16123,7 +16138,7 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
-			record.model = this.$.model.key
+			record.mfunction = this.$.mfunction.key
 			record.new = this.$.new.value
 			record.display = this.$.display.value
 			record.edit = this.$.edit.value
@@ -16138,15 +16153,32 @@ paper-menu {
 			this.$.ajax.url = config_server() + "FunctionList/" +record.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
+			//Update name in Model Function
+			var record2 = 
+			{	
+				id: Number(record.mfunction),
+				name: this.$.name.value	
+			}
+			this.$.ajax2.url = config_server() + "ModelFunction/" +record2.id
+			this.$.ajax2.params = record2
+			this.$.ajax2.generateRequest()
 		},
 		record_updated: function() {
-			alert("<%= lng('Record Updated')%>")
-			this.$.dialog.close()
-			this.fire('close')
+			this.count++
+			if (this.count == 2)
+			{
+				alert("<%= lng('Record Updated')%>")
+				this.$.dialog.close()
+				this.fire('close')
+			}
 		},
 		ajax_error: function() {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		},
+		ajax2_error: function() {
+			console.log(this.$.ajax2.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax2.lastError)
 		}
 	})
 </script>
@@ -16316,7 +16348,8 @@ paper-menu {
 	<select id="filter" on-change="input_type" disabled>  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
 		<option value="app_name"><%= lng('App')%></option>
-		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Type')%>
+		<option value="model_name"><%= lng('Model')%></option>  <%= lng('Name')%>
+		<option value="name"><%= lng('Name')%></option>  <%= lng('Type')%>
 		<option value="type"><%= lng('Type')%></option>
 	</select>
 	<select id="op" disabled>
@@ -16351,6 +16384,7 @@ paper-menu {
 		<option value="id"><%= lng('Id')%></option>
 		<option value="app_name"><%= lng('App')%></option>
 		<option value="model_name"><%= lng('Model')%></option>
+		<option value="name"><%= lng('Name')%></option>
 		<option value="type"><%= lng('Type')%></option>
 	</select>
 	<select id="op2" class="hide" >   
@@ -16385,6 +16419,8 @@ paper-menu {
 			<iron-icon id="app_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_model_name" on-click="sort_by_field"><%= lng('Model')%><div id="model_name_sort_d" class="hide">
 			<iron-icon id="model_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
+			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_type" on-click="sort_by_field"><%= lng('Type')%><div id="type_sort_d" class="hide">
 			<iron-icon id="type_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
@@ -16395,6 +16431,7 @@ paper-menu {
 		<td class="col_id"></td>
 		<td class="col_app_name"></td>
 		<td class="col_model_name"></td>
+		<td class="col_name"></td>
 		<td class="col_type"></td>
 	</tr>
 	</tfoot>-->
@@ -16407,6 +16444,7 @@ paper-menu {
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
 		<template is="dom-if" if="{{column.app_name}}"><td>{{item.app_name}}</td></template>
 		<template is="dom-if" if="{{column.model_name}}"><td>{{item.model_name}}</td></template>
+		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
 		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
 	</tr>
 	</template>
@@ -16439,9 +16477,10 @@ Polymer({
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
 				{column: "app_id", type: "integer", model: "App", display: false},
-				{column: "app_name", type: "string", model: "App", display: true},
+				{column: "app_name", type: "string", model: "App", display: false},
 				{column: "model_id", type: "integer", model: "Model", display: false},
 				{column: "model_name", type: "string", model: "Model", display: true},
+				{column: "name", type: "string", display: true},
 				{column: "type", enum: ["list","display","edit","new","delete","columns","download","print","ga","https","relic","pingdom"], enumdes: ["<%= lng("List")%>","<%= lng("Display")%>","<%= lng("Edit")%>","<%= lng("New")%>","<%= lng("Delete")%>","<%= lng("Columns")%>","<%= lng("Download")%>","<%= lng("Print")%>","<%= lng("Analytics")%>","<%= lng("Https")%>","<%= lng("NewRelic")%>","<%= lng("pingdom")%>"], display: true}
 		]
 		this.enums = {}
@@ -16696,6 +16735,7 @@ Polymer({
 		this.$.id_sort_d.classList.add("hide")
 		this.$.app_name_sort_d.classList.add("hide")
 		this.$.model_name_sort_d.classList.add("hide")
+		this.$.name_sort_d.classList.add("hide")
 		this.$.type_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
@@ -16822,8 +16862,9 @@ Polymer({
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
 	//this.$.ModelFunction_edit_dialog.open_dialog(item)
-	item.list.model_id = item.model_id
-	item.list.model_name = item.model_name
+	item.list.mfunction_id = item.id
+	item.list.mfunction_name = item.name
+	item.list.name = item.name 
 	this.$.FunctionList_edit_dialog.open_dialog(item.list)
   },
   reload: function() {
@@ -16920,7 +16961,7 @@ Polymer({
 				alert('Function Type Does not recognized')
 		  }
 		else 
-			alert('No Attributes Found for model '+modelfunction.model.name, 'Generate Function')
+			alert('No Attributes Found for model '+mfunction.model.name, 'Generate Function')
 	}
 //END USER POINT - List Functions
 });

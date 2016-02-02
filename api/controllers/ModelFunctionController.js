@@ -45,7 +45,7 @@ module.exports = {
 			  .exec(function(err, funcs2) {
 				for (i=0; i < funcs.length; i++)
 				   for (j=0; j < funcs2.length; j++)
-					if (funcs[i].model.id == funcs2[j].model)
+					if (funcs[i].id == funcs2[j].mfunction)
 						funcs[i].list = funcs2[j]
 				return res.json(funcs)
 			})

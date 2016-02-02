@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  //migrate: 'alter',
+  migrate: 'alter',
 
   attributes: {
 	//_title: 'Model',
@@ -51,7 +51,7 @@ module.exports = {
 	}
 //End Attributes
   }
-  ,afterCreate: function (values, next) {
+  /*,afterCreate: function (values, next) {
 	errorx = function errorx(err, data) {
 		if (err) {
 			console.log('Error After Create Model: ', err)
@@ -59,27 +59,9 @@ module.exports = {
 		}
 		//res.redirect("<%= model%>/list")
 	}
-	var functionx = {model: values.id, type:'list'}
+	var functionx = {app: values.app, model: values.id, name: 'List '+values.name, type:'list'}
 	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, new: 'e', display: 'e', edit: 'e', delete: 'e', columns: 'e', print: 'e', download: 'e', ga: 'e', dialog_width: '30em', card_width: '86em', btn_left: '80px'}
-	FunctionList.create(functionx, errorx)
-	/*functionx = {model: values.id, name: values.name+'-new',type:'new', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-display',type:'display', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-edit',type:'edit', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-delete',type:'delete', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-columns',type:'columns', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-download',type:'download', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-print',type:'print', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)
-	functionx = {model: values.id, name: values.name+'-Google_Analytics',type:'ga', enable:true, width:'300px'}
-	ModelFunction.create(functionx, errorx)*/
 	next()
-  }
+  }*/
 };
 

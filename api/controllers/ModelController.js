@@ -25,6 +25,22 @@ module.exports = {
 				//res.locals.app = JSON.stringify(req.body)
 				res.view("Model/list")
 		//	})
+	},
+	create: function (req, res, next) {
+		//var xmodel = req.body
+		var xmodel = req.params.all();
+		Model.create(xmodel, function (err, created){
+			if (err) return next(err);
+			var functionx = {app: created.app, model: created.id, name: 'List '+created.name, type:'list'}
+			ModelFunction.create(functionx, function(err2, f_created) {
+				if (err2) return next(err2);
+				var functionList = {mfunction: f_created.id, new: 'e', display: 'e', edit: 'e', delete: 'e', columns: 'e', print: 'e', download: 'e', ga: 'e', dialog_width: '30em', card_width: '86em', btn_left: '80px'}
+				FunctionList.create(functionList, function(err3, fl_created) {
+					if (err3) return next(err3);
+					return res.json(created);
+				})
+			})
+		});
 	}
 };
 

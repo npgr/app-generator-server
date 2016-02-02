@@ -6,7 +6,7 @@
 */
 
 module.exports = {
-	//migrate: 'alter',
+	migrate: 'alter',
 	
   attributes: {
 	//_title: 'Funcion',
@@ -39,6 +39,11 @@ module.exports = {
 		//type: 'string',
 		model: 'Model'
 	},
+	name: {
+		//description: 'Name',
+		type: 'string',
+		required: true
+	},
 	type: {
 		//description: 'Type',
 		type: 'string',
@@ -47,7 +52,8 @@ module.exports = {
 		//,enumdes: ['List','Display','Edit','New','Delete','Columns', 'Download','Print','Analytics','Https','NewRelic','pingdom']
 	}
 //End Attributes
-	,toJSON: function () {
+	,toJSON: function () 
+	{
       var obj = this.toObject();
 	  delete obj.model.createdAt;
 	  delete obj.model.updatedAt;

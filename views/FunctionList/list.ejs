@@ -15815,8 +15815,8 @@ paper-menu {
 				<td><div id="id" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model_name"><%= lng('Model')%></label></td>
-				<td><div id="model_name" on-click="change_field"></div></td>
+				<td><label class="left_label" for="mfunction_name"><%= lng('Function')%></label></td>
+				<td><div id="mfunction_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -15883,7 +15883,7 @@ paper-menu {
 			this.updated= false,
 			this.column= column
 			this.show_field("id")
-			this.show_field("model_name")
+			this.show_field("mfunction_name")
 			this.show_field("new")
 			this.show_field("display")
 			this.show_field("edit")
@@ -15932,7 +15932,7 @@ paper-menu {
 	<iron-ajax id="ajax" handle-as="json" on-response="validate_record" on-error="ajax_error"></iron-ajax>
 	<iron-ajax id="ajax2" method="POST" handle-as="json" on-response="record_created" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
+		<ModelFunction-select id="ModelFunction_select_dialog" on-item_selected="set_select_field"></ModelFunction-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("FunctionList"))%></h2>
 		<paper-dialog-scrollable>
 		  <form id="form" action="javascript:void(0);" on-submit="create">
@@ -15942,8 +15942,8 @@ paper-menu {
 				<td><input id="id" type="number" name="id" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key=0 on-click="select_field" readonly></td>
+				<td><label class="left_label" for="mfunction"><%= lng('Function')%></label></td>
+				<td><iron-icon icon="find-in-page" field="mfunction" on-click="select_field_b"></iron-icon><input id="mfunction" type="text" name="mfunction" key=0 on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16035,8 +16035,8 @@ paper-menu {
 		},
 		clear: function() {
 			this.$.id.value = ''
-			this.$.model.value = ''
-			this.$.model.key = 0
+			this.$.mfunction.value = ''
+			this.$.mfunction.key = 0
 			this.$.dialog_width.value = ''
 			this.$.card_width.value = ''
 			this.$.btn_left.value = ''
@@ -16046,8 +16046,8 @@ paper-menu {
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
-			if (this.field == "model")
-				this.$.Model_select_dialog.open_select_dialog()
+			if (this.field == "mfunction")
+				this.$.ModelFunction_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16056,7 +16056,7 @@ paper-menu {
 		create: function() {
 			this.$.ajax2.url = config_server() + "FunctionList"
 			var record = {}
-			record.model = this.$.model.key
+			record.mfunction = this.$.mfunction.key
 			  record.new = this.$.new.value
 			  record.display = this.$.display.value
 			  record.edit = this.$.edit.value
@@ -16119,8 +16119,8 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><input id="model" type="text" name="model" value="{{item.model_name}}" disabled></td>
+				<td><label class="left_label" for="mfunction"><%= lng('Function')%></label></td>
+				<td><input id="mfunction" type="text" name="mfunction" value="{{item.mfunction_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16227,7 +16227,7 @@ paper-menu {
 <template>
 	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
+		<ModelFunction-select id="ModelFunction_select_dialog" on-item_selected="set_select_field"></ModelFunction-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("FunctionList"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
@@ -16237,8 +16237,8 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
+				<td><label class="left_label" for="mfunction"><%= lng('Function')%></label></td>
+				<td><iron-icon icon="find-in-page" field="mfunction" on-click="select_field_b"></iron-icon><input id="mfunction" type="text" name="mfunction" key={{item.mfunction_id}} value="{{item.mfunction_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16343,8 +16343,8 @@ paper-menu {
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
-			if (this.field == "model")
-				this.$.Model_select_dialog.open_select_dialog()
+			if (this.field == "mfunction")
+				this.$.ModelFunction_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16356,7 +16356,7 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
-			record.model = this.$.model.key
+			record.mfunction = this.$.mfunction.key
 			record.new = this.$.new.value
 			record.display = this.$.display.value
 			record.edit = this.$.edit.value
@@ -16400,8 +16400,8 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
-				<td><input id="model" type="text" name="model" value="{{item.model_name}}" disabled></td>
+				<td><label class="left_label" for="mfunction"><%= lng('Function')%></label></td>
+				<td><input id="mfunction" type="text" name="mfunction" value="{{item.mfunction_name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="new"><%= lng('New')%></label></td>
@@ -16532,12 +16532,12 @@ paper-menu {
  }
 %>  
 
-<dom-module id="Model-select">
+<dom-module id="ModelFunction-select">
 <template>
 	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" vertical layout>
 		<iron-icon icon="close" on-click="close" mini></iron-icon>  
-		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Model')%>..."></div>
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Function')%>..."></div>
 		<paper-dialog-scrollable>
 		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
 			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
@@ -16547,12 +16547,12 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Model-select",
+		is: "ModelFunction-select",
 		open_select_dialog: function() {
 			this.$.filtro.value = ""
-			this.$.ajax.url= config_server() +"Model"
+			this.$.ajax.url= config_server() +"ModelFunction"
 			var db = new loki()
-			this.data = db.addCollection("data_Model")
+			this.data = db.addCollection("data_ModelFunction")
 			this.filtered_data = []
 			this.load_data()
 			this.tipo="string" //filter type
@@ -16604,13 +16604,13 @@ paper-menu {
 	<FunctionList-display id="FunctionList_display_dialog"></FunctionList-display>
 	<FunctionList-edit id="FunctionList_edit_dialog" on-close="reload"></FunctionList-edit>
 	<FunctionList-delete id="FunctionList_delete_dialog" on-close="reload"></FunctionList-delete>
-	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
+	<ModelFunction-select id="ModelFunction_select_dialog" on-item_selected="set_select_field"></ModelFunction-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("FunctionList"))%></div>-->
 <!--USER POINT - List Header-->
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
-		<option value="model_name"><%= lng('Model')%></option>  <%= lng('New')%>
+		<option value="mfunction_name"><%= lng('Function')%></option>  <%= lng('New')%>
 		<option value="new"><%= lng('New')%></option>  <%= lng('Display')%>
 		<option value="display"><%= lng('Display')%></option>  <%= lng('Edit')%>
 		<option value="edit"><%= lng('Edit')%></option>  <%= lng('Delete')%>
@@ -16654,7 +16654,7 @@ paper-menu {
 	<br>
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
-		<option value="model_name"><%= lng('Model')%></option>
+		<option value="mfunction_name"><%= lng('Function')%></option>
 		<option value="new"><%= lng('New')%></option>
 		<option value="display"><%= lng('Display')%></option>
 		<option value="edit"><%= lng('Edit')%></option>
@@ -16696,8 +16696,8 @@ paper-menu {
 		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
 		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_model_name" on-click="sort_by_field"><%= lng('Model')%><div id="model_name_sort_d" class="hide">
-			<iron-icon id="model_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_mfunction_name" on-click="sort_by_field"><%= lng('Function')%><div id="mfunction_name_sort_d" class="hide">
+			<iron-icon id="mfunction_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_new" on-click="sort_by_field"><%= lng('New')%><div id="new_sort_d" class="hide">
 			<iron-icon id="new_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_display" on-click="sort_by_field"><%= lng('Display')%><div id="display_sort_d" class="hide">
@@ -16726,7 +16726,7 @@ paper-menu {
 	<tr>
 		<td class="ops"></td>
 		<td class="col_id"></td>
-		<td class="col_model_name"></td>
+		<td class="col_mfunction_name"></td>
 		<td class="col_new"></td>
 		<td class="col_display"></td>
 		<td class="col_edit"></td>
@@ -16747,7 +16747,7 @@ paper-menu {
 			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
-		<template is="dom-if" if="{{column.model_name}}"><td>{{item.model_name}}</td></template>
+		<template is="dom-if" if="{{column.mfunction_name}}"><td>{{item.mfunction_name}}</td></template>
 		<template is="dom-if" if="{{column.new}}"><td>{{item.new_des}}</td></template>
 		<template is="dom-if" if="{{column.display}}"><td>{{item.display_des}}</td></template>
 		<template is="dom-if" if="{{column.edit}}"><td>{{item.edit_des}}</td></template>
@@ -16785,8 +16785,8 @@ Polymer({
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
-				{column: "model_id", type: "integer", model: "Model", display: false},
-				{column: "model_name", type: "string", model: "Model", display: true},
+				{column: "mfunction_id", type: "integer", model: "ModelFunction", display: false},
+				{column: "mfunction_name", type: "string", model: "ModelFunction", display: false},
 				{column: "new", enum: ["e","d"], enumdes: ["<%= lng("Enabled")%>","<%= lng("Disabled")%>"], display: true},
 				{column: "display", enum: ["e","d"], enumdes: ["<%= lng("Enabled")%>","<%= lng("Disabled")%>"], display: true},
 				{column: "edit", enum: ["e","d"], enumdes: ["<%= lng("Enabled")%>","<%= lng("Disabled")%>"], display: true},
@@ -16939,10 +16939,10 @@ Polymer({
 		}
 		if (filter != "")
 		{
-		  if (this.$[filter].value == "model_name"){
-			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
-			//this.$.Model_select_dialog.style.left = "-100px"
-			this.$.Model_select_dialog.open_select_dialog()
+		  if (this.$[filter].value == "mfunction_name"){
+			this.$.ModelFunction_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.ModelFunction_select_dialog.style.left = "-100px"
+			this.$.ModelFunction_select_dialog.open_select_dialog()
 		  }
 		}
 	},
@@ -17045,7 +17045,7 @@ Polymer({
 	},
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
-		this.$.model_name_sort_d.classList.add("hide")
+		this.$.mfunction_name_sort_d.classList.add("hide")
 		this.$.new_sort_d.classList.add("hide")
 		this.$.display_sort_d.classList.add("hide")
 		this.$.edit_sort_d.classList.add("hide")
@@ -17211,13 +17211,13 @@ Polymer({
       }
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
 	{
-		if (this.$.ajax.lastResponse[i].model){
-			this.$.ajax.lastResponse[i].model_id = this.$.ajax.lastResponse[i].model.id
-			this.$.ajax.lastResponse[i].model_name = this.$.ajax.lastResponse[i].model.name
+		if (this.$.ajax.lastResponse[i].mfunction){
+			this.$.ajax.lastResponse[i].mfunction_id = this.$.ajax.lastResponse[i].mfunction.id
+			this.$.ajax.lastResponse[i].mfunction_name = this.$.ajax.lastResponse[i].mfunction.name
 		} else
 		{
-			this.$.ajax.lastResponse[i].model_id = 0
-			this.$.ajax.lastResponse[i].model_name = ""
+			this.$.ajax.lastResponse[i].mfunction_id = 0
+			this.$.ajax.lastResponse[i].mfunction_name = ""
 		}
 		this.$.ajax.lastResponse[i].new_des= this.enums.new[this.$.ajax.lastResponse[i].new]
 		this.$.ajax.lastResponse[i].display_des= this.enums.display[this.$.ajax.lastResponse[i].display]
