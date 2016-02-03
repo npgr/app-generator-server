@@ -14,22 +14,10 @@ module.exports = {
 	},
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
-		
-		console.log('trying to delete App: ', app_id)
-		
 		App.destroy({id: app_id})
-		  .exec(function(err, app_deleted) {
-		    console.log('deleted App: ', app_deleted)
-			Model.find({app: app_deleted.id})
-			  .exec(function(err, models) {
-				console.log('Models to be deleted: ', models)
-				for (i=0; i< models.length; i++)
-				   Model.destroy({id: models[i].id})
-				     .exec(function(err, model_deleted) {
-						console.log('Model deleted: ', model_deleted)
-					})
-			})
-			/*Model.destroy({app: app_deleted.id})
+		  .exec(function(err, apps_deleted) {
+		    console.log('deleted Apps: ', apps_deleted)
+			Model.destroy({app: apps_deleted[0].id})
 			  .exec(function(err, models) {
 				console.log('model deleted: ', models )
 				for (j=0; j< models.length; j++)
@@ -38,7 +26,7 @@ module.exports = {
 						console.log('Attrs deleted: ', attrs)
 				  })  
 			})
-			ModelFunction.destroy({app: app_deleted.id})
+			ModelFunction.destroy({app: apps_deleted[0].id})
 			  .exec(function(err, mfuncs) {
 				console.log('mfunction deleted: ', mfuncs)
 				for (i=0; i < mfuncs.length; i++)
@@ -49,7 +37,7 @@ module.exports = {
 					})
 					
 				}
-			})*/
+			})
 			return res.json({msg: 'App deleted'})
 		})	
 	}
