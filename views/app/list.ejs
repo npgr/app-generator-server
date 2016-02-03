@@ -6,7 +6,7 @@
  function lng(word1, word2, word3) {
 	return __(word1, word2, word3)
  }
-%>  
+%>
 <html>
 <head><meta charset="UTF-8">
 	<title><%= lng("%s %s",lng("List"),lng("App"))%></title>
@@ -15632,7 +15632,6 @@ paper-menu {
 #port {
 	width: 5em;
 }
-#
 /*End User Point: General Style*/
 </style>
 
@@ -15927,7 +15926,7 @@ paper-menu {
 		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("App"))%></h2>
 		<paper-dialog-scrollable>
 		  <form id="form" action="javascript:void(0);" on-submit="create">
-			<table class="table_dialog" style="width:33em;">
+			<table class="table_dialog" style="width:100%">
 			<tr>
 				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
 				<td><input id="id" type="number" name="id" disabled></td>
@@ -15942,7 +15941,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><input id="description" type="text" name="description"></td>
+				<td><textarea id="description" name="description" rows="2" cols="60"></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -15967,7 +15966,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea cols=30 rows=3 id="path" type="text" name="path" on-click="select_path" readOnly required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="80" on-click="select_path" readOnly required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -16036,9 +16035,7 @@ paper-menu {
 		},
 		record_created: function() {
 			alert("Click OK for Creating the Application "+ this.$.name.value+". It Will take about 5 minutes...")
-			
 			this.create_app()
-			
 			// ask for create another one
 			if (!this.$.repeat.checked) {
 				this.$.dialog.close()
@@ -16112,7 +16109,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><input id="description" type="text" name="description" value="{{item.description}}" disabled></td>
+				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -16137,7 +16134,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><input id="path" type="text" name="path" value="{{item.path}}" disabled></td>
+				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%></label></td>
@@ -16191,7 +16188,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" on-keyup="valid_file_chars" disabled required></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
@@ -16199,7 +16196,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><input id="description" type="text" name="description" value="{{item.description}}"></td>
+				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}"></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -16224,7 +16221,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" disabled required></td>
+				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -16253,9 +16250,6 @@ paper-menu {
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
-		},
-		load_path: function() {
-			console.log('file: ', this.$.path.files)
 		},
 		set_select_fields(item) {
 			this.$.type.value = item.type
@@ -16293,7 +16287,7 @@ paper-menu {
 			const remote = require('electron').remote
 			var app_util = remote.require('./app_util.js')
 			app_util.set_port(this.$.name.value, this.$.port.value)
-			
+
 			alert("<%= lng('Record Updated')%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -16306,10 +16300,118 @@ paper-menu {
 		,valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
 		},
-//USER POINT - Edit Functions 
+		load_path: function() {
+			console.log('file: ', this.$.path.files)
+		}
+//END USER POINT - Edit Functions
 	})
 </script>
 </dom-module>
+
+<!-- delete-form: version 5.10 -->
+
+<dom-module id="App-delete">
+<template>
+	<iron-ajax id="ajax" method="GET" handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("App"))%></h2>
+		<paper-dialog-scrollable>
+		<form id="form" action="javascript:void(0);" on-submit="delete">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
+				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
+				<td><input id="version" type="text" name="version" value="{{item.version}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
+				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}" disabled></textarea></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
+				<td><select id="type" name="type" disabled>
+						<option value="web"><%= lng('Web App (Browser)')%></option>
+						<option value="web2"><%= lng('Web App (electron)')%></option>
+						<option value="desktop"><%= lng('Desktop')%></option>
+						<option value="mobil"><%= lng('Mobil')%></option>
+					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="db"><%= lng('Database')%></label></td>
+				<td><select id="db" name="db" disabled>
+						<option value="postgres"><%= lng('PostgreSQL')%></option>
+						<option value="mysql"><%= lng('MySQL')%></option>
+						<option value="mongodb"><%= lng('MongoDB')%></option>
+						<option value="disk"><%= lng('Disk')%></option>
+						<option value="rethinkdb"><%= lng('RethinkDB')%></option>
+						<option value="cassandra"><%= lng('Cassandra')%></option>
+						<option value="leveldb"><%= lng('LevelDB')%></option>
+					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
+				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled></textarea></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="port"><%= lng('Port')%></label></td>
+				<td><input id="port" type="number" name="port" value="{{item.port}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
+				<td><input id="repository" type="text" name="repository" value="{{item.repository}}" disabled></td>
+			</tr>
+			</table>
+		<div class="buttons">
+			<input id="submit_delete" class="hide" type="submit" value="BORRAR">
+			<div class="card_line">
+				<paper-button id="delete_btn" class="btn" on-click="form_submit" raised><%= lng('Delete')%></paper-button>
+				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+			</div>
+		</div>
+		</form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "App-delete",
+		open_delete_dialog: function(item) {
+			this.item = item
+			this.set_select_fields(item)
+			this.$.dialog.open()
+		},
+		set_select_fields(item) {
+			this.$.type.value = item.type
+			this.$.db.value = item.db
+			},
+		form_submit: function() {
+			this.$.submit_delete.click()
+		},
+		delete: function() {
+			this.$.ajax.url = config_server() + "App/deleteApp/"+this.item.id
+			this.$.ajax.generateRequest()
+		},
+		record_deleted: function() {
+			alert("<%= lng('Record Deleted')%>")
+			this.$.dialog.close()
+			this.fire('close')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
+
+
 
 <dom-module id="App-list">
 <template>
@@ -16393,6 +16495,7 @@ paper-menu {
 		<paper-menu>
 			<paper-item on-click="display" style="min-height:20px;line-height:35px;"><%= lng('Display')%></paper-item>
 			<paper-item on-click="edit" style="min-height:20px;line-height:35px;"><%= lng('Edit')%></paper-item>
+			<paper-item on-click="delete" style="min-height:20px;line-height:35px;"><%= lng('Delete')%></paper-item>
 <!--USER POINT - List Detail Menu-->
 			<paper-item on-click="models" style="min-height:20px;line-height:35px;"><%= lng('Models')%></paper-item>
 			<paper-item on-click="start" style="min-height:20px;line-height:35px;"><%= lng('Start App')%></paper-item>
@@ -16863,7 +16966,15 @@ Polymer({
 	var item = this.data.find(filtro)[0]
 	this.$.App_edit_dialog.open_dialog(item)
   },
-  new: function() {  
+  delete: function(e) {
+
+	this.$.menu_dialog.close()
+	var filtro = {"id": this.key}
+	var item = this.data.find(filtro)[0]
+	this.$.App_delete_dialog.open_delete_dialog(item)
+  },
+  new: function() {
+
 	this.$.App_new_dialog.open_dialog()
   },
   reload: function() {

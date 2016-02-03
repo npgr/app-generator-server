@@ -11,14 +11,14 @@ module.exports = {
 	
   attributes: {
 	//_title: 'App',
-	//_dialog_width: '30em',
+	//_dialog_width: '39em',
 	//_card_width: '60em',  
 	//_btn_left: '30px', 		
 	//_columns: 'enabled', 	
 	//_new: 'enabled',
 	//_edit: 'enabled',
 	//_display: 'enabled',
-	//_delete: 'disabled',
+	//_delete: 'enabled',
 	//_print: 'enabled',
 	//_download: 'enabled',
 	//_ga: 'disabled',
@@ -43,6 +43,7 @@ module.exports = {
 		//description: 'Description',
 		//textarea_cols: 60,
 		//textarea_rows: 2,
+		//hide: true,
 		type: 'string'
 	},
 	type: {

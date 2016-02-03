@@ -45,6 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  "/App/deleteApp/:app": "AppController.deleteApp",
   "/App/list": "AppController.list",
   "/Model/exist/:model": "ModelController.exist",
   "post /Model": "ModelController.create",

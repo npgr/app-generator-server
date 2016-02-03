@@ -15,15 +15,15 @@ module.exports = {
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
 		App.detroy({id: app_id})
-		  .exec(function(err, app_deleted) {
+		  /*.exec(function(err, app_deleted) {
 			Model.destroy({app: app_deleted.id})
 			  .exec(function(err, models) {
 				console.log('model deleted: ', models )
 				for (j=0; j< models.length; j++)
 				  Attribute.destroy({model: models[j]})
 					.exec(function(err, attrs) {
-					
-					})  
+						console.log('Attrs deleted: ', attrs)
+				  })  
 			})
 			ModelFunction.destroy({app: app_deleted.id})
 			  .exec(function(err, mfuncs) {
@@ -37,23 +37,6 @@ module.exports = {
 					
 				}
 			})	
-		})
-		/*Model.destroy({app: app})
-		  exec(function(err, models) { 
-			for (i=0; i < models.length; i++)
-			{
-				ModelFunction.find({model: models[i].id})
-				  exec(function(err, mfuncs) {
-					for (j=0; j < mfuncs.length; j++)
-						ModelFunction.delete({id: mfuncs[i].id})
-				})
-				FunctionList.find({model: models[i].id})
-				  exec(function(err, funclist) {
-					for (j=0; j < funclist.length; j++)
-						FunctionList.delete({id: })
-				})
-				Model.delete({id: models[i].id})
-			}
 		})*/
 	}
 };
