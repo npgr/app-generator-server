@@ -14,13 +14,26 @@ module.exports = {
 	},
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
-		App.detroy({id: app_id})
-		  /*.exec(function(err, app_deleted) {
-			Model.destroy({app: app_deleted.id})
+		
+		console.log('trying to delete App: ', app_id)
+		
+		App.destroy({id: app_id})
+		  .exec(function(err, app_deleted) {
+		    console.log('deleted App: ', app_deleted)
+			Model.find({app: app_deleted.id})
+			  .exec(function(err, models) {
+				console.log('Models to be deleted: ', models)
+				for (i=0; i< models.length; i++)
+				   Model.destroy({id: models[i].id})
+				     .exec(function(err, model_deleted) {
+						console.log('Model deleted: ', model_deleted)
+					})
+			})
+			/*Model.destroy({app: app_deleted.id})
 			  .exec(function(err, models) {
 				console.log('model deleted: ', models )
 				for (j=0; j< models.length; j++)
-				  Attribute.destroy({model: models[j]})
+				  Attribute.destroy({model: models[j].id})
 					.exec(function(err, attrs) {
 						console.log('Attrs deleted: ', attrs)
 				  })  
@@ -30,14 +43,15 @@ module.exports = {
 				console.log('mfunction deleted: ', mfuncs)
 				for (i=0; i < mfuncs.length; i++)
 				{
-					FunctionList.destroy({mfunction: mfuncs[i]})
+					FunctionList.destroy({mfunction: mfuncs[i].id})
 					  .exec(function(err, f_list) {
 						console.log('Function List deleted: ', f_list)
 					})
 					
 				}
-			})	
-		})*/
+			})*/
+			return res.json({msg: 'App deleted'})
+		})	
 	}
 };
 
