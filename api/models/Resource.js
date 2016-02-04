@@ -38,8 +38,14 @@ module.exports = {
 	type: {
 		//description: 'Type',
 		type: "string",
-		enum: ["page","api","option","component"]
-		//,enumdes: ["Page", "Api", "Option","component"]
+		enum: ["page","data","api","option","component"]
+		//,enumdes: ["Page","Data","Api", "Option","Component"]
+	},
+	data: {
+		//description: 'Data',
+		type: "string",
+		enum: ["all","selected","except"]
+		//,enumdes: ["All","Selected","All Except"]
 	},
 	requireaut: {
 		//description: 'Require Aut',

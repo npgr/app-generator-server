@@ -63,6 +63,8 @@ module.exports.routes = {
   "/User/list": "UserController.list",
   "/Account/list": "AccountController.list",
   "/Profile/list": "ProfileController.list",
+  "/Profile/getDataResources" : "ProfileResourceController.getDataResources",
   "/Resource/list": "ResourceController.list",
   "/ProfileResource/list": "ProfileResourceController.list",
+  "/UserResource/list": "UserResourceController.list"
 };

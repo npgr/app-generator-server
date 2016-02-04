@@ -9,7 +9,7 @@
 %>  
 <html>
 <head><meta charset="UTF-8">
-	<title><%= lng("%s %s",lng("List"),lng("Resource"))%></title>
+	<title><%= lng("%s %s",lng("List"),lng("UserResource"))%></title>
 	<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	<script src="/bower_components/intro.js/minified/intro.min.js"></script>
 	<script src="/js2/lokijs/build/lokijs.min.js"></script>
@@ -19,16 +19,7 @@
 	<link rel="stylesheet" href="/styles/app.css">
 	<link rel="stylesheet" href="/bower_components/intro.js/minified/introjs.min.css">
 <!-- INICIA -->
-	<script>
-    // Google Analytics
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', Google_Analytics_id(), {'sampleRate': 100});
-  ga('send', 'pageview');
-	
+	<script>	
 // Redirect to https
   if (window.location.protocol != "https:" && window.location.href.indexOf('localhost') == -1)
 	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
@@ -15602,13 +15593,13 @@ if (!window.Promise) {
 <!-- FINALIZA -->
 <style>
 #btn_area { 
-	margin-left: 30px;
+	margin-left: 80px;
 }
 #dialog {
 	width: 30em;
 }
 .card {
-	width: 60em;
+	width: 80em;
 	top: 30px;
 	left: 15px;
 }
@@ -15798,7 +15789,7 @@ paper-menu {
 
 <!-- list-columns: version 5.10 -->
 
-<dom-module id="Resource-list-columns">
+<dom-module id="UserResource-list-columns">
 <template>
 <style>
 	/*#dialog {
@@ -15816,7 +15807,7 @@ paper-menu {
 	}
 </style>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Columns"),lng("Resource"))%></h2>
+		<h2 class="card_title"><%= lng("%s %s",lng("Columns"),lng("UserResource"))%></h2>
 			<paper-dialog-scrollable>
 			<table class="table_dialog" style="width:100%">
 			<tr>
@@ -15824,28 +15815,20 @@ paper-menu {
 				<td><div id="id" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><div id="name" on-click="change_field"></div></td>
+				<td><label class="left_label" for="user_name"><%= lng('User')%></label></td>
+				<td><div id="user_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="method"><%= lng('Method')%></label></td>
-				<td><div id="method" on-click="change_field"></div></td>
+				<td><label class="left_label" for="resource_name"><%= lng('Resource')%></label></td>
+				<td><div id="resource_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><div id="path" on-click="change_field"></div></td>
+				<td><label class="left_label" for="app_name"><%= lng('App')%></label></td>
+				<td><div id="app_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><div id="type" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><div id="data" on-click="change_field"></div></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
-				<td><div id="requireaut" on-click="change_field"></div></td>
+				<td><label class="left_label" for="model_name"><%= lng('Model')%></label></td>
+				<td><div id="model_name" on-click="change_field"></div></td>
 			</tr>
 			</table>
 			</paper-dialog-scrollable>
@@ -15859,7 +15842,7 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Resource-list-columns",
+		is: "UserResource-list-columns",
 		properties: {
 			//updated: false,
 			//column: {}
@@ -15868,12 +15851,10 @@ paper-menu {
 			this.updated= false,
 			this.column= column
 			this.show_field("id")
-			this.show_field("name")
-			this.show_field("method")
-			this.show_field("path")
-			this.show_field("type")
-			this.show_field("data")
-			this.show_field("requireaut")
+			this.show_field("user_name")
+			this.show_field("resource_name")
+			this.show_field("app_name")
+			this.show_field("model_name")
 			this.$.dialog.open()
 		},
 		change_field: function(e) {
@@ -15906,12 +15887,16 @@ paper-menu {
 
 <!-- new-form: version 5.10 -->
 
-<dom-module id="Resource-new">
+<dom-module id="UserResource-new">
 <template>
 	<iron-ajax id="ajax" handle-as="json" on-response="validate_record" on-error="ajax_error"></iron-ajax>
 	<iron-ajax id="ajax2" method="POST" handle-as="json" on-response="record_created" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("Resource"))%></h2>
+		<User-select id="User_select_dialog" on-item_selected="set_select_field"></User-select>
+		<Resource-select id="Resource_select_dialog" on-item_selected="set_select_field"></Resource-select>
+		<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
+		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
+		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("UserResource"))%></h2>
 		<paper-dialog-scrollable>
 		  <form id="form" action="javascript:void(0);" on-submit="create">
 			<table class="table_dialog" style="width:100%">
@@ -15920,47 +15905,20 @@ paper-menu {
 				<td><input id="id" type="number" name="id" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" required></td>
+				<td><label class="left_label" for="user"><%= lng('User')%></label></td>
+				<td><iron-icon icon="find-in-page" field="user" on-click="select_field_b"></iron-icon><input id="user" type="text" name="user" key=0 on-click="select_field" readonly></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="method"><%= lng('Method')%></label></td>
-				<td><select id="method" name="method">
-						<option value="get"><%= lng('GET')%></option>
-						<option value="post"><%= lng('POST')%></option>
-						<option value="put"><%= lng('PUT')%></option>
-						<option value="delete"><%= lng('DELETE')%></option>
-						<option value="all"><%= lng('ALL')%></option>
-					</select></td>
+				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
+				<td><iron-icon icon="find-in-page" field="resource" on-click="select_field_b"></iron-icon><input id="resource" type="text" name="resource" key=0 on-click="select_field" readonly></td>
 			</tr>
-			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" required></td>
+			<tr id="app_line" class="hide">
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key=0 on-click="select_field" readonly></td>
 			</tr>
-			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type">
-						<option value="page"><%= lng('Page')%></option>
-						<option value="data"><%= lng('Data')%></option>
-						<option value="api"><%= lng('Api')%></option>
-						<option value="option"><%= lng('Option')%></option>
-						<option value="component"><%= lng('Component')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data">
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
-				<td><select id="requireaut" name="requireaut">
-						<option value="Yes"><%= lng('Yes')%></option>
-						<option value="No"><%= lng('No')%></option>
-					</select></td>
+			<tr id="model_line" class="hide">
+				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
+				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key=0 on-click="select_field" readonly></td>
 			</tr>
 			</table>
 			<div class="buttons">
@@ -15977,40 +15935,69 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Resource-new",
+		is: "UserResource-new",
 		open_dialog: function() {
 			this.clear()
 			this.$.dialog.open()
 		},
 		clear: function() {
 			this.$.id.value = ''
-			this.$.name.value = ''
-			this.$.path.value = ''
+			this.$.user.value = ''
+			this.$.user.key = 0
+			this.$.resource.value = ''
+			this.$.resource.key = 0
+			this.$.app.value = ''
+			this.$.app.key = 0
+			this.$.model.value = ''
+			this.$.model.key = 0
 		},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
+			if (this.field == "user")
+				this.$.User_select_dialog.open_select_dialog()
+			if (this.field == "resource")
+				this.$.Resource_select_dialog.open_select_dialog(this.$.User_select_dialog.item.profile)
+			if (this.field == "app")
+				this.$.App_select_dialog.open_select_dialog()
+			if (this.field == "model")
+				this.$.Model_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
+			
+			console.log('set field: ', this.field)
+			console.log('resource: ', this.$.resource.value)
+			if (this.field == 'resource')
+				switch(this.$.resource.value) {
+				  case 'Apps':
+				    console.log('show app field')
+					this.$.app_line.className = "";
+					this.$.model_line.className = "hide";
+				  break;
+				  case 'Models':
+					this.$.app_line.className = "hide";
+					this.$.model_line.className = "";
+				  break;
+				  default:
+					//error
+				}
 		},
 		create: function() {
-			this.$.ajax2.url = config_server() + "Resource"
+			this.$.ajax2.url = config_server() + "UserResource"
 			var record = {}
-			  record.name = this.$.name.value
-			  record.method = this.$.method.value
-			  record.path = this.$.path.value
-			  record.type = this.$.type.value
-			  record.data = this.$.data.value
-			  record.requireaut = this.$.requireaut.value			
+			record.user = this.$.user.key
+			record.resource = this.$.resource.key
+			record.app = this.$.app.key
+			record.model = this.$.model.key			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
 		record_created: function() {
-			alert("Created Resource id="+this.$.ajax2.lastResponse.id)
+			alert("Created UserResource id="+this.$.ajax2.lastResponse.id)
 			// ask for create another one
 			if (!this.$.repeat.checked) {
 				this.$.dialog.close()
@@ -16023,7 +16010,7 @@ paper-menu {
 			{
 				if (this.$.id.value > 0)
 				{
-					this.$.ajax.url = config_server() + "Resource/exist/"+this.$.id.value
+					this.$.ajax.url = config_server() + "UserResource/exist/"+this.$.id.value
 					this.$.ajax.generateRequest()
 				}
 				else this.$.submit_btn.click()
@@ -16046,10 +16033,10 @@ paper-menu {
 
 <!-- display-form: version 5.10 -->
 
-<dom-module id="Resource-display">
+<dom-module id="UserResource-display">
 <template>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Display"),lng("Resource"))%></h2>
+		<h2 class="card_title"><%= lng("%s %s",lng("Display"),lng("UserResource"))%></h2>
 		  <paper-dialog-scrollable>
 			<table class="table_dialog" style="width:100%">
 			<tr>
@@ -16057,47 +16044,20 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
+				<td><label class="left_label" for="user"><%= lng('User')%></label></td>
+				<td><input id="user" type="text" name="user" value="{{item.user_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="method"><%= lng('Method')%></label></td>
-				<td><select id="method" name="method" disabled>
-						<option value="get"><%= lng('GET')%></option>
-						<option value="post"><%= lng('POST')%></option>
-						<option value="put"><%= lng('PUT')%></option>
-						<option value="delete"><%= lng('DELETE')%></option>
-						<option value="all"><%= lng('ALL')%></option>
-					</select></td>
+				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
+				<td><input id="resource" type="text" name="resource" value="{{item.resource_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><input id="path" type="text" name="path" value="{{item.path}}" disabled></td>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><input id="app" type="text" name="app" value="{{item.app_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type" disabled>
-						<option value="page"><%= lng('Page')%></option>
-						<option value="data"><%= lng('Data')%></option>
-						<option value="api"><%= lng('Api')%></option>
-						<option value="option"><%= lng('Option')%></option>
-						<option value="component"><%= lng('Component')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data" disabled>
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
-				<td><select id="requireaut" name="requireaut" disabled>
-						<option value="Yes"><%= lng('Yes')%></option>
-						<option value="No"><%= lng('No')%></option>
-					</select></td>
+				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
+				<td><input id="model" type="text" name="model" value="{{item.model_name}}" disabled></td>
 			</tr>
 			</table>
 		  </paper-dialog-scrollable>
@@ -16110,17 +16070,13 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Resource-display",
+		is: "UserResource-display",
 		open_display_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
-			this.$.method.value = item.method
-			this.$.type.value = item.type
-			this.$.data.value = item.data
-			this.$.requireaut.value = item.requireaut
 			}
 	})
 </script>
@@ -16128,11 +16084,15 @@ paper-menu {
 
 <!-- edit-form: version 5.10 -->
 
-<dom-module id="Resource-edit">
+<dom-module id="UserResource-edit">
 <template>
 	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Resource"))%></h2>
+		<User-select id="User_select_dialog" on-item_selected="set_select_field"></User-select>
+		<Resource-select id="Resource_select_dialog" on-item_selected="set_select_field"></Resource-select>
+		<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
+		<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>
+		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("UserResource"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
 			<table class="table_dialog" style="width:100%">
@@ -16141,47 +16101,20 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
+				<td><label class="left_label" for="user"><%= lng('User')%></label></td>
+				<td><iron-icon icon="find-in-page" field="user" on-click="select_field_b"></iron-icon><input id="user" type="text" name="user" key={{item.user_id}} value="{{item.user_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="method"><%= lng('Method')%></label></td>
-				<td><select id="method" name="method">
-						<option value="get"><%= lng('GET')%></option>
-						<option value="post"><%= lng('POST')%></option>
-						<option value="put"><%= lng('PUT')%></option>
-						<option value="delete"><%= lng('DELETE')%></option>
-						<option value="all"><%= lng('ALL')%></option>
-					</select></td>
+				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
+				<td><iron-icon icon="find-in-page" field="resource" on-click="select_field_b"></iron-icon><input id="resource" type="text" name="resource" key={{item.resource_id}} value="{{item.resource_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><input id="path" type="text" name="path" value="{{item.path}}" required></td>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key={{item.app_id}} value="{{item.app_name}}" on-click="select_field" readonly></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type">
-						<option value="page"><%= lng('Page')%></option>
-						<option value="data"><%= lng('Data')%></option>
-						<option value="api"><%= lng('Api')%></option>
-						<option value="option"><%= lng('Option')%></option>
-						<option value="component"><%= lng('Component')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data">
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
-				<td><select id="requireaut" name="requireaut">
-						<option value="Yes"><%= lng('Yes')%></option>
-						<option value="No"><%= lng('No')%></option>
-					</select></td>
+				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
+				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key={{item.model_id}} value="{{item.model_name}}" on-click="select_field" readonly></td>
 			</tr>
 			</table>
 			<div class="buttons">
@@ -16197,23 +16130,27 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Resource-edit",
+		is: "UserResource-edit",
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
-			this.$.method.value = item.method
-			this.$.type.value = item.type
-			this.$.data.value = item.data
-			this.$.requireaut.value = item.requireaut
 			},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
 		},
 		select_field: function(e) {
 			this.field = e.toElement.id
+			if (this.field == "user")
+				this.$.User_select_dialog.open_select_dialog()
+			if (this.field == "resource")
+				this.$.Resource_select_dialog.open_select_dialog()
+			if (this.field == "app")
+				this.$.App_select_dialog.open_select_dialog()
+			if (this.field == "model")
+				this.$.Model_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -16225,13 +16162,11 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
-			record.name = this.$.name.value
-			record.method = this.$.method.value
-			record.path = this.$.path.value
-			record.type = this.$.type.value
-			record.data = this.$.data.value
-			record.requireaut = this.$.requireaut.value
-			this.$.ajax.url = config_server() + "Resource/" +record.id
+			record.user = this.$.user.key
+			record.resource = this.$.resource.key
+			record.app = this.$.app.key
+			record.model = this.$.model.key
+			this.$.ajax.url = config_server() + "UserResource/" +record.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
 		},
@@ -16250,11 +16185,11 @@ paper-menu {
 
 <!-- delete-form: version 5.10 -->
 
-<dom-module id="Resource-delete">
+<dom-module id="UserResource-delete">
 <template>
 	<iron-ajax id="ajax" method="DELETE" handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("Resource"))%></h2>
+		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("UserResource"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="delete">
 			<table class="table_dialog" style="width:100%">
@@ -16263,47 +16198,20 @@ paper-menu {
 				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
+				<td><label class="left_label" for="user"><%= lng('User')%></label></td>
+				<td><input id="user" type="text" name="user" value="{{item.user_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="method"><%= lng('Method')%></label></td>
-				<td><select id="method" name="method" disabled>
-						<option value="get"><%= lng('GET')%></option>
-						<option value="post"><%= lng('POST')%></option>
-						<option value="put"><%= lng('PUT')%></option>
-						<option value="delete"><%= lng('DELETE')%></option>
-						<option value="all"><%= lng('ALL')%></option>
-					</select></td>
+				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
+				<td><input id="resource" type="text" name="resource" value="{{item.resource_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><input id="path" type="text" name="path" value="{{item.path}}" disabled></td>
+				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
+				<td><input id="app" type="text" name="app" value="{{item.app_name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type" disabled>
-						<option value="page"><%= lng('Page')%></option>
-						<option value="data"><%= lng('Data')%></option>
-						<option value="api"><%= lng('Api')%></option>
-						<option value="option"><%= lng('Option')%></option>
-						<option value="component"><%= lng('Component')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data" disabled>
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
-				<td><select id="requireaut" name="requireaut" disabled>
-						<option value="Yes"><%= lng('Yes')%></option>
-						<option value="No"><%= lng('No')%></option>
-					</select></td>
+				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
+				<td><input id="model" type="text" name="model" value="{{item.model_name}}" disabled></td>
 			</tr>
 			</table>
 		<div class="buttons">
@@ -16319,23 +16227,19 @@ paper-menu {
 </template>
 <script>
 	Polymer({
-		is: "Resource-delete",
+		is: "UserResource-delete",
 		open_delete_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
-			this.$.method.value = item.method
-			this.$.type.value = item.type
-			this.$.data.value = item.data
-			this.$.requireaut.value = item.requireaut
 			},
 		form_submit: function() {
 			this.$.submit_delete.click()
 		},
 		delete: function() {
-			this.$.ajax.url = config_server() + "Resource/"+this.item.id
+			this.$.ajax.url = config_server() + "UserResource/"+this.item.id
 			this.$.ajax.generateRequest()
 		},
 		record_deleted: function() {
@@ -16352,28 +16256,322 @@ paper-menu {
 </dom-module>
 
 
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
 
-<dom-module id="Resource-list">
+<dom-module id="User-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('User')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "User-select",
+		open_select_dialog: function() {
+			this.$.filtro.value = ""
+			this.$.ajax.url= config_server() +"User"
+			var db = new loki()
+			this.data = db.addCollection("data_User")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			
+			var filtro = {"id": Number(this.item.key)}
+			//var item = this.data.find(filtro)[0]
+			this.item.profile = Number(this.data.find(filtro)[0].profile.id)
+			
+			console.log('item selected: ', this.item)
+			
+			this.$.dialog.close()
+		
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+
+<dom-module id="Resource-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Resource')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "Resource-select",
+		open_select_dialog: function(profile) {
+			this.$.filtro.value = ""
+			//this.$.ajax.url= config_server() +"Resource"
+			this.$.ajax.url= config_server() + "Profile/getDataResources?profile=" + profile
+			var db = new loki()
+			this.data = db.addCollection("data_Resource")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			this.$.dialog.close()
+			//this.close()
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+
+<dom-module id="App-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('App')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "App-select",
+		open_select_dialog: function() {
+			this.$.filtro.value = ""
+			this.$.ajax.url= config_server() +"App"
+			var db = new loki()
+			this.data = db.addCollection("data_App")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			this.$.dialog.close()
+			//this.close()
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
+<!-- select-model: version 5.10 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+
+<dom-module id="Model-select">
+<template>
+	<iron-ajax id="ajax" method='GET' handle-as="json" on-response="get_data" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" vertical layout>
+		<iron-icon icon="close" on-click="close" mini></iron-icon>  
+		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Model')%>..."></div>
+		<paper-dialog-scrollable>
+		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+		</template>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "Model-select",
+		open_select_dialog: function() {
+			this.$.filtro.value = ""
+			this.$.ajax.url= config_server() +"Model"
+			var db = new loki()
+			this.data = db.addCollection("data_Model")
+			this.filtered_data = []
+			this.load_data()
+			this.tipo="string" //filter type
+			this.$.dialog.open()
+		},
+		close: function() {
+			this.$.dialog.close()
+		},
+		load_data: function() {
+			this.$.ajax.generateRequest()
+		},
+		get_data: function() {
+			while(this.data.data[0]) {
+				this.data.remove(this.data.data[0])
+			}
+			for (i=0; i< this.$.ajax.lastResponse.length; i++)
+				this.data.insert(this.$.ajax.lastResponse[i])
+			this.filter()
+		},
+		filter: function() {
+			this.filtered_data = []
+			this.cur_filter = { name: { $contains: this.$.filtro.value} }
+			this.result_set = this.data.chain().find(this.cur_filter).simplesort("name", false)
+			this.filtered_data = this.result_set.data()
+		},
+		select: function(e) {
+			this.item = {}
+			this.item.key = e.toElement.id
+			this.item.name = e.toElement.innerHTML
+			this.$.dialog.close()
+			//this.close()
+			this.fire('item_selected')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+	})
+</script>
+</dom-module>
+
+<dom-module id="UserResource-list">
 <template>
 <!--USER POINT - List Style-->
 <!--END USER POINT - List Style-->
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
-	<Resource-list-columns id="Resource_list_columns" on-close="update_columns"></Resource-list-columns>
-	<Resource-new id="Resource_new_dialog" on-close="reload"></Resource-new>
-	<Resource-display id="Resource_display_dialog"></Resource-display>
-	<Resource-edit id="Resource_edit_dialog" on-close="reload"></Resource-edit>
-	<Resource-delete id="Resource_delete_dialog" on-close="reload"></Resource-delete>	
-	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Resource"))%></div>-->
+	<UserResource-list-columns id="UserResource_list_columns" on-close="update_columns"></UserResource-list-columns>
+	<UserResource-new id="UserResource_new_dialog" on-close="reload"></UserResource-new>
+	<UserResource-display id="UserResource_display_dialog"></UserResource-display>
+	<UserResource-edit id="UserResource_edit_dialog" on-close="reload"></UserResource-edit>
+	<UserResource-delete id="UserResource_delete_dialog" on-close="reload"></UserResource-delete>
+	<User-select id="User_select_dialog" on-item_selected="set_select_field"></User-select>
+	<Resource-select id="Resource_select_dialog" on-item_selected="set_select_field"></Resource-select>
+	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
+	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
+	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("UserResource"))%></div>-->
 <!--USER POINT - List Header-->
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
-		<option value="id"><%= lng('Id')%></option>  <%= lng('Name')%>
-		<option value="name"><%= lng('Name')%></option>  <%= lng('Method')%>
-		<option value="method"><%= lng('Method')%></option>  <%= lng('Path')%>
-		<option value="path"><%= lng('Path')%></option>  <%= lng('Type')%>
-		<option value="type"><%= lng('Type')%></option>  <%= lng('Data')%>
-		<option value="data"><%= lng('Data')%></option>  <%= lng('Require Aut')%>
-		<option value="requireaut"><%= lng('Require Aut')%></option>
+		<option value="id"><%= lng('Id')%></option>
+		<option value="user_name"><%= lng('User')%></option>
+		<option value="resource_name"><%= lng('Resource')%></option>
+		<option value="app_name"><%= lng('App')%></option>
+		<option value="model_name"><%= lng('Model')%></option>
 	</select>
 	<select id="op">   
 		<option value="$eq"><%= lng('Equal to')%></option>
@@ -16402,16 +16600,14 @@ paper-menu {
 		<paper-fab id="btn_help" mini on-click="help" icon="help"></paper-fab>
 		<!--<paper-fab id="btn_menu" mini on-click="menu" icon="list"></paper-fab>-->
 	</div>
-	<a href="{{download_data}}" id="link" class="hide" download="Resource.xml">Download Data</a>
+	<a href="{{download_data}}" id="link" class="hide" download="UserResource.xml">Download Data</a>
 	<br>
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
-		<option value="name"><%= lng('Name')%></option>
-		<option value="method"><%= lng('Method')%></option>
-		<option value="path"><%= lng('Path')%></option>
-		<option value="type"><%= lng('Type')%></option>
-		<option value="data"><%= lng('Data')%></option>
-		<option value="requireaut"><%= lng('Require Aut')%></option>
+		<option value="user_name"><%= lng('User')%></option>
+		<option value="resource_name"><%= lng('Resource')%></option>
+		<option value="app_name"><%= lng('App')%></option>
+		<option value="model_name"><%= lng('Model')%></option>
 	</select>
 	<select id="op2" class="hide" >   
 		<option value="$eq"><%= lng('Equal to')%></option>
@@ -16442,30 +16638,24 @@ paper-menu {
 		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
 		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
-			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_method" on-click="sort_by_field"><%= lng('Method')%><div id="method_sort_d" class="hide">
-			<iron-icon id="method_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_path" on-click="sort_by_field"><%= lng('Path')%><div id="path_sort_d" class="hide">
-			<iron-icon id="path_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_type" on-click="sort_by_field"><%= lng('Type')%><div id="type_sort_d" class="hide">
-			<iron-icon id="type_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_data" on-click="sort_by_field"><%= lng('Data')%><div id="data_sort_d" class="hide">
-			<iron-icon id="data_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_requireaut" on-click="sort_by_field"><%= lng('Require Aut')%><div id="requireaut_sort_d" class="hide">
-			<iron-icon id="requireaut_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_user_name" on-click="sort_by_field"><%= lng('User')%><div id="user_name_sort_d" class="hide">
+			<iron-icon id="user_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_resource_name" on-click="sort_by_field"><%= lng('Resource')%><div id="resource_name_sort_d" class="hide">
+			<iron-icon id="resource_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_app_name" on-click="sort_by_field"><%= lng('App')%><div id="app_name_sort_d" class="hide">
+			<iron-icon id="app_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_model_name" on-click="sort_by_field"><%= lng('Model')%><div id="model_name_sort_d" class="hide">
+			<iron-icon id="model_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
 	</thead>
 	<!--<tfoot>
 	<tr>
 		<td class="ops"></td>
 		<td class="col_id"></td>
-		<td class="col_name"></td>
-		<td class="col_method"></td>
-		<td class="col_path"></td>
-		<td class="col_type"></td>
-		<td class="col_data"></td>
-		<td class="col_requireaut"></td>
+		<td class="col_user_name"></td>
+		<td class="col_resource_name"></td>
+		<td class="col_app_name"></td>
+		<td class="col_model_name"></td>
 	</tr>
 	</tfoot>-->
 	<tbody>
@@ -16475,12 +16665,10 @@ paper-menu {
 			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
-		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
-		<template is="dom-if" if="{{column.method}}"><td>{{item.method_des}}</td></template>
-		<template is="dom-if" if="{{column.path}}"><td>{{item.path}}</td></template>
-		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
-		<template is="dom-if" if="{{column.data}}"><td>{{item.data_des}}</td></template>
-		<template is="dom-if" if="{{column.requireaut}}"><td>{{item.requireaut_des}}</td></template>
+		<template is="dom-if" if="{{column.user_name}}"><td>{{item.user_name}}</td></template>
+		<template is="dom-if" if="{{column.resource_name}}"><td>{{item.resource_name}}</td></template>
+		<template is="dom-if" if="{{column.app_name}}"><td>{{item.app_name}}</td></template>
+		<template is="dom-if" if="{{column.model_name}}"><td>{{item.model_name}}</td></template>
 	</tr>
 	</template>
 	</tbody>
@@ -16488,7 +16676,7 @@ paper-menu {
 </template>
 <script>
 Polymer({
-	is: "Resource-list",
+	is: "UserResource-list",
 	properties: {
 		//cur_sort: { field: "id", isdesc: false },
 		//cur_filter: {}
@@ -16503,26 +16691,24 @@ Polymer({
 				return this.indexOf(str) === 0;
 			}
 		}
-		this.$.ajax.url = config_server() + "Resource"
+		this.$.ajax.url = config_server() + "UserResource"
 		this.cur_sort = { field: "id", isdesc: true }
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: true},
-				{column: "name", type: "string", display: true},
-				{column: "method", enum: ["get","post","put","delete","all"], enumdes: ["<%= lng("GET")%>","<%= lng("POST")%>","<%= lng("PUT")%>","<%= lng("DELETE")%>","<%= lng("ALL")%>"], display: true},
-				{column: "path", type: "string", display: true},
-				{column: "type", enum: ["page","data","api","option","component"], enumdes: ["<%= lng("Page")%>","<%= lng("Data")%>","<%= lng("Api")%>","<%= lng("Option")%>","<%= lng("Component")%>"], display: true},
-				{column: "data", enum: ["all","selected","except"], enumdes: ["<%= lng("All")%>","<%= lng("Selected")%>","<%= lng("All Except")%>"], display: true},
-				{column: "requireaut", enum: ["Yes","No"], enumdes: ["<%= lng("Yes")%>","<%= lng("No")%>"], display: true}
+				{column: "user_id", type: "integer", model: "User", display: false},
+				{column: "user_name", type: "string", model: "User", display: true},
+				{column: "resource_id", type: "integer", model: "Resource", display: false},
+				{column: "resource_name", type: "string", model: "Resource", display: true},
+				{column: "app_id", type: "integer", model: "App", display: false},
+				{column: "app_name", type: "string", model: "App", display: true},
+				{column: "model_id", type: "integer", model: "Model", display: false},
+				{column: "model_name", type: "string", model: "Model", display: true}
 		]
 		this.enums = {}
-		this.enums.method = {get:"<%= lng('GET')%>",post:"<%= lng('POST')%>",put:"<%= lng('PUT')%>",delete:"<%= lng('DELETE')%>",all:"<%= lng('ALL')%>"}
-		this.enums.type = {page:"<%= lng('Page')%>",data:"<%= lng('Data')%>",api:"<%= lng('Api')%>",option:"<%= lng('Option')%>",component:"<%= lng('Component')%>"}
-		this.enums.data = {all:"<%= lng('All')%>",selected:"<%= lng('Selected')%>",except:"<%= lng('All Except')%>"}
-		this.enums.requireaut = {Yes:"<%= lng('Yes')%>",No:"<%= lng('No')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
-		this.data = db.addCollection("data_Resource")
-		this.model = db.addCollection("model_Resource")
+		this.data = db.addCollection("data_UserResource")
+		this.model = db.addCollection("model_UserResource")
 		this.reload()
 		for (i=0; i< _model.length ; i++)
 			this.model.insert(_model[i])
@@ -16546,7 +16732,7 @@ Polymer({
 //END USER POINT - List End Ready
 	},
 	help: function() {
-		ga('send', 'event', 'Resource', 'Resource_help')
+
 		var intro = introJs()
 		
 		intro.setOptions({ 
@@ -16582,18 +16768,18 @@ Polymer({
 		intro.start()
 	},
 	list_columns: function() {
-		ga('send', 'event', 'Resource', 'Resource_list_columns')
-		this.$.Resource_list_columns.open_list_columns(this.column)
+
+		this.$.UserResource_list_columns.open_list_columns(this.column)
 	},
 	update_columns: function() {
 		var columns = {}
-		this.column = this.$.Resource_list_columns.column
+		this.column = this.$.UserResource_list_columns.column
 		for (i=0; i < this.model.data.length; i++ )
 		{
 			this.model.data[i].display = this.column[this.model.data[i].column]
 			columns[this.model.data[i].column] = this.column[this.model.data[i].column]
 		}
-		localStorage["Resource-list-columns"] = JSON.stringify(columns)
+		localStorage["UserResource-list-columns"] = JSON.stringify(columns)
 		this.show_columns()
 		// reset filter
 		this.$.filter.value = "id"
@@ -16650,15 +16836,35 @@ Polymer({
 		}
 		if (filter != "")
 		{
+		  if (this.$[filter].value == "user_name"){
+			this.$.User_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.User_select_dialog.style.left = "-100px"
+			this.$.User_select_dialog.open_select_dialog()
+		  }
+		  if (this.$[filter].value == "resource_name"){
+			this.$.Resource_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.Resource_select_dialog.style.left = "-100px"
+			this.$.Resource_select_dialog.open_select_dialog()
+		  }
+		  if (this.$[filter].value == "app_name"){
+			this.$.App_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.App_select_dialog.style.left = "-100px"
+			this.$.App_select_dialog.open_select_dialog()
+		  }
+		  if (this.$[filter].value == "model_name"){
+			this.$.Model_select_dialog.style.top = e.toElement.offsetParent.offsetTop+"px"
+			//this.$.Model_select_dialog.style.left = "-100px"
+			this.$.Model_select_dialog.open_select_dialog()
+		  }
 		}
 	},
 	set_select_field: function(e) {
 		this.$[this.field].value = this.$[e.srcElement.id].item.name
 	},
 	set_filter: function() {
-		if (localStorage["Resource-list-filter"])
+		if (localStorage["UserResource-list-filter"])
 		{
-			var stored_filter = JSON.parse(localStorage["Resource-list-filter"])
+			var stored_filter = JSON.parse(localStorage["UserResource-list-filter"])
 			this.$.filter.value = stored_filter.filter
 			this.$.op.value = stored_filter.op
 			this.input_type()
@@ -16694,9 +16900,9 @@ Polymer({
 			}
 			this.filter()
 		}
-		if (localStorage["Resource-list-columns"])
+		if (localStorage["UserResource-list-columns"])
 		{
-			var columns = JSON.parse(localStorage["Resource-list-columns"])
+			var columns = JSON.parse(localStorage["UserResource-list-columns"])
 			for (i=0; i < this.model.data.length; i++ )
 			  this.model.data[i].display = columns[this.model.data[i].column]
 		}
@@ -16705,7 +16911,7 @@ Polymer({
 	filter: function() {
 		var stored_filter = {}
  		var name = this.$.filter.value
-		ga('send', 'event', 'Resource', 'Resource_filter_by_'+name)
+
 		stored_filter.filter = name
 		var op = this.$.op.value
 		stored_filter.op = op 
@@ -16743,7 +16949,7 @@ Polymer({
 			this.cur_filter = {}
 			this.cur_filter[logic_op] = [filtro, filtro2]	
 		}
-		localStorage["Resource-list-filter"] = JSON.stringify(stored_filter)
+		localStorage["UserResource-list-filter"] = JSON.stringify(stored_filter)
 		this.result_set = this.data.chain().find(this.cur_filter).simplesort(this.cur_sort.field, this.cur_sort.isdesc)
 		this.filtered_data = []
 		this.filtered_data = this.result_set.data()
@@ -16751,16 +16957,14 @@ Polymer({
 	},
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
-		this.$.name_sort_d.classList.add("hide")
-		this.$.method_sort_d.classList.add("hide")
-		this.$.path_sort_d.classList.add("hide")
-		this.$.type_sort_d.classList.add("hide")
-		this.$.data_sort_d.classList.add("hide")
-		this.$.requireaut_sort_d.classList.add("hide")
+		this.$.user_name_sort_d.classList.add("hide")
+		this.$.resource_name_sort_d.classList.add("hide")
+		this.$.app_name_sort_d.classList.add("hide")
+		this.$.model_name_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
 		var field = e.target.classList[0].replace('col_','')
-		ga('send', 'event', 'Resource', 'Resource_sort_by_'+field)
+
 		this.hide_sort_icons()
 		this.sort(field)
 		if (this.cur_sort.isdesc)
@@ -16850,11 +17054,11 @@ Polymer({
 		
 	},
 	print: function() {
-		ga('send', 'event', 'Resource', 'Resource_print')
+
 		window.print()
 	},
 	download: function() {
-		ga('send', 'event', 'Resource', 'Resource_download')
+
 		var x2js = new X2JS();
 		var datoi = this.data.data
 		for (i=0; i<datoi.length; i++)
@@ -16877,50 +17081,78 @@ Polymer({
 		this.$.menu_dialog.open()
 	},
   display: function(e) {
-	ga('send', 'event', 'Resource', 'Resource_display')
+
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
-	this.$.Resource_display_dialog.open_display_dialog(item)
+	this.$.UserResource_display_dialog.open_display_dialog(item)
   },
   edit: function(e) {
-	ga('send', 'event', 'Resource', 'Resource_edit')
+
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
-	this.$.Resource_edit_dialog.open_dialog(item)
+	this.$.UserResource_edit_dialog.open_dialog(item)
   },
   delete: function(e) {
-	ga('send', 'event', 'Resource', 'Resource_delete')
+
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
 	var item = this.data.find(filtro)[0]
-	this.$.Resource_delete_dialog.open_delete_dialog(item)
+	this.$.UserResource_delete_dialog.open_delete_dialog(item)
   },
   new: function() {
-	ga('send', 'event', 'Resource', 'Resource_new')
-	this.$.Resource_new_dialog.open_dialog()
+
+	this.$.UserResource_new_dialog.open_dialog()
   },
   reload: function() {
 	this.$.ajax.generateRequest()
   },
   load_data: function() {
-	ga('send', 'event', 'Resource', 'Resource_load_data')
+
 	while(this.data.data[0]) {
         this.data.remove(this.data.data[0])
       }
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
 	{
-		this.$.ajax.lastResponse[i].method_des= this.enums.method[this.$.ajax.lastResponse[i].method]
-		this.$.ajax.lastResponse[i].type_des= this.enums.type[this.$.ajax.lastResponse[i].type]
-		this.$.ajax.lastResponse[i].data_des= this.enums.data[this.$.ajax.lastResponse[i].data]
-		this.$.ajax.lastResponse[i].requireaut_des= this.enums.requireaut[this.$.ajax.lastResponse[i].requireaut]	
+		if (this.$.ajax.lastResponse[i].user){
+			this.$.ajax.lastResponse[i].user_id = this.$.ajax.lastResponse[i].user.id
+			this.$.ajax.lastResponse[i].user_name = this.$.ajax.lastResponse[i].user.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].user_id = 0
+			this.$.ajax.lastResponse[i].user_name = ""
+		}
+		if (this.$.ajax.lastResponse[i].resource){
+			this.$.ajax.lastResponse[i].resource_id = this.$.ajax.lastResponse[i].resource.id
+			this.$.ajax.lastResponse[i].resource_name = this.$.ajax.lastResponse[i].resource.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].resource_id = 0
+			this.$.ajax.lastResponse[i].resource_name = ""
+		}
+		if (this.$.ajax.lastResponse[i].app){
+			this.$.ajax.lastResponse[i].app_id = this.$.ajax.lastResponse[i].app.id
+			this.$.ajax.lastResponse[i].app_name = this.$.ajax.lastResponse[i].app.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].app_id = 0
+			this.$.ajax.lastResponse[i].app_name = ""
+		}
+		if (this.$.ajax.lastResponse[i].model){
+			this.$.ajax.lastResponse[i].model_id = this.$.ajax.lastResponse[i].model.id
+			this.$.ajax.lastResponse[i].model_name = this.$.ajax.lastResponse[i].model.name
+		} else
+		{
+			this.$.ajax.lastResponse[i].model_id = 0
+			this.$.ajax.lastResponse[i].model_name = ""
+		}	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()
   },
   ajax_error: function() {
-	ga('send', 'event', 'Resource', 'Resource_ajax_error')
+
 	console.log(this.$.ajax.lastError)
 	alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
   }
@@ -16929,9 +17161,9 @@ Polymer({
 });
 </script>
 </dom-module>
-<top-bar><%= lng("%s %s",lng("List"),lng("Resource"))%></top-bar>
+<top-bar><%= lng("%s %s",lng("List"),lng("UserResource"))%></top-bar>
 <paper-material class="card" elevation="2">
-	<Resource-list></Resource-list>
+	<UserResource-list></UserResource-list>
 </paper-material>
 </body>
 </html>

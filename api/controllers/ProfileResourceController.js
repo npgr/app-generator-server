@@ -18,6 +18,19 @@ module.exports = {
 				res.locals.data = []
 				res.view("ProfileResource/list")
 	//		})
+	},
+	getDataResources : function (req, res) {
+		var profile = req.param('profile')
+		
+		ProfileResource.find({profile: profile})
+		  .populate('resource')
+		  .exec(function (err, resources) {
+			var filtered_resources = []
+			for (i=0; i < resources.length; i++)
+				if (resources[i].resource.type == 'data')
+					filtered_resources.push(resources[i].resource)
+			return res.json(filtered_resources)
+		  })
 	}
 };
 
