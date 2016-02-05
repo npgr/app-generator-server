@@ -36,12 +36,12 @@
         "usr": "Nuno",
         "pwd": "Prueba",
         "account": 1,
-        "name": "Nuno",
+        "name": "Nuno Goncalves R",
         "profile": 1,
         "email": "",
         "photo": "",
         "status": "A",
-        "updatedAt": "2015-09-03T17:01:26.839Z"
+        "updatedAt": "2016-02-05T21:04:14.254Z"
       }
     ],
     "profile": [
@@ -51,6 +51,20 @@
         "updatedAt": "2016-01-15T18:24:33.907Z",
         "id": 1,
         "firstpage": 1
+      },
+      {
+        "name": "Product Manager",
+        "firstpage": 1,
+        "createdAt": "2016-02-05T16:19:21.091Z",
+        "updatedAt": "2016-02-05T16:19:21.091Z",
+        "id": 2
+      },
+      {
+        "name": "Developer",
+        "firstpage": 1,
+        "createdAt": "2016-02-05T16:19:35.281Z",
+        "updatedAt": "2016-02-05T16:19:35.281Z",
+        "id": 3
       }
     ],
     "profileresource": [
@@ -125,6 +139,384 @@
         "createdAt": "2016-02-04T21:58:47.197Z",
         "updatedAt": "2016-02-04T21:58:47.197Z",
         "id": 8
+      },
+      {
+        "profile": 2,
+        "resource": 1,
+        "order": 100,
+        "Group": "Apps",
+        "createdAt": "2016-02-05T16:20:34.623Z",
+        "updatedAt": "2016-02-05T16:20:34.623Z",
+        "id": 9
+      },
+      {
+        "profile": 1,
+        "resource": 9,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:24:44.890Z",
+        "updatedAt": "2016-02-05T16:24:44.890Z",
+        "id": 10
+      },
+      {
+        "profile": 1,
+        "resource": 10,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:24:53.141Z",
+        "updatedAt": "2016-02-05T16:24:53.141Z",
+        "id": 11
+      },
+      {
+        "profile": 1,
+        "resource": 11,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:25:01.377Z",
+        "updatedAt": "2016-02-05T16:25:01.377Z",
+        "id": 12
+      },
+      {
+        "profile": 2,
+        "resource": 1,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:25:12.895Z",
+        "updatedAt": "2016-02-05T16:25:12.895Z",
+        "id": 13
+      },
+      {
+        "profile": 2,
+        "resource": 9,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:25:24.900Z",
+        "updatedAt": "2016-02-05T16:25:24.900Z",
+        "id": 14
+      },
+      {
+        "profile": 2,
+        "resource": 10,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:25:33.414Z",
+        "updatedAt": "2016-02-05T16:25:33.414Z",
+        "id": 15
+      },
+      {
+        "profile": 2,
+        "resource": 11,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:25:40.753Z",
+        "updatedAt": "2016-02-05T16:25:40.753Z",
+        "id": 16
+      },
+      {
+        "profile": 3,
+        "resource": 1,
+        "order": 100,
+        "Group": "Apps",
+        "createdAt": "2016-02-05T16:25:55.617Z",
+        "updatedAt": "2016-02-05T16:25:55.617Z",
+        "id": 17
+      },
+      {
+        "profile": 3,
+        "resource": 9,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:26:08.569Z",
+        "updatedAt": "2016-02-05T16:26:08.569Z",
+        "id": 18
+      },
+      {
+        "profile": 3,
+        "resource": 10,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:26:16.416Z",
+        "updatedAt": "2016-02-05T16:26:16.416Z",
+        "id": 19
+      },
+      {
+        "profile": 3,
+        "resource": 11,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:26:26.714Z",
+        "updatedAt": "2016-02-05T16:26:26.714Z",
+        "id": 20
+      },
+      {
+        "profile": 2,
+        "resource": 6,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:27:02.282Z",
+        "updatedAt": "2016-02-05T16:27:02.282Z",
+        "id": 21
+      },
+      {
+        "profile": 2,
+        "resource": 8,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:27:15.071Z",
+        "updatedAt": "2016-02-05T16:27:15.071Z",
+        "id": 22
+      },
+      {
+        "profile": 3,
+        "resource": 6,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:27:48.637Z",
+        "updatedAt": "2016-02-05T16:27:48.637Z",
+        "id": 23
+      },
+      {
+        "profile": 3,
+        "resource": 8,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T16:27:58.108Z",
+        "updatedAt": "2016-02-05T16:27:58.108Z",
+        "id": 24
+      },
+      {
+        "profile": 1,
+        "resource": 12,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T18:37:38.709Z",
+        "updatedAt": "2016-02-05T18:37:38.709Z",
+        "id": 25
+      },
+      {
+        "profile": 1,
+        "resource": 13,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T18:37:51.678Z",
+        "updatedAt": "2016-02-05T18:37:51.678Z",
+        "id": 26
+      },
+      {
+        "profile": 1,
+        "resource": 14,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:19:56.462Z",
+        "updatedAt": "2016-02-05T19:19:56.462Z",
+        "id": 27
+      },
+      {
+        "profile": 1,
+        "resource": 15,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:20:06.347Z",
+        "updatedAt": "2016-02-05T19:20:06.347Z",
+        "id": 28
+      },
+      {
+        "profile": 1,
+        "resource": 16,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:20:17.075Z",
+        "updatedAt": "2016-02-05T19:20:17.075Z",
+        "id": 29
+      },
+      {
+        "profile": 1,
+        "resource": 17,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:20:29.694Z",
+        "updatedAt": "2016-02-05T19:20:29.694Z",
+        "id": 30
+      },
+      {
+        "profile": 1,
+        "resource": 18,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:20:40.634Z",
+        "updatedAt": "2016-02-05T19:20:40.634Z",
+        "id": 31
+      },
+      {
+        "profile": 1,
+        "resource": 9,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:24:34.991Z",
+        "updatedAt": "2016-02-05T19:24:34.991Z",
+        "id": 32
+      },
+      {
+        "profile": 1,
+        "resource": 10,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:24:45.296Z",
+        "updatedAt": "2016-02-05T19:24:45.296Z",
+        "id": 33
+      },
+      {
+        "profile": 1,
+        "resource": 11,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T19:24:59.781Z",
+        "updatedAt": "2016-02-05T19:24:59.781Z",
+        "id": 34
+      },
+      {
+        "profile": 1,
+        "resource": 19,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:23:31.621Z",
+        "updatedAt": "2016-02-05T20:23:31.621Z",
+        "id": 35
+      },
+      {
+        "profile": 1,
+        "resource": 20,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:33:47.641Z",
+        "updatedAt": "2016-02-05T20:33:47.641Z",
+        "id": 36
+      },
+      {
+        "profile": 1,
+        "resource": 21,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:38:17.258Z",
+        "updatedAt": "2016-02-05T20:38:17.258Z",
+        "id": 37
+      },
+      {
+        "profile": 1,
+        "resource": 22,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:38:29.265Z",
+        "updatedAt": "2016-02-05T20:38:29.265Z",
+        "id": 38
+      },
+      {
+        "profile": 1,
+        "resource": 23,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:38:38.611Z",
+        "updatedAt": "2016-02-05T20:38:38.611Z",
+        "id": 39
+      },
+      {
+        "profile": 1,
+        "resource": 24,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:38:58.488Z",
+        "updatedAt": "2016-02-05T20:38:58.488Z",
+        "id": 40
+      },
+      {
+        "profile": 1,
+        "resource": 26,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:39:10.914Z",
+        "updatedAt": "2016-02-05T20:39:10.914Z",
+        "id": 41
+      },
+      {
+        "profile": 1,
+        "resource": 27,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:39:23.084Z",
+        "updatedAt": "2016-02-05T20:39:23.084Z",
+        "id": 42
+      },
+      {
+        "profile": 1,
+        "resource": 28,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:39:33.250Z",
+        "updatedAt": "2016-02-05T20:39:33.250Z",
+        "id": 43
+      },
+      {
+        "profile": 1,
+        "resource": 29,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:39:44.004Z",
+        "updatedAt": "2016-02-05T20:39:44.004Z",
+        "id": 44
+      },
+      {
+        "profile": 1,
+        "resource": 31,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:39:57.810Z",
+        "updatedAt": "2016-02-05T20:39:57.810Z",
+        "id": 45
+      },
+      {
+        "profile": 1,
+        "resource": 33,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:40:08.205Z",
+        "updatedAt": "2016-02-05T20:40:08.205Z",
+        "id": 46
+      },
+      {
+        "profile": 1,
+        "resource": 34,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:40:25.509Z",
+        "updatedAt": "2016-02-05T20:40:25.509Z",
+        "id": 47
+      },
+      {
+        "profile": 1,
+        "resource": 32,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:40:35.164Z",
+        "updatedAt": "2016-02-05T20:40:35.164Z",
+        "id": 48
+      },
+      {
+        "profile": 1,
+        "resource": 35,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:40:46.041Z",
+        "updatedAt": "2016-02-05T20:40:46.041Z",
+        "id": 49
+      },
+      {
+        "profile": 1,
+        "resource": 30,
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-05T20:53:53.046Z",
+        "updatedAt": "2016-02-05T20:53:53.046Z",
+        "id": 50
       }
     ],
     "resource": [
@@ -184,14 +576,14 @@
         "data": ""
       },
       {
-        "name": "Apps",
+        "name": "Apps Data",
         "method": "get",
         "path": "/App",
         "type": "data",
         "data": "selected",
         "requireaut": "Yes",
         "createdAt": "2016-02-04T18:39:50.722Z",
-        "updatedAt": "2016-02-04T20:21:54.758Z",
+        "updatedAt": "2016-02-05T19:43:45.515Z",
         "id": 6
       },
       {
@@ -206,15 +598,323 @@
         "id": 7
       },
       {
-        "name": "Models",
+        "name": "Models Data",
         "method": "get",
         "path": "/Model",
         "type": "data",
         "data": "selected",
         "requireaut": "Yes",
         "createdAt": "2016-02-04T21:58:11.874Z",
-        "updatedAt": "2016-02-04T21:58:11.874Z",
+        "updatedAt": "2016-02-05T19:43:55.095Z",
         "id": 8
+      },
+      {
+        "name": "List Models",
+        "method": "get",
+        "path": "/Model/list",
+        "type": "page",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T16:21:40.598Z",
+        "updatedAt": "2016-02-05T19:43:12.157Z",
+        "id": 9
+      },
+      {
+        "name": "List Attributes",
+        "method": "get",
+        "path": "/Attribute/list",
+        "type": "page",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T16:22:08.921Z",
+        "updatedAt": "2016-02-05T19:43:21.589Z",
+        "id": 10
+      },
+      {
+        "name": "List Model Functions",
+        "method": "get",
+        "path": "/ModelFunction/list",
+        "type": "page",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T16:22:44.655Z",
+        "updatedAt": "2016-02-05T19:43:33.706Z",
+        "id": 11
+      },
+      {
+        "name": "Attributes Data",
+        "method": "get",
+        "path": "/Attribute",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T16:29:35.991Z",
+        "updatedAt": "2016-02-05T19:44:03.608Z",
+        "id": 12
+      },
+      {
+        "name": "Model Functions Data",
+        "method": "get",
+        "path": "/ModelFunction/get",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T16:29:58.329Z",
+        "updatedAt": "2016-02-05T19:48:50.767Z",
+        "id": 13
+      },
+      {
+        "name": "User Data",
+        "method": "get",
+        "path": "/User",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:16:25.534Z",
+        "updatedAt": "2016-02-05T19:44:21.508Z",
+        "id": 14
+      },
+      {
+        "name": "Profile Data",
+        "method": "get",
+        "path": "/Profile",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:16:48.437Z",
+        "updatedAt": "2016-02-05T19:44:28.231Z",
+        "id": 15
+      },
+      {
+        "name": "Resource Data",
+        "method": "get",
+        "path": "/Resource",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:17:09.202Z",
+        "updatedAt": "2016-02-05T19:44:35.214Z",
+        "id": 16
+      },
+      {
+        "name": "Profile Resource Data",
+        "method": "get",
+        "path": "/ProfileResource",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:17:36.043Z",
+        "updatedAt": "2016-02-05T19:44:47.128Z",
+        "id": 17
+      },
+      {
+        "name": "User Resource Data",
+        "method": "get",
+        "path": "/UserResource",
+        "type": "data",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:18:50.007Z",
+        "updatedAt": "2016-02-05T19:44:58.467Z",
+        "id": 18
+      },
+      {
+        "name": "Create App",
+        "method": "post",
+        "path": "/App",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T19:58:29.213Z",
+        "updatedAt": "2016-02-05T19:58:29.213Z",
+        "id": 19
+      },
+      {
+        "name": "Create Model",
+        "method": "post",
+        "path": "/Model",
+        "type": "page",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:26:44.661Z",
+        "updatedAt": "2016-02-05T20:26:44.661Z",
+        "id": 20
+      },
+      {
+        "name": "Create Attribute",
+        "method": "post",
+        "path": "/Attribute",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:27:06.763Z",
+        "updatedAt": "2016-02-05T20:27:06.763Z",
+        "id": 21
+      },
+      {
+        "name": "Create Model Function",
+        "method": "post",
+        "path": "/ModelFunction",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:27:24.839Z",
+        "updatedAt": "2016-02-05T20:27:24.839Z",
+        "id": 22
+      },
+      {
+        "name": "Create User",
+        "method": "post",
+        "path": "/User",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:27:37.323Z",
+        "updatedAt": "2016-02-05T20:27:37.323Z",
+        "id": 23
+      },
+      {
+        "name": "Create Profile",
+        "method": "post",
+        "path": "/Profile",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:27:48.664Z",
+        "updatedAt": "2016-02-05T20:27:48.664Z",
+        "id": 24
+      },
+      {
+        "name": "Create Resource",
+        "method": "post",
+        "path": "/Resource",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:27:59.245Z",
+        "updatedAt": "2016-02-05T20:27:59.245Z",
+        "id": 25
+      },
+      {
+        "name": "Create Profile Resource",
+        "method": "post",
+        "path": "/ProfileResource",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:28:18.255Z",
+        "updatedAt": "2016-02-05T20:28:18.255Z",
+        "id": 26
+      },
+      {
+        "name": "Create User Resource",
+        "method": "post",
+        "path": "/UserResource",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:28:38.546Z",
+        "updatedAt": "2016-02-05T20:28:38.546Z",
+        "id": 27
+      },
+      {
+        "name": "Change App",
+        "method": "put",
+        "path": "/App",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:29:43.256Z",
+        "updatedAt": "2016-02-05T20:29:43.256Z",
+        "id": 28
+      },
+      {
+        "name": "Change Model",
+        "method": "put",
+        "path": "/Model",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:29:54.265Z",
+        "updatedAt": "2016-02-05T20:29:54.265Z",
+        "id": 29
+      },
+      {
+        "name": "Change Attribute",
+        "method": "put",
+        "path": "/Attribute",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:30:07.670Z",
+        "updatedAt": "2016-02-05T20:30:07.670Z",
+        "id": 30
+      },
+      {
+        "name": "Change Model Function",
+        "method": "put",
+        "path": "/ModelFunction",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:30:22.119Z",
+        "updatedAt": "2016-02-05T20:30:22.119Z",
+        "id": 31
+      },
+      {
+        "name": "Change User",
+        "method": "put",
+        "path": "/User",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:30:31.318Z",
+        "updatedAt": "2016-02-05T20:30:31.318Z",
+        "id": 32
+      },
+      {
+        "name": "Change Profile",
+        "method": "put",
+        "path": "/Profile",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:30:43.186Z",
+        "updatedAt": "2016-02-05T20:30:43.186Z",
+        "id": 33
+      },
+      {
+        "name": "Change Profile Resource",
+        "method": "put",
+        "path": "/ProfileResource",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:31:01.152Z",
+        "updatedAt": "2016-02-05T20:31:01.152Z",
+        "id": 34
+      },
+      {
+        "name": "Change User Resource",
+        "method": "put",
+        "path": "/UserResource",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:31:20.578Z",
+        "updatedAt": "2016-02-05T20:31:20.578Z",
+        "id": 35
+      },
+      {
+        "name": "Delete App",
+        "method": "get",
+        "path": "/deleteApp",
+        "type": "api",
+        "data": "all",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-05T20:32:14.499Z",
+        "updatedAt": "2016-02-05T20:32:14.499Z",
+        "id": 36
       }
     ],
     "account": [
@@ -240,10 +940,47 @@
         "id": 3
       }
     ],
-    "functionlist": [],
-    "model": [],
+    "functionlist": [
+      {
+        "mfunction": 6,
+        "new": "e",
+        "display": "e",
+        "edit": "e",
+        "delete": "e",
+        "columns": "e",
+        "print": "e",
+        "download": "e",
+        "ga": "e",
+        "dialog_width": "30em",
+        "card_width": "86em",
+        "btn_left": "80px",
+        "createdAt": "2016-02-05T18:35:48.997Z",
+        "updatedAt": "2016-02-05T18:35:48.997Z",
+        "id": 6
+      }
+    ],
+    "model": [
+      {
+        "app": 3,
+        "name": "Prueba",
+        "title": "Prueba",
+        "createdAt": "2016-02-05T18:35:48.966Z",
+        "updatedAt": "2016-02-05T18:35:48.966Z",
+        "id": 6
+      }
+    ],
     "attribute": [],
-    "modelfunction": [],
+    "modelfunction": [
+      {
+        "app": 3,
+        "model": 6,
+        "name": "List Prueba",
+        "type": "list",
+        "createdAt": "2016-02-05T18:35:48.987Z",
+        "updatedAt": "2016-02-05T18:35:48.987Z",
+        "id": 6
+      }
+    ],
     "app": [
       {
         "name": "newApp",
@@ -257,16 +994,81 @@
         "createdAt": "2016-02-04T20:38:41.285Z",
         "updatedAt": "2016-02-04T20:38:41.285Z",
         "id": 3
+      },
+      {
+        "name": "newApp2",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 7575,
+        "repository": "",
+        "createdAt": "2016-02-05T16:18:43.718Z",
+        "updatedAt": "2016-02-05T16:18:43.718Z",
+        "id": 4
+      },
+      {
+        "name": "newApp3",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 7676,
+        "repository": "",
+        "createdAt": "2016-02-05T19:59:05.450Z",
+        "updatedAt": "2016-02-05T19:59:05.450Z",
+        "id": 5
+      },
+      {
+        "name": "newApp4",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 5950,
+        "repository": "",
+        "createdAt": "2016-02-05T20:02:13.583Z",
+        "updatedAt": "2016-02-05T20:02:13.583Z",
+        "id": 6
+      },
+      {
+        "name": "newApp5",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 8686,
+        "repository": "",
+        "createdAt": "2016-02-05T20:12:52.367Z",
+        "updatedAt": "2016-02-05T20:12:52.367Z",
+        "id": 7
+      },
+      {
+        "name": "newApp06",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 7943,
+        "repository": "",
+        "createdAt": "2016-02-05T20:25:43.046Z",
+        "updatedAt": "2016-02-05T20:54:22.340Z",
+        "id": 8
       }
     ],
     "userresource": [
       {
         "user": 1,
         "resource": 6,
-        "app": 0,
+        "app": 3,
         "model": 0,
         "createdAt": "2016-02-04T20:18:33.775Z",
-        "updatedAt": "2016-02-04T20:18:33.775Z",
+        "updatedAt": "2016-02-05T16:18:09.533Z",
         "id": 1
       }
     ]
@@ -935,38 +1737,38 @@
   },
   "counters": {
     "model": {
-      "id": 5
+      "id": 6
     },
     "attribute": {
       "id": 4
     },
     "modelfunction": {
-      "id": 5
+      "id": 6
     },
     "functionattribute": {
       "id": 4
     },
     "language": {},
     "user": {
-      "id": 1
+      "id": 2
     },
     "profile": {
-      "id": 1
+      "id": 3
     },
     "profileresource": {
-      "id": 8
+      "id": 50
     },
     "resource": {
-      "id": 8
+      "id": 36
     },
     "account": {
       "id": 3
     },
     "functionlist": {
-      "id": 5
+      "id": 6
     },
     "app": {
-      "id": 3
+      "id": 8
     },
     "userresource": {
       "id": 2

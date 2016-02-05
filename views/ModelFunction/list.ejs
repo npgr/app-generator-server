@@ -16461,7 +16461,7 @@ Polymer({
 	ready: function() {
 //USER POINT - List Start Ready
 		//var _data = <%- data %>
-		this.$.ajax_app.url = config_server() + "App/"+url_params().app
+		this.$.ajax_app.url = config_server() + "App?id="+url_params().app
 		this.$.ajax_app.generateRequest()
 		this.attrs = <%- attrs %>
 //END USER POINT - List Start Ready

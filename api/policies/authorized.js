@@ -17,6 +17,8 @@ module.exports = function(req, res, next) {
   
 	//Bypass Security
 	//if (req.route.path == '/Order/SalesCube') return next()
+	var colors = require('colors/safe');
+	
 	var d = new Date()
 	var min = d.getMinutes(); if (min < 10) min = '0'+min 
 	var seg = d.getSeconds(); if (seg < 10) seg = '0'+seg
@@ -28,13 +30,23 @@ module.exports = function(req, res, next) {
 	
 	if (req.route.path != '/login' && req.route.path != '/validateLogin' && req.route.path != '/signout')
 	{
-		var resource_name = _.result(_.find(req.session.resources, { 'path': req.route.path }), 'name')
+		//var resource_name = _.result(_.find(req.session.resources, { 'path': req.route.path }), 'name')
+		
+		var path = ''
+		var pos = req.originalUrl.indexOf('?')
+		if (pos == -1)  path = req.originalUrl
+		 else  path = req.originalUrl.substring(0, pos)
+		 
+		var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
 	
-		if (resource_name)
-			//console.log(req.method+' '+req.route.path+' Authorized')
-			console.log(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user)
+		if (resource)
+			console.log(colors.green(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user))
 		else
-			console.log(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user)
+		{
+			//console.log('resource', resource)
+			//console.log('path', path)
+			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
+		}
 	}
 	return next()
 

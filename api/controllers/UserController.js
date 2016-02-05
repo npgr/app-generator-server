@@ -55,10 +55,12 @@ module.exports = {
 							delete n.resource.updatedAt
 							n.path = n.resource.path
 							n.name = n.resource.name.replace(/ /g, "_");
+							n.method = n.resource.method
 							delete n.resource.path
 							delete n.resource.name
 						  })
 						  req.session.resources = data2
+						  //console.log('Session Resources: ', req.session.resources)
 						  res.redirect(firstpage);
 						  //res.redirect('Task/list');
 						})
