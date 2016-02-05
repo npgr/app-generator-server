@@ -48,6 +48,7 @@ module.exports = function(req, res, next) {
 			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
 		}
 	}
+	//if (path == '/App') return res.json({msg: 'not Authorized'})
 	return next()
 
   // User is not allowed

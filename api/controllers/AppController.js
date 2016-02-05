@@ -12,6 +12,21 @@ module.exports = {
 		res.locals.data = []
 		res.view("app/list")
 	},
+	get: function (req, res) {
+		Resource.find({path: req.originalUrl, method: req.method.toLowerCase()})
+		  .exec(function(err, resource) {
+			if (resource[0].data == 'selected')
+			  //res.json({data: 'selected'})
+			  UserResource.find()
+			    .populate('app')
+				.exec(function(err, uresource) {
+					res.json(uresource)
+				})
+			//res.json(resource)
+			//res.end('data field: '+resource[0].data)
+		})
+		//res.json({exito: 'yes'})
+	},
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
 		App.destroy({id: app_id})
