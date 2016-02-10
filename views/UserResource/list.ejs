@@ -15969,22 +15969,23 @@ paper-menu {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 			
-			console.log('set field: ', this.field)
-			console.log('resource: ', this.$.resource.value)
 			if (this.field == 'resource')
-				switch(this.$.resource.value) {
-				  case 'Apps':
-				    console.log('show app field')
+			{
+				var path = this.$.Resource_select_dialog.item.path
+				switch(path)
+				{
+				  case '/App':
 					this.$.app_line.className = "";
 					this.$.model_line.className = "hide";
 				  break;
-				  case 'Models':
+				  case '/Model':
 					this.$.app_line.className = "hide";
 					this.$.model_line.className = "";
 				  break;
 				  default:
 					//error
 				}
+			}
 		},
 		create: function() {
 			this.$.ajax2.url = config_server() + "UserResource"
@@ -16321,10 +16322,7 @@ paper-menu {
 			//var item = this.data.find(filtro)[0]
 			this.item.profile = Number(this.data.find(filtro)[0].profile.id)
 			
-			console.log('item selected: ', this.item)
-			
 			this.$.dialog.close()
-		
 			this.fire('item_selected')
 		},
 		ajax_error: function() {
@@ -16352,7 +16350,7 @@ paper-menu {
 		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Resource')%>..."></div>
 		<paper-dialog-scrollable>
 		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
-			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
+			<div id="{{item.id}}" path="{{item.path}}" on-click="select">{{item.name}}</div>
 		</template>
 		</paper-dialog-scrollable>
 	</paper-dialog>
@@ -16395,6 +16393,7 @@ paper-menu {
 			this.item = {}
 			this.item.key = e.toElement.id
 			this.item.name = e.toElement.innerHTML
+			this.item.path = e.toElement.path
 			this.$.dialog.close()
 			//this.close()
 			this.fire('item_selected')
