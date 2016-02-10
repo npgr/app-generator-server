@@ -38,6 +38,10 @@ module.exports = function(req, res, next) {
 		 else  path = req.originalUrl.substring(0, pos)
 		 
 		var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
+		Resource.find({path: path, method: req.method.toLowerCase()})
+		  .exec(function(err, resourcex) {
+			console.log('Resource by DB: ', resourcex)
+		})
 	
 		if (resource)
 		{
@@ -53,7 +57,6 @@ module.exports = function(req, res, next) {
 	}
 	//if (path == '/App') return res.json({msg: 'not Authorized'})
 	return next()
-
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
 };
