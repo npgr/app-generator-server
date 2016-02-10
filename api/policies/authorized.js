@@ -40,7 +40,10 @@ module.exports = function(req, res, next) {
 		var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
 	
 		if (resource)
+		{
+			req.options.resource = resource
 			console.log(colors.green(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user))
+		}
 		else
 		{
 			//console.log('resource', resource)
