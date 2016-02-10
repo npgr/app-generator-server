@@ -15840,10 +15840,6 @@ paper-menu {
 				<td><div id="type" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><div id="data" on-click="change_field"></div></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
 				<td><div id="requireaut" on-click="change_field"></div></td>
 			</tr>
@@ -15872,7 +15868,6 @@ paper-menu {
 			this.show_field("method")
 			this.show_field("path")
 			this.show_field("type")
-			this.show_field("data")
 			this.show_field("requireaut")
 			this.$.dialog.open()
 		},
@@ -15948,14 +15943,6 @@ paper-menu {
 					</select></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data">
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
 				<td><select id="requireaut" name="requireaut">
 						<option value="Yes"><%= lng('Yes')%></option>
@@ -16004,7 +15991,6 @@ paper-menu {
 			  record.method = this.$.method.value
 			  record.path = this.$.path.value
 			  record.type = this.$.type.value
-			  record.data = this.$.data.value
 			  record.requireaut = this.$.requireaut.value			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
@@ -16085,14 +16071,6 @@ paper-menu {
 					</select></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data" disabled>
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
 				<td><select id="requireaut" name="requireaut" disabled>
 						<option value="Yes"><%= lng('Yes')%></option>
@@ -16119,7 +16097,6 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.method.value = item.method
 			this.$.type.value = item.type
-			this.$.data.value = item.data
 			this.$.requireaut.value = item.requireaut
 			}
 	})
@@ -16169,14 +16146,6 @@ paper-menu {
 					</select></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data">
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
 				<td><select id="requireaut" name="requireaut">
 						<option value="Yes"><%= lng('Yes')%></option>
@@ -16206,7 +16175,6 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.method.value = item.method
 			this.$.type.value = item.type
-			this.$.data.value = item.data
 			this.$.requireaut.value = item.requireaut
 			},
 		select_field_b: function(e) {
@@ -16229,7 +16197,6 @@ paper-menu {
 			record.method = this.$.method.value
 			record.path = this.$.path.value
 			record.type = this.$.type.value
-			record.data = this.$.data.value
 			record.requireaut = this.$.requireaut.value
 			this.$.ajax.url = config_server() + "Resource/" +record.id
 			this.$.ajax.params = record
@@ -16291,14 +16258,6 @@ paper-menu {
 					</select></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
-				<td><select id="data" name="data" disabled>
-						<option value="all"><%= lng('All')%></option>
-						<option value="selected"><%= lng('Selected')%></option>
-						<option value="except"><%= lng('All Except')%></option>
-					</select></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="requireaut"><%= lng('Require Aut')%></label></td>
 				<td><select id="requireaut" name="requireaut" disabled>
 						<option value="Yes"><%= lng('Yes')%></option>
@@ -16328,7 +16287,6 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.method.value = item.method
 			this.$.type.value = item.type
-			this.$.data.value = item.data
 			this.$.requireaut.value = item.requireaut
 			},
 		form_submit: function() {
@@ -16371,8 +16329,7 @@ paper-menu {
 		<option value="name"><%= lng('Name')%></option>  <%= lng('Method')%>
 		<option value="method"><%= lng('Method')%></option>  <%= lng('Path')%>
 		<option value="path"><%= lng('Path')%></option>  <%= lng('Type')%>
-		<option value="type"><%= lng('Type')%></option>  <%= lng('Data')%>
-		<option value="data"><%= lng('Data')%></option>  <%= lng('Require Aut')%>
+		<option value="type"><%= lng('Type')%></option>  <%= lng('Require Aut')%>
 		<option value="requireaut"><%= lng('Require Aut')%></option>
 	</select>
 	<select id="op">   
@@ -16410,7 +16367,6 @@ paper-menu {
 		<option value="method"><%= lng('Method')%></option>
 		<option value="path"><%= lng('Path')%></option>
 		<option value="type"><%= lng('Type')%></option>
-		<option value="data"><%= lng('Data')%></option>
 		<option value="requireaut"><%= lng('Require Aut')%></option>
 	</select>
 	<select id="op2" class="hide" >   
@@ -16450,8 +16406,6 @@ paper-menu {
 			<iron-icon id="path_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_type" on-click="sort_by_field"><%= lng('Type')%><div id="type_sort_d" class="hide">
 			<iron-icon id="type_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_data" on-click="sort_by_field"><%= lng('Data')%><div id="data_sort_d" class="hide">
-			<iron-icon id="data_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_requireaut" on-click="sort_by_field"><%= lng('Require Aut')%><div id="requireaut_sort_d" class="hide">
 			<iron-icon id="requireaut_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
@@ -16464,7 +16418,6 @@ paper-menu {
 		<td class="col_method"></td>
 		<td class="col_path"></td>
 		<td class="col_type"></td>
-		<td class="col_data"></td>
 		<td class="col_requireaut"></td>
 	</tr>
 	</tfoot>-->
@@ -16479,7 +16432,6 @@ paper-menu {
 		<template is="dom-if" if="{{column.method}}"><td>{{item.method_des}}</td></template>
 		<template is="dom-if" if="{{column.path}}"><td>{{item.path}}</td></template>
 		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
-		<template is="dom-if" if="{{column.data}}"><td>{{item.data_des}}</td></template>
 		<template is="dom-if" if="{{column.requireaut}}"><td>{{item.requireaut_des}}</td></template>
 	</tr>
 	</template>
@@ -16511,13 +16463,11 @@ Polymer({
 				{column: "method", enum: ["get","post","put","delete","all"], enumdes: ["<%= lng("GET")%>","<%= lng("POST")%>","<%= lng("PUT")%>","<%= lng("DELETE")%>","<%= lng("ALL")%>"], display: true},
 				{column: "path", type: "string", display: true},
 				{column: "type", enum: ["page","data","api","option","component"], enumdes: ["<%= lng("Page")%>","<%= lng("Data")%>","<%= lng("Api")%>","<%= lng("Option")%>","<%= lng("Component")%>"], display: true},
-				{column: "data", enum: ["all","selected","except"], enumdes: ["<%= lng("All")%>","<%= lng("Selected")%>","<%= lng("All Except")%>"], display: true},
 				{column: "requireaut", enum: ["Yes","No"], enumdes: ["<%= lng("Yes")%>","<%= lng("No")%>"], display: true}
 		]
 		this.enums = {}
 		this.enums.method = {get:"<%= lng('GET')%>",post:"<%= lng('POST')%>",put:"<%= lng('PUT')%>",delete:"<%= lng('DELETE')%>",all:"<%= lng('ALL')%>"}
 		this.enums.type = {page:"<%= lng('Page')%>",data:"<%= lng('Data')%>",api:"<%= lng('Api')%>",option:"<%= lng('Option')%>",component:"<%= lng('Component')%>"}
-		this.enums.data = {all:"<%= lng('All')%>",selected:"<%= lng('Selected')%>",except:"<%= lng('All Except')%>"}
 		this.enums.requireaut = {Yes:"<%= lng('Yes')%>",No:"<%= lng('No')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
@@ -16755,7 +16705,6 @@ Polymer({
 		this.$.method_sort_d.classList.add("hide")
 		this.$.path_sort_d.classList.add("hide")
 		this.$.type_sort_d.classList.add("hide")
-		this.$.data_sort_d.classList.add("hide")
 		this.$.requireaut_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
@@ -16913,7 +16862,6 @@ Polymer({
 	{
 		this.$.ajax.lastResponse[i].method_des= this.enums.method[this.$.ajax.lastResponse[i].method]
 		this.$.ajax.lastResponse[i].type_des= this.enums.type[this.$.ajax.lastResponse[i].type]
-		this.$.ajax.lastResponse[i].data_des= this.enums.data[this.$.ajax.lastResponse[i].data]
 		this.$.ajax.lastResponse[i].requireaut_des= this.enums.requireaut[this.$.ajax.lastResponse[i].requireaut]	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}

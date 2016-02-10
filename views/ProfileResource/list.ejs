@@ -15832,6 +15832,10 @@ paper-menu {
 				<td><div id="resource_name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
+				<td><div id="data" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="order"><%= lng('Order')%></label></td>
 				<td><div id="order" on-click="change_field"></div></td>
 			</tr>
@@ -15862,6 +15866,7 @@ paper-menu {
 			this.show_field("id")
 			this.show_field("profile_name")
 			this.show_field("resource_name")
+			this.show_field("data")
 			this.show_field("order")
 			this.show_field("Group")
 			this.$.dialog.open()
@@ -15920,6 +15925,15 @@ paper-menu {
 				<td><iron-icon icon="find-in-page" field="resource" on-click="select_field_b"></iron-icon><input id="resource" type="text" name="resource" key=0 on-click="select_field" readonly></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
+				<td><select id="data" name="data">
+						<option value="all"><%= lng('All')%></option>
+						<option value="selected"><%= lng('Selected')%></option>
+						<option value="except"><%= lng('All Except')%></option>
+						<option value="na"><%= lng('Not Apply')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="order"><%= lng('Order')%></label></td>
 				<td><input id="order" type="number" name="order"></td>
 			</tr>
@@ -15975,6 +15989,7 @@ paper-menu {
 			var record = {}
 			record.profile = this.$.profile.key
 			record.resource = this.$.resource.key
+			  record.data = this.$.data.value
 			record.order = Number(this.$.order.value)
 			  record.Group = this.$.Group.value			
 			this.$.ajax2.params = record
@@ -16036,6 +16051,15 @@ paper-menu {
 				<td><input id="resource" type="text" name="resource" value="{{item.resource_name}}" disabled></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
+				<td><select id="data" name="data" disabled>
+						<option value="all"><%= lng('All')%></option>
+						<option value="selected"><%= lng('Selected')%></option>
+						<option value="except"><%= lng('All Except')%></option>
+						<option value="na"><%= lng('Not Apply')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="order"><%= lng('Order')%></label></td>
 				<td><input id="order" type="number" name="order" value="{{item.order}}" disabled></td>
 			</tr>
@@ -16061,6 +16085,7 @@ paper-menu {
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
+			this.$.data.value = item.data
 			}
 	})
 </script>
@@ -16070,7 +16095,7 @@ paper-menu {
 
 <dom-module id="ProfileResource-edit">
 <template>
-	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
 		<Profile-select id="Profile_select_dialog" on-item_selected="set_select_field"></Profile-select>
 		<Resource-select id="Resource_select_dialog" on-item_selected="set_select_field"></Resource-select>
@@ -16089,6 +16114,15 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
 				<td><iron-icon icon="find-in-page" field="resource" on-click="select_field_b"></iron-icon><input id="resource" type="text" name="resource" key={{item.resource_id}} value="{{item.resource_name}}" on-click="select_field" readonly></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
+				<td><select id="data" name="data">
+						<option value="all"><%= lng('All')%></option>
+						<option value="selected"><%= lng('Selected')%></option>
+						<option value="except"><%= lng('All Except')%></option>
+						<option value="na"><%= lng('Not Apply')%></option>
+					</select></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="order"><%= lng('Order')%></label></td>
@@ -16119,6 +16153,7 @@ paper-menu {
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
+			this.$.data.value = item.data
 			},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
@@ -16142,6 +16177,7 @@ paper-menu {
 			record.id = Number(this.$.id.value)
 			record.profile = this.$.profile.key
 			record.resource = this.$.resource.key
+			record.data = this.$.data.value
 			record.order = Number(this.$.order.value)
 			record.Group = this.$.Group.value
 			this.$.ajax.url = config_server() + "ProfileResource/" +record.id
@@ -16165,7 +16201,7 @@ paper-menu {
 
 <dom-module id="ProfileResource-delete">
 <template>
-	<iron-ajax id="ajax" method='DELETE' handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax" method="DELETE" handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("ProfileResource"))%></h2>
 		<paper-dialog-scrollable>
@@ -16182,6 +16218,15 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
 				<td><input id="resource" type="text" name="resource" value="{{item.resource_name}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="data"><%= lng('Data')%></label></td>
+				<td><select id="data" name="data" disabled>
+						<option value="all"><%= lng('All')%></option>
+						<option value="selected"><%= lng('Selected')%></option>
+						<option value="except"><%= lng('All Except')%></option>
+						<option value="na"><%= lng('Not Apply')%></option>
+					</select></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="order"><%= lng('Order')%></label></td>
@@ -16212,6 +16257,7 @@ paper-menu {
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
+			this.$.data.value = item.data
 			},
 		form_submit: function() {
 			this.$.submit_delete.click()
@@ -16395,7 +16441,8 @@ paper-menu {
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>
 		<option value="profile_name"><%= lng('Profile')%></option>
-		<option value="resource_name"><%= lng('Resource')%></option>  <%= lng('Order')%>
+		<option value="resource_name"><%= lng('Resource')%></option>  <%= lng('Data')%>
+		<option value="data"><%= lng('Data')%></option>  <%= lng('Order')%>
 		<option value="order"><%= lng('Order')%></option>  <%= lng('Group')%>
 		<option value="Group"><%= lng('Group')%></option>
 	</select>
@@ -16432,6 +16479,7 @@ paper-menu {
 		<option value="id"><%= lng('Id')%></option>
 		<option value="profile_name"><%= lng('Profile')%></option>
 		<option value="resource_name"><%= lng('Resource')%></option>
+		<option value="data"><%= lng('Data')%></option>
 		<option value="order"><%= lng('Order')%></option>
 		<option value="Group"><%= lng('Group')%></option>
 	</select>
@@ -16468,6 +16516,8 @@ paper-menu {
 			<iron-icon id="profile_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_resource_name" on-click="sort_by_field"><%= lng('Resource')%><div id="resource_name_sort_d" class="hide">
 			<iron-icon id="resource_name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_data" on-click="sort_by_field"><%= lng('Data')%><div id="data_sort_d" class="hide">
+			<iron-icon id="data_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_order" on-click="sort_by_field"><%= lng('Order')%><div id="order_sort_d" class="hide">
 			<iron-icon id="order_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_Group" on-click="sort_by_field"><%= lng('Group')%><div id="Group_sort_d" class="hide">
@@ -16480,6 +16530,7 @@ paper-menu {
 		<td class="col_id"></td>
 		<td class="col_profile_name"></td>
 		<td class="col_resource_name"></td>
+		<td class="col_data"></td>
 		<td class="col_order"></td>
 		<td class="col_Group"></td>
 	</tr>
@@ -16493,6 +16544,7 @@ paper-menu {
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
 		<template is="dom-if" if="{{column.profile_name}}"><td>{{item.profile_name}}</td></template>
 		<template is="dom-if" if="{{column.resource_name}}"><td>{{item.resource_name}}</td></template>
+		<template is="dom-if" if="{{column.data}}"><td>{{item.data_des}}</td></template>
 		<template is="dom-if" if="{{column.order}}"><td>{{item.order}}</td></template>
 		<template is="dom-if" if="{{column.Group}}"><td>{{item.Group}}</td></template>
 	</tr>
@@ -16525,10 +16577,12 @@ Polymer({
 				{column: "profile_name", type: "string", model: "Profile", display: true},
 				{column: "resource_id", type: "integer", model: "Resource", display: false},
 				{column: "resource_name", type: "string", model: "Resource", display: true},
+				{column: "data", enum: ["all","selected","except","na"], enumdes: ["<%= lng("All")%>","<%= lng("Selected")%>","<%= lng("All Except")%>","<%= lng("Not Apply")%>"], display: true},
 				{column: "order", type: "integer", display: true},
 				{column: "Group", type: "string", display: true}
 		]
 		this.enums = {}
+		this.enums.data = {all:"<%= lng('All')%>",selected:"<%= lng('Selected')%>",except:"<%= lng('All Except')%>",na:"<%= lng('Not Apply')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
 		this.data = db.addCollection("data_ProfileResource")
@@ -16773,6 +16827,7 @@ Polymer({
 		this.$.id_sort_d.classList.add("hide")
 		this.$.profile_name_sort_d.classList.add("hide")
 		this.$.resource_name_sort_d.classList.add("hide")
+		this.$.data_sort_d.classList.add("hide")
 		this.$.order_sort_d.classList.add("hide")
 		this.$.Group_sort_d.classList.add("hide")
 	},
@@ -16944,7 +16999,8 @@ Polymer({
 		{
 			this.$.ajax.lastResponse[i].resource_id = 0
 			this.$.ajax.lastResponse[i].resource_name = ""
-		}	
+		}
+		this.$.ajax.lastResponse[i].data_des= this.enums.data[this.$.ajax.lastResponse[i].data]	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()

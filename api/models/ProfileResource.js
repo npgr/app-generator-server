@@ -35,6 +35,12 @@ module.exports = {
 		//type: 'string',
 		model: 'Resource'
 	},
+	data: {
+		//description: 'Data',
+		type: "string",
+		enum: ["all","selected","except","n/a"]
+		//,enumdes: ["All","Selected","All Except", "Not Apply"]
+	},
 	order: {
 		//description: 'Order',
 		type: 'integer'
