@@ -35,13 +35,18 @@ module.exports = {
 						req.session.user = req.body.username
 						req.session.username = data.name
 						req.session.profile = data.profile
+						
+						/*Resource.find({id: data.profile.firstpage})
+						  .exec(function(err, data2) {
+							var firstpage = 'App/list'
+							if (data2[0])
+								firstpage = data2[0].path
+								res.redirect(firstpage);
+						  })*/
 						ProfileResource.find({profile: req.session.profile.id})
 						 .populate('resource')
 						 .sort('order')
 						 .exec(function(err, data2){
-							/*_.remove(data2, function (e) {
-								return e.resource.type != 'page'
-							})*/
 						  var firstpage = 'App/list'
 						  _.forEach(data2, function(n, key) {
 							if (n.resource.id == data.profile.firstpage)
@@ -62,7 +67,6 @@ module.exports = {
 						  req.session.resources = data2
 						  //console.log('Session Resources: ', req.session.resources)
 						  res.redirect(firstpage);
-						  //res.redirect('Task/list');
 						})
 					}
 					else

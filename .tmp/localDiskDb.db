@@ -63,7 +63,7 @@
         "name": "Developer",
         "firstpage": 1,
         "createdAt": "2016-02-05T16:19:35.281Z",
-        "updatedAt": "2016-02-05T16:19:35.281Z",
+        "updatedAt": "2016-02-11T21:48:45.126Z",
         "id": 3
       }
     ],
@@ -128,8 +128,9 @@
         "order": 0,
         "Group": "",
         "createdAt": "2016-02-04T21:42:09.154Z",
-        "updatedAt": "2016-02-04T21:42:09.154Z",
-        "id": 7
+        "updatedAt": "2016-02-11T21:11:52.302Z",
+        "id": 7,
+        "data": "all"
       },
       {
         "profile": 1,
@@ -254,8 +255,9 @@
         "order": 0,
         "Group": "",
         "createdAt": "2016-02-05T16:27:02.282Z",
-        "updatedAt": "2016-02-05T16:27:02.282Z",
-        "id": 21
+        "updatedAt": "2016-02-10T17:29:00.099Z",
+        "id": 21,
+        "data": "selected"
       },
       {
         "profile": 2,
@@ -272,8 +274,9 @@
         "order": 0,
         "Group": "",
         "createdAt": "2016-02-05T16:27:48.637Z",
-        "updatedAt": "2016-02-05T16:27:48.637Z",
-        "id": 23
+        "updatedAt": "2016-02-10T17:28:52.818Z",
+        "id": 23,
+        "data": "selected"
       },
       {
         "profile": 3,
@@ -517,6 +520,16 @@
         "createdAt": "2016-02-05T20:53:53.046Z",
         "updatedAt": "2016-02-05T20:53:53.046Z",
         "id": 50
+      },
+      {
+        "profile": 1,
+        "resource": 37,
+        "data": "na",
+        "order": 0,
+        "Group": "",
+        "createdAt": "2016-02-11T22:05:44.219Z",
+        "updatedAt": "2016-02-11T22:05:44.219Z",
+        "id": 51
       }
     ],
     "resource": [
@@ -915,6 +928,16 @@
         "createdAt": "2016-02-05T20:32:14.499Z",
         "updatedAt": "2016-02-05T20:32:14.499Z",
         "id": 36
+      },
+      {
+        "name": "Delete Profile",
+        "method": "delete",
+        "path": "/Profile",
+        "type": "api",
+        "requireaut": "Yes",
+        "createdAt": "2016-02-11T21:57:44.219Z",
+        "updatedAt": "2016-02-11T21:57:44.219Z",
+        "id": 37
       }
     ],
     "account": [
@@ -984,7 +1007,7 @@
     "app": [
       {
         "name": "newApp",
-        "version": "",
+        "version": "2",
         "description": "",
         "type": "web",
         "db": "postgres",
@@ -992,7 +1015,7 @@
         "port": 8777,
         "repository": "",
         "createdAt": "2016-02-04T20:38:41.285Z",
-        "updatedAt": "2016-02-04T20:38:41.285Z",
+        "updatedAt": "2016-02-11T21:43:57.919Z",
         "id": 3
       },
       {
@@ -1059,6 +1082,19 @@
         "createdAt": "2016-02-05T20:25:43.046Z",
         "updatedAt": "2016-02-05T20:54:22.340Z",
         "id": 8
+      },
+      {
+        "name": "newApp02",
+        "version": "",
+        "description": "",
+        "type": "web",
+        "db": "postgres",
+        "path": "N:\\ROOT\\sails-electron\\Generador\\client\\apps",
+        "port": 8686,
+        "repository": "",
+        "createdAt": "2016-02-10T15:09:23.207Z",
+        "updatedAt": "2016-02-10T15:09:23.207Z",
+        "id": 9
       }
     ],
     "userresource": [
@@ -1070,6 +1106,15 @@
         "createdAt": "2016-02-04T20:18:33.775Z",
         "updatedAt": "2016-02-05T16:18:09.533Z",
         "id": 1
+      },
+      {
+        "user": 1,
+        "resource": 6,
+        "app": 9,
+        "model": 0,
+        "createdAt": "2016-02-10T15:22:07.340Z",
+        "updatedAt": "2016-02-10T15:22:07.340Z",
+        "id": 4
       }
     ]
   },
@@ -1236,6 +1281,15 @@
         "foreignKey": true,
         "alias": "resource"
       },
+      "data": {
+        "type": "string",
+        "enum": [
+          "all",
+          "selected",
+          "except",
+          "na"
+        ]
+      },
       "order": {
         "type": "integer"
       },
@@ -1280,14 +1334,6 @@
           "api",
           "option",
           "component"
-        ]
-      },
-      "data": {
-        "type": "string",
-        "enum": [
-          "all",
-          "selected",
-          "except"
         ]
       },
       "requireaut": {
@@ -1753,13 +1799,13 @@
       "id": 2
     },
     "profile": {
-      "id": 3
+      "id": 7
     },
     "profileresource": {
-      "id": 50
+      "id": 51
     },
     "resource": {
-      "id": 36
+      "id": 37
     },
     "account": {
       "id": 3
@@ -1768,10 +1814,10 @@
       "id": 6
     },
     "app": {
-      "id": 8
+      "id": 9
     },
     "userresource": {
-      "id": 2
+      "id": 4
     }
   }
 }

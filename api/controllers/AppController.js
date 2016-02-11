@@ -13,8 +13,7 @@ module.exports = {
 		res.view("app/list")
 	},
 	get: function (req, res) {
-		//console.log('Profile Resource: ', req.options.resource) //from policy Authorized
-		//console.log('profile: ', req.session.profile) // From UserController.login
+		//console.log('req.options.resource: ', req.options.resource)
 		if (req.options.resource.data == 'all') //Profile Resource
 		  App.find()
 			.exec(function(err, apps) {

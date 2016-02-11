@@ -9,6 +9,17 @@
  */
 module.exports = function(req, res, next) {
 
+	function extract_path() 
+	{
+		var path = ''
+		var pos = req.originalUrl.indexOf('?')
+		if (pos == -1)  path = req.originalUrl
+		 else  path = req.originalUrl.substring(0, pos)
+		if (req.method == 'PUT' || req.method == 'DELETE')
+			return path.substring(0,path.lastIndexOf('/'))
+		return path
+	}
+
   // User is allowed, proceed to the next policy, 
   // or if this is the last policy, the controller
   
@@ -32,14 +43,13 @@ module.exports = function(req, res, next) {
 	{
 		//var resource_name = _.result(_.find(req.session.resources, { 'path': req.route.path }), 'name')
 		
-		var path = ''
-		var pos = req.originalUrl.indexOf('?')
-		if (pos == -1)  path = req.originalUrl
-		 else  path = req.originalUrl.substring(0, pos)
+		var path = extract_path()
 		 
-		Resource.find({path: path, method: req.method.toLowerCase()})
+		/*Resource.find({path: path, method: req.method.toLowerCase()})
 		  .exec(function(err, resourcex) {
 			if (resourcex[0])
+			{
+			 //console.log('path: ', path, 'method: ', req.method.toLowerCase(), 'resource', resourcex)
 			 ProfileResource.find({profile: req.session.profile.id, resource: resourcex[0].id})
 			//.populate('resource')
 			  .exec(function(err, resource){
@@ -50,21 +60,25 @@ module.exports = function(req, res, next) {
 				}
 				else
 					console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
-					//console.log('Profile Resource by DB: ', resource[0])
 				return next()
-			})
-			//console.log('Resource by DB: ', resourcex[0])
-		})
+			 })
+			}
+			else 
+			{
+				console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
+				return next()
+			}
+		})*/
 		
-		//var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
-	
-		/*if (resource)
+		var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
+		if (resource)
 		{
 			req.options.resource = resource
 			console.log(colors.green(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user))
 		}
 		else
-			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))*/
+			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
+		return next()
 	}
 	else
 	//if (path == '/App') return res.json({msg: 'not Authorized'})

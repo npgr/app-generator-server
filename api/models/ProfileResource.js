@@ -38,7 +38,7 @@ module.exports = {
 	data: {
 		//description: 'Data',
 		type: "string",
-		enum: ["all","selected","except","n/a"]
+		enum: ["all","selected","except","na"]
 		//,enumdes: ["All","Selected","All Except", "Not Apply"]
 	},
 	order: {
