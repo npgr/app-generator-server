@@ -16650,10 +16650,18 @@ Polymer({
 	
 	if (this.$.ajax2.lastResponse.length != 0)
 	{
-		const remote = require('electron').remote
-		var generate = remote.require('./generate.js')
-		msg = generate.generate_model(item.app.name, item.name, this.$.ajax2.lastResponse, item.app.path)
-		alert(msg, 'Generate Model')
+		var fs = require('fs')
+		var data = JSON.stringify({
+			app: item.app.name,
+			model: item.name,
+			attributes: this.$.ajax2.lastResponse,
+			app_path: item.app.path
+		})
+		var file_path = './generator/data.json'
+		fs.writeFileSync(file_path, data, 'utf8')
+		
+		const ipcRenderer = require('electron').ipcRenderer;
+		ipcRenderer.send('create-model', {model: data.model, path: file_path});
 	}
 	else
 		alert('No Attributes Found for model '+item.name, 'Generate Model')
