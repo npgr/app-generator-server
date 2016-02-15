@@ -16951,11 +16951,18 @@ Polymer({
 		if (this.attrs.length != 0)
 		  switch(mfunction.type) {
 			case 'list':
-				const remote = require('electron').remote
-				var generate = remote.require('./generate.js')
+				var fs = require('fs')
+				var data = JSON.stringify({
+						app: this.app,
+						mfunction: mfunction,
+						attrs: attrs
+					})
+				var file_path = './generator/data.json'
+				fs.writeFileSync(file_path, data, 'utf8')
+		
+				const ipcRenderer = require('electron').ipcRenderer;
+				ipcRenderer.send('create-mfunction', {mfunc: mfunction.name, path: file_path});
 				
-				msg = generate.generate_function_list(this.app, mfunction, attrs)
-				alert(msg, 'Generate Function')
 				break
 			default:
 				alert('Function Type Does not recognized')
