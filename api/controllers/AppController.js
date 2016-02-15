@@ -14,12 +14,21 @@ module.exports = {
 	},
 	get: function (req, res) {
 		//console.log('req.options.resource: ', req.options.resource)
-		if (req.options.resource.data == 'all') //Profile Resource
+		if (req.param('id'))
+		{
+			App.find({id: req.param('id')})
+				.exec(function(err, apps) {
+					res.json(apps[0])
+				})
+		}
+		else
+		{
+		 if (req.options.resource.data == 'all') //Profile Resource
 		  App.find()
 			.exec(function(err, apps) {
 			  res.json(apps)
 			})
-		else // asume data == 'select'
+		 else // asume data == 'select'
 		  UserResource.find()
 			.populate('app')
 			.exec(function(err, uresource) {
@@ -29,6 +38,7 @@ module.exports = {
 					ures.push(uresource[i].app)
 				res.json(ures)
 			})
+		}
 	},
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
