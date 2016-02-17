@@ -45,6 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  "get /Key": "KeyController.get",
   "get /App": "AppController.get",
   "/App/deleteApp/:app": "AppController.deleteApp",
   "/App/list": "AppController.list",
