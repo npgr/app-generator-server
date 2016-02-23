@@ -16925,7 +16925,7 @@ Polymer({
 	}*/
 	,load_app: function() {
 		this.app = this.$.ajax_app.lastResponse
-		console.log('app: ',this.app)
+		//console.log('app: ',this.app)
 	},
 	generate: function()  /* Generate Function */
 	{
@@ -16933,8 +16933,8 @@ Polymer({
 		var filtro = {"id": this.key}
 		var mfunction = this.data.find(filtro)[0]
 		
-		console.log('Function: ', mfunction)
-		console.log('Attributes 1: ', this.attrs)
+		//console.log('Function: ', mfunction)
+		//console.log('Attributes 1: ', this.attrs)
 		
 		var attrs = {}
 		for (i=0; i < this.attrs.length; i++ )
@@ -16946,7 +16946,7 @@ Polymer({
 				attrs[this.attrs[i].attribute].model = ''
 			//delete attrs[this.attrs[i].attribute].attribute
 		}
-		console.log('Attributes: ', attrs)
+		//console.log('Attributes: ', attrs)
 		
 		if (this.attrs.length != 0)
 		  switch(mfunction.type) {
