@@ -1,1 +1,0 @@
-...server\node_modules\sails\lib\app\lift.js
