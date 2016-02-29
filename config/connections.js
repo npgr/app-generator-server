@@ -31,7 +31,7 @@ module.exports.connections = {
   localDiskDb: {
     adapter: 'sails-disk'
   },
-
+  
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *
@@ -80,7 +80,7 @@ module.exports.connections = {
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  }
+  },
 
 
   /***************************************************************************
@@ -89,4 +89,18 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
+   /***************************************************************
+  *														 *
+  * Nedb, The JavaScript Database							 *
+  * https://www.npmjs.com/package/nedb: Embedded persistent or 	 *
+  * in memory database for Node.js, nw.js, Electron and browsers,*
+  * 100% JavaScript, no binary dependency					 *
+  *														 *
+  * Installed for Generator									 *
+  *														 *
+  ****************************************************************/
+  neDB1: {
+	adapter: 'waterline-nedb',
+    dbPath: 'db/'
+  }
 };

@@ -24,11 +24,13 @@
     "include-all": "~0.1.3",
     "jsonic": "^0.1.2",
     "lodash": "^3.9.3",
+    "nedb": "^1.8.0",
     "rc": "~0.5.0",
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
-    "sails-postgresql": "^0.10.15",
+    "sails-nedb": "^0.10.1-a3",
     "string-template": "^0.2.1",
+    "waterline-nedb": "git://github.com/andyhu/waterline-nedb.git",
     "winston": "^1.1.0"
   },
   "scripts": {
