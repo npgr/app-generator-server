@@ -68,6 +68,56 @@ module.exports = {
 			})
 			return res.json({msg: 'App deleted'})
 		})	
+	},
+	export : function(req, res) {
+		App.find()
+		 .exec(function(err, apps) {
+			if (apps.length > 0)
+			{
+				var Apps_data = JSON.stringify(apps)
+				var fs = require('fs')
+				fs.writeFile('./db/Apps.txt', Apps_data, 'utf8', function(err){
+					if (err) {
+						console.log('Error Exporting Apps: ', err)
+						res.write('Error Exporting Apps: ', err,'\n')
+					}
+					else
+					{
+					  console.log('Exported '+apps.length+' Apps to file db/Apps.txt')
+					  res.write('Exported '+apps.length+' Apps to file db/Apps.txt\n')
+					}
+				})
+			}
+		})
+	},
+	import: function(req, res) {
+		App.destroy({ id: { '>=': 0 }})
+		 .exec(function(err){
+			if (err) console.log('Error deleting Apps: ',err)
+			var fs = require('fs')
+			fs.readFile('./db/Apps.txt', function(err, data) {
+				if (err)
+				{
+					console.log('Error Reading Apps: ', err)
+					res.write('Error Reading Apps: ', err,'\n')
+				}
+				else
+				{
+					var data_obj = JSON.parse(data)
+					for (var i=0; i < data_obj.length; i++) {
+						App.create(data_obj[i])
+						.exec(function(err, created) {
+							if (err) 
+								console.log('Error Creating App: ', err)
+						 //else
+						//	console.log('Created App: ', created)
+						})
+					}
+					console.log('Imported '+data_obj.length+' Apps to table App')
+					res.write('Imported '+data_obj.length+' Apps to table App\n')
+				}
+			})
+		 })
 	}
 };
 

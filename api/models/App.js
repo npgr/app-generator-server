@@ -7,8 +7,7 @@
 
 module.exports = {
 
-	//migrate: 'alter',
-	adapter: 'localDiskDb',
+	//migrate: 'safe',
 	
   attributes: {
 	//_title: 'App',

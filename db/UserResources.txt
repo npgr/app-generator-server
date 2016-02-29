@@ -1,0 +1,1 @@
+[{"user":1,"resource":6,"app":3,"model":0,"createdAt":"2016-02-04T20:18:33.775Z","updatedAt":"2016-02-05T16:18:09.533Z","id":1},{"user":1,"resource":6,"app":9,"model":0,"createdAt":"2016-02-10T15:22:07.340Z","updatedAt":"2016-02-10T15:22:07.340Z","id":4}]

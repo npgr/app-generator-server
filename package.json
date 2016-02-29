@@ -29,8 +29,8 @@
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
     "sails-nedb": "^0.10.1-a3",
+    "sails-postgresql": "^0.11.3",
     "string-template": "^0.2.1",
-    "waterline-nedb": "git://github.com/andyhu/waterline-nedb.git",
     "winston": "^1.1.0"
   },
   "scripts": {

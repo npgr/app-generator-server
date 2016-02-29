@@ -46,6 +46,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  "get /db/import": "DbController.import",
   "get /App": "AppController.get",
   "/App/deleteApp/:app": "AppController.deleteApp",
   "/App/list": "AppController.list",

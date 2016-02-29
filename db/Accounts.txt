@@ -1,0 +1,1 @@
+[{"name":"Cuenta Personal","users":6,"createdAt":"2015-09-03T16:56:47.079Z","updatedAt":"2015-09-03T16:56:47.079Z","id":1},{"name":"Cuenta Actividades","users":3,"createdAt":"2015-09-03T16:57:05.021Z","updatedAt":"2015-09-03T16:57:05.021Z","id":2},{"name":"Cuenta Tickets","users":2,"createdAt":"2015-09-03T16:57:31.014Z","updatedAt":"2015-09-03T16:57:31.014Z","id":3}]

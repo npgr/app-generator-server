@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  //migrate: 'alter',
+  //migrate: 'safe',
 
   attributes: {
 	//_title: 'Atributo',

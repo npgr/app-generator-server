@@ -1,0 +1,1 @@
+[{"account":1,"profile":1,"id":1,"usr":"Nuno","pwd":"Prueba","name":"Nuno Goncalves R","email":"","photo":"","status":"A","updatedAt":"2016-02-05T21:04:14.254Z","prueba":"Nuno Goncalves R"}]

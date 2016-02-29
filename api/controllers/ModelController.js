@@ -41,6 +41,56 @@ module.exports = {
 				})
 			})
 		});
+	},
+	export : function(req, res) {
+		Model.find()
+		 .exec(function(err, models) {
+			if (models.length > 0)
+			{
+				var Models_data = JSON.stringify(models)
+				var fs = require('fs')
+				fs.writeFile('./db/Models.txt', Models_data, 'utf8', function(err){
+					if (err) {
+						console.log('Error Exporting Models: ', err)
+						res.write('Error Exporting Models: ', err,'\n')
+					}
+					else
+					{
+					  console.log('Exported '+models.length+' Models to file db/Models.txt')
+					  res.write('Exported '+models.length+' Models to file db/Models.txt\n')
+					}
+				})
+			}
+		})
+	},
+	import: function(req, res) {
+		Model.destroy({ id: { '>=': 0 }})
+		 .exec(function(err){
+			if (err) console.log('Error deleting Models: ',err)
+			var fs = require('fs')
+			fs.readFile('./db/Models.txt', function(err, data) {
+				if (err)
+				{
+					console.log('Error Reading Models: ', err)
+					res.write('Error Reading Models: ', err)
+				}
+				else
+				{
+					var data_obj = JSON.parse(data)
+					for (var i=0; i < data_obj.length; i++) {
+						Model.create(data_obj[i])
+						.exec(function(err, created) {
+							if (err) 
+								console.log('Error Creating Model: ', err,'\n')
+						 //else
+						//	console.log('Created Model: ', created)
+						})
+					}
+					console.log('Imported '+data_obj.length+' Models to table Model')
+					res.write('Imported '+data_obj.length+' Models to table Model\n')
+				}
+			})
+		 })
 	}
 };
 

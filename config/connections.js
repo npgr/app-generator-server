@@ -81,6 +81,16 @@ module.exports.connections = {
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
   },
+  
+  postgresql: {
+    adapter: 'sails-postgresql',
+    host: 'localhost',
+    user: 'postgres',
+    password: 'postgresng',
+    database: 'generator',
+	pool: false,
+	port: 5432
+  },
 
 
   /***************************************************************************
@@ -89,18 +99,5 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
-   /***************************************************************
-  *														 *
-  * Nedb, The JavaScript Database							 *
-  * https://www.npmjs.com/package/nedb: Embedded persistent or 	 *
-  * in memory database for Node.js, nw.js, Electron and browsers,*
-  * 100% JavaScript, no binary dependency					 *
-  *														 *
-  * Installed for Generator									 *
-  *														 *
-  ****************************************************************/
-  neDB1: {
-	adapter: 'waterline-nedb',
-    dbPath: 'db/'
-  }
+
 };

@@ -164,6 +164,56 @@ module.exports = {
 						console.log('exec error: ' + error);
 				}
 		})
+	},
+	export : function(req, res) {
+		ModelFunction.find()
+		 .exec(function(err, modelFunctions) {
+			if (modelFunctions.length > 0)
+			{
+				var ModelFunctions_data = JSON.stringify(modelFunctions)
+				var fs = require('fs')
+				fs.writeFile('./db/ModelFunctions.txt', ModelFunctions_data, 'utf8', function(err){
+					if (err) {
+						console.log('Error Exporting ModelFunctions: ', err)
+						res.write('Error Exporting ModelFunctions: ', err,'\n')
+					}
+					else
+					{
+					  console.log('Exported '+modelFunctions.length+' ModelFunctions to file db/ModelFunctions.txt')
+					  res.write('Exported '+modelFunctions.length+' ModelFunctions to file db/ModelFunctions.txt\n')
+					}
+				})
+			}
+		})
+	},
+	import: function(req, res) {
+		ModelFunction.destroy({ id: { '>=': 0 }})
+		 .exec(function(err){
+			if (err) console.log('Error deleting ModelFunctions: ',err)
+			var fs = require('fs')
+			fs.readFile('./db/ModelFunctions.txt', function(err, data) {
+				if (err)
+				{
+					console.log('Error Reading ModelFunctions: ', err)
+					res.write('Error Reading ModelFunctions: ', err,'\n')
+				}
+				else
+				{
+					var data_obj = JSON.parse(data)
+					for (var i=0; i < data_obj.length; i++) {
+						ModelFunction.create(data_obj[i])
+						.exec(function(err, created) {
+							if (err) 
+								console.log('Error Creating ModelFunction: ', err)
+						 //else
+						//	console.log('Created ModelFunction: ', created)
+						})
+					}
+					console.log('Imported '+data_obj.length+' ModelFunctions to table ModelFunction')
+					res.write('Imported '+data_obj.length+' ModelFunctions to table ModelFunction\n')
+				}
+			})
+		 })
 	}
 };
 

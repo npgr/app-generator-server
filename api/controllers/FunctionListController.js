@@ -27,6 +27,56 @@ module.exports = {
 					//require('crud5').generate('crud6')
 				})
 			})
+	},
+	export : function(req, res) {
+		FunctionList.find()
+		 .exec(function(err, functionLists) {
+			if (functionLists.length > 0)
+			{
+				var FunctionLists_data = JSON.stringify(functionLists)
+				var fs = require('fs')
+				fs.writeFile('./db/FunctionLists.txt', FunctionLists_data, 'utf8', function(err){
+					if (err) {
+						console.log('Error Exporting FunctionLists: ', err)
+						res.write('Error Exporting FunctionLists: ', err)
+					}
+					else
+					{
+					  console.log('Exported '+functionLists.length+' FunctionLists to file db/FunctionLists.txt')
+					  res.write('Exported '+functionLists.length+' FunctionLists to file db/FunctionLists.txt\n')
+					}
+				})
+			}
+		})
+	},
+	import: function(req, res) {
+		FunctionList.destroy({ id: { '>=': 0 }})
+		 .exec(function(err){
+			if (err) console.log('Error deleting FunctionLists: ',err)
+			var fs = require('fs')
+			fs.readFile('./db/FunctionLists.txt', function(err, data) {
+				if (err)
+				{
+					console.log('Error Reading FunctionLists: ', err)
+					res.write('Error Reading FunctionLists: ', err,'\n')
+				}
+				else
+				{
+					var data_obj = JSON.parse(data)
+					for (var i=0; i < data_obj.length; i++) {
+						FunctionList.create(data_obj[i])
+						.exec(function(err, created) {
+							if (err) 
+								console.log('Error Creating FunctionList: ', err)
+						 //else
+						//	console.log('Created FunctionList: ', created)
+						})
+					}
+					console.log('Imported '+data_obj.length+' FunctionLists to table FunctionList')
+					res.write('Imported '+data_obj.length+' FunctionLists to table FunctionList\n')
+				}
+			})
+		 })
 	}
 };
 

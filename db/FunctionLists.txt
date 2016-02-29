@@ -1,0 +1,1 @@
+[{"mfunction":6,"new":"e","display":"e","edit":"e","delete":"e","columns":"e","print":"e","download":"e","ga":"e","dialog_width":"30em","card_width":"86em","btn_left":"80px","createdAt":"2016-02-05T18:35:48.997Z","updatedAt":"2016-02-05T18:35:48.997Z","id":6}]

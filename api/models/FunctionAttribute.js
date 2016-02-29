@@ -7,7 +7,8 @@
 
 module.exports = {
 
-	//migrate: 'alter',
+	//migrate: 'safe',
+	
   attributes: {
 	//_title: 'Funcion Attributes',
 	id: {

@@ -40,10 +40,16 @@ module.exports = function(req, res, next) {
 	if(req.headers.my_key)
 		if (req.headers.my_key == 'abc') bypass = true
 	//console.log('headers: ', req.headers)
-	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass)
+	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass &&
+		req.route.path != '/db/import'){
+		
+		console.log('Redirecting to login from '+req.route.path)
 		return res.redirect('/login')
+	}
+			
 	
-	if (req.route.path != '/login' && req.route.path != '/validateLogin' && req.route.path != '/signout')
+	if (req.route.path != '/login' && req.route.path != '/validateLogin' && req.route.path != '/signout' && 
+	    req.route.path != '/db/import')
 	{
 		//var resource_name = _.result(_.find(req.session.resources, { 'path': req.route.path }), 'name')
 		

@@ -6,6 +6,7 @@
 */
 
 module.exports = {
+	//migrate: 'safe',
 
   attributes: {
 	//_title: 'Language',
