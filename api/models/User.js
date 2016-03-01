@@ -73,26 +73,15 @@ module.exports = {
 		//,enumdes: ["Active","Inactive"]
     }
 //End Attributes
-	,prueba: function() {
-		return this.name
-	}
-	,toJSON: function () {
-      var obj = this.toObject();
-
-	  obj.prueba = this.prueba()
-      //delete obj.pwd;
-
-      return obj;
-    }
-  },
-  beforeCreate: function (data, next) {
+  }
+  //,beforeCreate: function (data, next) {
 	// Modelo sails_app2  (/api/services)
     // TODO: replace with new cipher service
     //if (values.password) values.password = CipherService.create('bcrypt', values.password).hashSync();
     
 	//***** data.pwd = require('bcrypt').hashSync(data.pwd, 10);
-	next();
-  }
+	//next();
+  //}
   //,beforeUpdate: function (values, next) {
     // TODO: replace with new cipher service
     //if (values.password) values.password = CipherService.create('bcrypt', values.password).hashSync();
