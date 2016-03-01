@@ -25,19 +25,21 @@ module.exports = {
 	},
 	import: function (req, res) {
 		//console.log('Executing import data...')
+		/** Security **/
 		sails.controllers.account.import(req, res)
-		sails.controllers.app.import(req, res)
-		sails.controllers.attribute.import(req, res)
-		//sails.controllers.functionattribute.import(req, res)
-		sails.controllers.functionlist.import(req, res)
-		sails.controllers.language.import(req, res)
-		sails.controllers.model.import(req, res)
-		sails.controllers.modelfunction.import(req, res)
 		sails.controllers.profile.import(req, res)
-		sails.controllers.profileresource.import(req, res)
 		sails.controllers.resource.import(req, res)
+		sails.controllers.profileresource.import(req, res)
 		sails.controllers.user.import(req, res)
 		sails.controllers.userresource.import(req, res)
+		/** Apps **/
+		sails.controllers.app.import(req, res)
+		sails.controllers.model.import(req, res)
+		sails.controllers.attribute.import(req, res)
+		sails.controllers.modelfunction.import(req, res)
+		sails.controllers.functionlist.import(req, res)
+		sails.controllers.language.import(req, res)
+		//sails.controllers.functionattribute.import(req, res)
 		setTimeout(function(){ res.end('') }, 7000);
 	}
 };
