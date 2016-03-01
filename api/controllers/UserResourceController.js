@@ -38,30 +38,30 @@ module.exports = {
 		})
 	},
 	import: function(req, res) {
-		Resource.destroy({ id: { '>=': 0 }})
+		UserResource.destroy({ id: { '>=': 0 }})
 		 .exec(function(err){
-			if (err) console.log('Error deleting Resources: ',err)
+			if (err) console.log('Error deleting UserResources: ',err)
 			var fs = require('fs')
-			fs.readFile('./db/Resources.txt', function(err, data) {
+			fs.readFile('./db/UserResources.txt', function(err, data) {
 				if (err)
 				{
-					console.log('Error Reading Resources: ', err)
-					res.write('Error Reading Resources: ', err,'\n')
+					console.log('Error Reading UserResources: ', err)
+					res.write('Error Reading UserResources: ', err,'\n')
 				}
 				else
 				{
 					var data_obj = JSON.parse(data)
 					for (var i=0; i < data_obj.length; i++) {
-						Resource.create(data_obj[i])
+						UserResource.create(data_obj[i])
 						.exec(function(err, created) {
 							if (err) 
-								console.log('Error Creating Resource: ', err)
+								console.log('Error Creating UserResource: ', err)
 						 //else
 						//	console.log('Created Resource: ', created)
 						})
 					}
-					console.log('Imported '+data_obj.length+' Resources to table Resource')
-					res.write('Imported '+data_obj.length+' Resources to table Resource\n')
+					console.log('Imported '+data_obj.length+' UserResources to table UserResource')
+					res.write('Imported '+data_obj.length+' UserResources to table UserResource\n')
 				}
 			})
 		 })
