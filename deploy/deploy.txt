@@ -1,4 +1,0 @@
-# Vulcanize
-
-vulcanize --inline-css --inline-scripts reporte.html > reporte2.html
-
