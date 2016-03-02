@@ -25,10 +25,7 @@ describe('Generator Server', function() {
 		})
 		/** Load Login Page */
 		it('load login Page', function(done) {
-			var options = { host: host, port: port, path:'/login', method: 'GET' }
-	
-			var request = http.request(options,function(res){
-				//res.status.should.equal(200)
+			http.get('http://'+host+':'+port+'/login', function(res) {
 				should.exist(res)
 				res.on('data', function(data_stream) {
 					//console.log(data_stream.toString())
@@ -36,19 +33,18 @@ describe('Generator Server', function() {
 					x.should.at.least(1)
 					done()
 				})
-			})
-			request.on('error', function(err) {
+			}).on('error', (err) => {
 				done(err)
-			})
-			request.end();
+			}).end()
 		})
 	})
 })
 describe('Key Server', function() {
 	//describe('Key Value', function() {
 		it('Key', function(done) {
+			//const err = new Error('My Error');
+			//done(err)
 			done()
-			
 		})	
 	//})
 })

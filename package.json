@@ -34,7 +34,8 @@
   "scripts": {
     "start": "rm -r .tmp/public & nodemon app",
     "prod": "nodemon app --prod",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+	"test": "mocha -R spec test/test1.js"
   },
   "main": "app.js",
   "repository": {
