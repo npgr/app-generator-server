@@ -1,8 +1,8 @@
 {
-  "name": "datamaestra",
+  "name": "Generador",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.9.0",
+  "description": "a Applications Generator application",
   "keywords": [],
   "dependencies": {
     "bcrypt": "^0.8.5",

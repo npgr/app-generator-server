@@ -1,4 +1,6 @@
-cp node_modules deploy/node_modules
+#rm -r deploy/node_modules
+
+#cp node_modules deploy/node_modules
 
 #Remove unnecesary files & folders (reduce 106 MB -> 84 MB )
 
@@ -19,6 +21,8 @@ find deploy/node_modules -iname 'readme*' -exec rm {} \;
 # Compact all .js files
 # node_modules -> it takes about 1 hour
 find deploy/node_modules -iname '*.js' -exec uglifyjs --compress --mangle -o {} -- {} \;
+
+# separar html, css y js -> uglifyjs .js y html-minifier .html ¿ cssmin ?
 
 # remove assets/components/ not used
 
