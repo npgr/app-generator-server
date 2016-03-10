@@ -11,7 +11,7 @@ module.exports = {
 	
   attributes: {
 	//_title: 'App',
-	//_dialog_width: '39em',
+	//_dialog_width: '33em',
 	//_card_width: '60em',  
 	//_btn_left: '30px', 		
 	//_columns: 'enabled', 	
@@ -41,8 +41,8 @@ module.exports = {
 	},
 	description: {
 		//description: 'Description',
-		//textarea_cols: 60,
-		//textarea_rows: 2,
+		//textarea_cols: 45,
+		//textarea_rows: 3,
 		//hide: true,
 		type: 'string'
 	},
@@ -61,7 +61,7 @@ module.exports = {
 	path: {
 		//description: 'Path',
 		type: 'string',
-		//textarea_cols: 80,
+		//textarea_cols: 40,
 		//textarea_rows: 3,		
 		required: true
 	},
