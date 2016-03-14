@@ -41,7 +41,7 @@ module.exports = {
 	},
 	description: {
 		//description: 'Description',
-		//textarea_cols: 45,
+		//textarea_cols: 42,
 		//textarea_rows: 3,
 		//hide: true,
 		type: 'string'
@@ -61,7 +61,7 @@ module.exports = {
 	path: {
 		//description: 'Path',
 		type: 'string',
-		//textarea_cols: 40,
+		//textarea_cols: 42,
 		//textarea_rows: 3,		
 		required: true
 	},
