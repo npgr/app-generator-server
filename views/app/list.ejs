@@ -1,4 +1,4 @@
-<!-- list template: version 6.35 -->
+<!-- list template: version 6.40 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -6,7 +6,7 @@
  function lng(word1, word2, word3) {
 	return __(word1, word2, word3)
  }
-%>
+%>  
 <html>
 <head><meta charset="UTF-8">
 	<title><%= lng("%s %s",lng("List"),lng("App"))%></title>
@@ -15596,7 +15596,7 @@ if (!window.Promise) {
 	margin-left: 30px;
 }
 #dialog {
-	width: 39em;
+	width: 33em;
 }
 .card {
 	width: 60em;
@@ -15626,11 +15626,20 @@ paper-menu {
 #name {
 	width: 20em;
 }
+#description {
+	width: 24em;
+}
 #path {
+	width: 24em;
+}
+#repository {
 	width: 20em;
 }
 #port {
-	width: 5em;
+	width: 4em;
+}
+#version {
+	width: 6em;
 }
 /** END USER POINT - General Style **/
 </style>
@@ -15916,7 +15925,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- new-form: version 5.10 -->
+<!-- new-form: version 5.20 -->
 
 <dom-module id="App-new">
 <template>
@@ -15941,7 +15950,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><textarea id="description" name="description" rows="2" cols="60"></textarea></td>
+				<td><textarea id="description" name="description" rows="3" cols="42"></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -15966,7 +15975,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="80" on-click="select_path" readOnly required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" on-click="select_path" readOnly required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -16086,12 +16095,12 @@ paper-menu {
 		valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
 		}
-/** END USER POINT - New Functions **/
+/** END USER POINT - New Functions **/		
 	})
 </script>
 </dom-module>
 
-<!-- display-form: version 5.10 -->
+<!-- display-form: version 5.20 -->
 
 <dom-module id="App-display">
 <template>
@@ -16113,7 +16122,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}" disabled></textarea></td>
+				<td><textarea id="description" name="description" rows="3" cols="42" value="{{item.description}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -16138,7 +16147,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%></label></td>
@@ -16171,18 +16180,17 @@ paper-menu {
 			this.$.type.value = item.type
 			this.$.db.value = item.db
 			}
+/** USER POINT - Display Functions **/
+/** END USER POINT - Display Functions **/
 	})
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.10 -->
+<!-- edit-form: version 5.20 -->
 
 <dom-module id="App-edit">
 <template>
-	<style>
-		#path { width: 15em;}
-	</style>
-	<iron-ajax id="ajax" method='PUT' handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("App"))%></h2>
 		<paper-dialog-scrollable>
@@ -16202,7 +16210,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}"></textarea></td>
+				<td><textarea id="description" name="description" rows="3" cols="42" value="{{item.description}}"></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -16227,7 +16235,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" disabled required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -16317,7 +16325,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.10 -->
+<!-- delete-form: version 5.20 -->
 
 <dom-module id="App-delete">
 <template>
@@ -16341,7 +16349,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
-				<td><textarea id="description" name="description" rows="2" cols="60" value="{{item.description}}" disabled></textarea></td>
+				<td><textarea id="description" name="description" rows="3" cols="42" value="{{item.description}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
@@ -16366,7 +16374,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="80" value="{{item.path}}" disabled></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" disabled></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%></label></td>
@@ -16420,6 +16428,8 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+/** USER POINT - Delete Functions **/
+/** END USER POINT - Delete Functions **/
 	})
 </script>
 </dom-module>
@@ -17033,7 +17043,7 @@ Polymer({
 </dom-module>
 <top-bar><%= lng("%s %s",lng("List"),lng("App"))%></top-bar>
 <paper-material class="card" elevation="2">
-	<App-list id='app_list'></App-list>
+	<App-list id="App_list"></App-list>
 </paper-material>
 </body>
 </html>
