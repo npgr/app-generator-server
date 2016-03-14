@@ -15622,7 +15622,7 @@ paper-menu {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
-/*User Point: General Style*/
+/** USER POINT - General Style **/
 #name {
 	width: 20em;
 }
@@ -15632,7 +15632,7 @@ paper-menu {
 #port {
 	width: 5em;
 }
-/*End User Point: General Style*/
+/** END USER POINT - General Style **/
 </style>
 
 <!-- topBar template: version 1.21 -->
@@ -16065,7 +16065,7 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
-//USER POINT - New Functions (Not Implemented yet in Generator)
+/** USER POINT - New Functions **/
 		,select_path: function() {
 			const dialog = require('electron').remote.dialog;
 			var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]})
@@ -16082,7 +16082,7 @@ paper-menu {
 		valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
 		}
-//END USER POINT - New Functions		
+/** END USER POINT - New Functions **/
 	})
 </script>
 </dom-module>
@@ -16296,14 +16296,14 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
-//USER POINT - Edit Functions (Not Implemented yet in Generator)
+/** USER POINT - Edit Functions **/
 		,valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
 		},
 		load_path: function() {
 			console.log('file: ', this.$.path.files)
 		}
-//END USER POINT - Edit Functions
+/** END USER POINT - Edit Functions **/
 	})
 </script>
 </dom-module>
