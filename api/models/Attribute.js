@@ -7,11 +7,12 @@
 
 module.exports = {
 
-  //migrate: 'safe',
+  //migrate: 'alter',
 
   attributes: {
 	//_title: 'Atributo',
 	//_unique: ['model', 'attribute'],
+	//_dialog_width: '33em',
 	id: {
 		//description: 'Id',
 		//hide: true,
@@ -40,9 +41,7 @@ module.exports = {
 	},
 	description: {
 		//description: 'Description',
-		type: "string",
-		//textarea_cols: 60,
-		//textarea_rows: 2
+		type: "string"
 	},
 	type: {
 		//description: 'Type',
@@ -62,33 +61,33 @@ module.exports = {
 		enum: [true, false]
 		//,enumdes: ['Yes', 'No']
 	},
-	width: {
-		//description: 'Width',
-		type: 'string'
-	},
-	textarea_cols:{
-		//description: 'Textarea Cols',
-		//hide: true,
-		type: 'integer'
-	},
-	textarea_rows:{
-		//description: 'Textarea Rows',
-		//hide: true,
-		type: 'integer'
-	},
-	enum: {
-		//description: 'Enum',
-		type: 'string'
-	},
-	enumdes: {
-		//description: 'EnumDes',
-		type: 'string'
-	},
 	omit: {
 		//description: 'Omit',
 		type: 'boolean',
 		enum: [true, false]
 		//,enumdes: ['Yes', 'No']
+	},
+	textarea_cols:{
+		//description: 'TextArea Cols',
+		//hide: true,
+		type: 'integer'
+	},
+	textarea_rows:{
+		//description: 'TextArea Rows',
+		//hide: true,
+		type: 'integer'
+	},
+	enum: {
+		//description: 'Enum',
+		//textarea_cols: 60,
+		//textarea_rows: 3,
+		type: 'string'
+	},
+	enumdes: {
+		//description: 'EnumDes',
+		//textarea_cols: 60,
+		//textarea_rows: 3,
+		type: 'string'
 	},
 	ref_model: {
 		//description: 'Reference Model',
@@ -119,18 +118,6 @@ module.exports = {
 		//hide: true,
 		model: 'Attribute'
 	},
-	top_label: {
-		//description: 'Top Label',
-		//hide: true,
-		//hide: true,
-		type: 'string'
-	},
-	left_label: {
-		//description: 'Left Label',
-		//hide: true,
-		//hide: true,
-		type: 'string'
-	},
 	maxLength: {
 		//description: 'Max Length',
 		type: 'integer'
@@ -142,52 +129,6 @@ module.exports = {
 	max: {
 		//description: 'Max Value',
 		type: 'integer'
-	},
-	filter: {
-		//description: 'Filter',
-		//hide: true,
-		type: 'boolean',
-		enum: [true, false]
-		//,enumdes: ['Yes', 'No']
-	},
-	list: {
-		//description: 'List',
-		//hide: true,
-		type: 'boolean',
-		enum: [true, false]
-		//,enumdes: ['Yes', 'No']
-	},
-	display: {
-		//description: 'Display',
-		//hide: true,
-		type: 'string',
-		enum: ['s', 'h']
-		//,enumdes: ['Show', 'Hide']
-	},
-	create: {
-		//description: 'Create',
-		//hide: true,
-		type: 'string',
-		enum: ['c', 'r', 'h']
-		//,enumdes: ['Create', 'Readonly', 'Hide']
-	},
-	update: {
-		//description: 'Update',
-		//hide: true,
-		type: 'string',
-		enum: ['u', 'r', 'h']
-		//,enumdes: ['Update', 'Readonly', 'Hide']
-	},
-	delete: {
-		//description: 'Delete',
-		//hide: true,
-		type: 'string',
-		enum: ['s', 'h']
-		//,enumdes: ['Show', 'Hide']
-	},
-	help: {
-		//description: 'Help Text',
-		type: 'string'
 	}
 //End Attributes
   },
