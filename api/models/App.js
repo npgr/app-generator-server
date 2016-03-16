@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
 	//_title: 'App',
 	//_dialog_width: '33em',
-	//_card_width: '60em',  
+	//_card_width: '64em',  
 	//_btn_left: '30px', 		
 	//_columns: 'enabled', 	
 	//_new: 'enabled',
