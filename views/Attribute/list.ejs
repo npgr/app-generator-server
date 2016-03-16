@@ -16516,7 +16516,7 @@ paper-menu {
 			if (this.field == "ref_model")
 				this.$.Model_select_dialog.open_select_dialog(url_params().app_id)
 			if (this.field == "model_display")
-				this.$.Attribute_select_dialog.open_select_dialog(url_params().app_id)
+				this.$.Attribute_select_dialog.open_select_dialog(url_params().model_id)
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -17192,17 +17192,17 @@ Polymer({
 				{column: "omit", enum: [true,false], enumdes: ["<%= lng("Yes")%>","<%= lng("No")%>"], display: true},
 				{column: "textarea_cols", type: "integer", display: false},
 				{column: "textarea_rows", type: "integer", display: false},
-				{column: "enum", type: "string", display: true},
-				{column: "enumdes", type: "string", display: true},
+				{column: "enum", type: "string", display: false},
+				{column: "enumdes", type: "string", display: false},
 				{column: "ref_model_id", type: "integer", model: "Model", display: false},
-				{column: "ref_model_name", type: "string", model: "Model", display: true},
+				{column: "ref_model_name", type: "string", model: "Model", display: false},
 				{column: "model_key", type: "string", display: false},
 				{column: "key_type", enum: ["integer","string","float","date","boolean"], enumdes: ["<%= lng("integer")%>","<%= lng("string")%>","<%= lng("float")%>","<%= lng("date")%>","<%= lng("boolean")%>"], display: false},
 				{column: "model_display_id", type: "integer", model: "Attribute", display: false},
 				{column: "model_display_name", type: "string", model: "Attribute", display: false},
-				{column: "maxLength", type: "integer", display: true},
-				{column: "min", type: "integer", display: true},
-				{column: "max", type: "integer", display: true}
+				{column: "maxLength", type: "integer", display: false},
+				{column: "min", type: "integer", display: false},
+				{column: "max", type: "integer", display: false}
 		]
 		this.enums = {}
 		this.enums.type = {integer:"<%= lng('integer')%>",string:"<%= lng('string')%>",float:"<%= lng('float')%>",date:"<%= lng('date')%>",boolean:"<%= lng('boolean')%>"}
@@ -17672,7 +17672,7 @@ Polymer({
 			this.$.ajax.lastResponse[i].model_display_id = 0
 			this.$.ajax.lastResponse[i].model_display_name = ""
 		}
-		this.$.ajax.lastResponse[i].filter_des= this.enums.filter[this.$.ajax.lastResponse[i].filter]
+		//this.$.ajax.lastResponse[i].filter_des= this.enums.filter[this.$.ajax.lastResponse[i].filter]
 		this.$.ajax.lastResponse[i].list_des= this.enums.list[this.$.ajax.lastResponse[i].list]
 		this.$.ajax.lastResponse[i].display_des= this.enums.display[this.$.ajax.lastResponse[i].display]
 		this.$.ajax.lastResponse[i].create_des= this.enums.create[this.$.ajax.lastResponse[i].create]
