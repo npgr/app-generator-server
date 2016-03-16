@@ -81,12 +81,14 @@ module.exports = {
 		//description: 'Enum',
 		//textarea_cols: 60,
 		//textarea_rows: 3,
+		//hide: true,
 		type: 'string'
 	},
 	enumdes: {
 		//description: 'EnumDes',
 		//textarea_cols: 60,
 		//textarea_rows: 3,
+		//hide: true,
 		type: 'string'
 	},
 	ref_model: {
@@ -95,6 +97,7 @@ module.exports = {
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
+		//hide: true,
 		model: 'Model'
 	},
 	model_key: {
@@ -120,14 +123,17 @@ module.exports = {
 	},
 	maxLength: {
 		//description: 'Max Length',
+		//hide: true,
 		type: 'integer'
 	},
 	min: {
 		//description: 'Min Value',
+		//hide: true,
 		type: 'integer'
 	},
 	max: {
 		//description: 'Max Value',
+		//hide: true,
 		type: 'integer'
 	}
 //End Attributes
