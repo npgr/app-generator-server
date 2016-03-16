@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
 	//_title: 'Model',
 	//_dialog_width: '30em',
-	//_card_width: '60em',  
+	//_card_width: '57em',  
 	//_btn_left: '30px', 		
 	//_columns: 'disabled', 	
 	//_new: 'enabled',
