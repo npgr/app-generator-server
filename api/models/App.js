@@ -62,7 +62,8 @@ module.exports = {
 		//description: 'Path',
 		type: 'string',
 		//textarea_cols: 42,
-		//textarea_rows: 3,		
+		//textarea_rows: 3,
+		//hide: true,
 		required: true
 	},
 	port: {

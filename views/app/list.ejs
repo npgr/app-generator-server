@@ -16418,9 +16418,9 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_deleted: function() {
-			alert("<%= lng('Record Deleted')%>")
 /** USER POINT - Record Deleted **/
 /** END USER POINT - Record Deleted **/
+			alert("<%= lng('Record Deleted')%>")
 			this.$.dialog.close()
 			this.fire('close')
 		},
@@ -16609,7 +16609,7 @@ Polymer({
 				{column: "description", type: "string", display: false},
 				{column: "type", enum: ["web","web2","desktop","mobil"], enumdes: ["<%= lng("Web App (Browser)")%>","<%= lng("Web App (electron)")%>","<%= lng("Desktop")%>","<%= lng("Mobil")%>"], display: true},
 				{column: "db", enum: ["postgres","mysql","mongodb","disk","rethinkdb","cassandra","leveldb"], enumdes: ["<%= lng("PostgreSQL")%>","<%= lng("MySQL")%>","<%= lng("MongoDB")%>","<%= lng("Disk")%>","<%= lng("RethinkDB")%>","<%= lng("Cassandra")%>","<%= lng("LevelDB")%>"], display: true},
-				{column: "path", type: "string", display: true},
+				{column: "path", type: "string", display: false},
 				{column: "port", type: "integer", display: true},
 				{column: "repository", type: "string", display: false}
 		]
