@@ -8,11 +8,13 @@
 module.exports = {
 
   //migrate: 'alter',
+  //_card_width: '64em',  
 
   attributes: {
 	//_title: 'Atributo',
 	//_unique: ['model', 'attribute'],
 	//_dialog_width: '33em',
+	//_btn_left: '30px',
 	id: {
 		//description: 'Id',
 		//hide: true,
@@ -57,12 +59,14 @@ module.exports = {
 	},
 	hide: {
 		//description: 'Hide',
+		//hide: true,
 		type: 'boolean',
 		enum: [true, false]
 		//,enumdes: ['Yes', 'No']
 	},
 	omit: {
 		//description: 'Omit',
+		//hide: true,
 		type: 'boolean',
 		enum: [true, false]
 		//,enumdes: ['Yes', 'No']
