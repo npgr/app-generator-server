@@ -35,6 +35,7 @@ module.exports = {
 						req.session.user = req.body.username
 						req.session.username = data.name
 						req.session.profile = data.profile
+						req.session.languagePreference = data.language 
 						
 						/*Resource.find({id: data.profile.firstpage})
 						  .exec(function(err, data2) {
@@ -65,7 +66,6 @@ module.exports = {
 							delete n.resource.name
 						  })
 						  req.session.resources = data2
-						  //console.log('Session Resources: ', req.session.resources)
 						  res.redirect(firstpage);
 						})
 					}

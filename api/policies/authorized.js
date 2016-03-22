@@ -43,7 +43,7 @@ module.exports = function(req, res, next) {
 	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass &&
 		req.route.path != '/db/import'){
 		
-		console.log('Redirecting to login from '+req.route.path)
+		//console.log('Redirecting to login from '+req.route.path)
 		return res.redirect('/login')
 	}
 			
@@ -88,11 +88,16 @@ module.exports = function(req, res, next) {
 		}
 		else
 			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
+		//console.log('languagePreference', req.session.languagePreference)
+		req.setLocale(req.session.languagePreference);
 		return next()
 	}
 	else
+	{
 	//if (path == '/App') return res.json({msg: 'not Authorized'})
+		req.setLocale(req.session.languagePreference);
 		return next()
+	}
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
 };

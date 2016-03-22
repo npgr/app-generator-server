@@ -26,6 +26,7 @@ module.exports = {
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
+		
 		model: 'Account'
 	},
 	usr: {
@@ -56,16 +57,24 @@ module.exports = {
 	},
 	email: {
 		//description: 'email',
+		//hide: true,
 		type: 'string'
 		//,email: true 
     },
 	photo: {
 		//description: 'Photo',
 		//hide: true,
+		//omit: true,
 		type: 'string',
 		defaultsTo: ''
 		//,url: true 
     },
+	language: {
+		//description: 'Language',
+		type: 'string',
+		enum: ['en', 'es', 'pt']
+		//,enumdes: ['English', 'Español', 'Portugues']
+	},
 	status: {
 		//description: "Status",
 		type: 'string',
