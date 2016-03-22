@@ -10,9 +10,10 @@ module.exports = {
 	
   attributes: {
 	//_title: 'Funcion',
-	//_card_width: '60em',
+	//_card_width: '55em',
 	//_delete: 'disabled',
 	//_new: 'disabled',
+	//_btn_left: '50px',
 	//_display: 'disabled',
 	id: {
 		//description: 'Id',
@@ -37,6 +38,7 @@ module.exports = {
 		//key_type: 'integer',
 		//display: 'name',
 		//type: 'string',
+		//hide: true,
 		model: 'Model'
 	},
 	name: {

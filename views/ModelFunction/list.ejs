@@ -15593,13 +15593,13 @@ if (!window.Promise) {
 <!-- FINALIZA -->
 <style>
 #btn_area { 
-	margin-left: 80px;
+	margin-left: 50px;
 }
 #dialog {
 	width: 30em;
 }
 .card {
-	width: 60em;
+	width: 55em;
 	top: 30px;
 	left: 15px;
 }
@@ -16479,7 +16479,7 @@ Polymer({
 				{column: "app_id", type: "integer", model: "App", display: false},
 				{column: "app_name", type: "string", model: "App", display: false},
 				{column: "model_id", type: "integer", model: "Model", display: false},
-				{column: "model_name", type: "string", model: "Model", display: true},
+				{column: "model_name", type: "string", model: "Model", display: false},
 				{column: "name", type: "string", display: true},
 				{column: "type", enum: ["list","display","edit","new","delete","columns","download","print","ga","https","relic","pingdom"], enumdes: ["<%= lng("List")%>","<%= lng("Display")%>","<%= lng("Edit")%>","<%= lng("New")%>","<%= lng("Delete")%>","<%= lng("Columns")%>","<%= lng("Download")%>","<%= lng("Print")%>","<%= lng("Analytics")%>","<%= lng("Https")%>","<%= lng("NewRelic")%>","<%= lng("pingdom")%>"], display: true}
 		]
