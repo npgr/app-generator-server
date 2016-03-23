@@ -1,4 +1,4 @@
-<!-- list template: version 6.35 -->
+<!-- list template: version 6.40 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -15631,6 +15631,8 @@ paper-menu {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+/** USER POINT - General Style **/
+/** END USER POINT - General Style **/
 </style>
 
 <!-- topBar template: version 1.21 -->
@@ -15899,7 +15901,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- new-form: version 5.10 -->
+<!-- new-form: version 5.20 -->
 
 <dom-module id="ProfileResource-new">
 <template>
@@ -15959,6 +15961,8 @@ paper-menu {
 		is: "ProfileResource-new",
 		open_dialog: function() {
 			this.clear()
+/** USER POINT - Open New Dialog **/
+/** END USER POINT - Open New Dialog **/
 			this.$.dialog.open()
 		},
 		clear: function() {
@@ -15996,6 +16000,8 @@ paper-menu {
 			this.$.ajax2.generateRequest()
 		},
 		record_created: function() {
+/** USER POINT - Record Created **/
+/** END USER POINT - Record Created **/
 			alert("Created ProfileResource id="+this.$.ajax2.lastResponse.id)
 			// ask for create another one
 			if (!this.$.repeat.checked) {
@@ -16025,12 +16031,14 @@ paper-menu {
 		ajax_error: function() {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
-		}  
+		}
+/** USER POINT - New Functions **/
+/** END USER POINT - New Functions **/		
 	})
 </script>
 </dom-module>
 
-<!-- display-form: version 5.10 -->
+<!-- display-form: version 5.20 -->
 
 <dom-module id="ProfileResource-display">
 <template>
@@ -16082,16 +16090,20 @@ paper-menu {
 		open_display_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Display Dialog **/
+/** END USER POINT - Open Display Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
 			this.$.data.value = item.data
 			}
+/** USER POINT - Display Functions **/
+/** END USER POINT - Display Functions **/
 	})
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.10 -->
+<!-- edit-form: version 5.20 -->
 
 <dom-module id="ProfileResource-edit">
 <template>
@@ -16150,6 +16162,8 @@ paper-menu {
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Edit Dialog **/
+/** END USER POINT - Open Edit Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -16185,6 +16199,8 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_updated: function() {
+/** USER POINT - Record Updated **/
+/** END USER POINT - Record Updated **/
 			alert("<%= lng('Record Updated')%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -16193,11 +16209,13 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+/** USER POINT - Edit Functions **/
+/** END USER POINT - Edit Functions **/
 	})
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.10 -->
+<!-- delete-form: version 5.20 -->
 
 <dom-module id="ProfileResource-delete">
 <template>
@@ -16254,6 +16272,8 @@ paper-menu {
 		open_delete_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Delete Dialog **/
+/** END USER POINT - Open Delete Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -16267,6 +16287,8 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_deleted: function() {
+/** USER POINT - Record Deleted **/
+/** END USER POINT - Record Deleted **/
 			alert("<%= lng('Record Deleted')%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -16275,6 +16297,8 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+/** USER POINT - Delete Functions **/
+/** END USER POINT - Delete Functions **/
 	})
 </script>
 </dom-module>
@@ -17017,7 +17041,7 @@ Polymer({
 </dom-module>
 <top-bar><%= lng("%s %s",lng("List"),lng("ProfileResource"))%></top-bar>
 <paper-material class="card" elevation="2">
-	<ProfileResource-list></ProfileResource-list>
+	<ProfileResource-list id="ProfileResource_list"></ProfileResource-list>
 </paper-material>
 </body>
 </html>

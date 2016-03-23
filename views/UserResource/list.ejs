@@ -1,4 +1,4 @@
-<!-- list template: version 6.35 -->
+<!-- list template: version 6.40 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -15622,6 +15622,8 @@ paper-menu {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+/** USER POINT - General Style **/
+/** END USER POINT - General Style **/
 </style>
 
 <!-- topBar template: version 1.21 -->
@@ -15885,7 +15887,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- new-form: version 5.10 -->
+<!-- new-form: version 5.20 -->
 
 <dom-module id="UserResource-new">
 <template>
@@ -15912,11 +15914,11 @@ paper-menu {
 				<td><label class="left_label" for="resource"><%= lng('Resource')%></label></td>
 				<td><iron-icon icon="find-in-page" field="resource" on-click="select_field_b"></iron-icon><input id="resource" type="text" name="resource" key=0 on-click="select_field" readonly></td>
 			</tr>
-			<tr id="app_line" class="hide">
+			<tr>
 				<td><label class="left_label" for="app"><%= lng('App')%></label></td>
 				<td><iron-icon icon="find-in-page" field="app" on-click="select_field_b"></iron-icon><input id="app" type="text" name="app" key=0 on-click="select_field" readonly></td>
 			</tr>
-			<tr id="model_line" class="hide">
+			<tr>
 				<td><label class="left_label" for="model"><%= lng('Model')%></label></td>
 				<td><iron-icon icon="find-in-page" field="model" on-click="select_field_b"></iron-icon><input id="model" type="text" name="model" key=0 on-click="select_field" readonly></td>
 			</tr>
@@ -15938,6 +15940,8 @@ paper-menu {
 		is: "UserResource-new",
 		open_dialog: function() {
 			this.clear()
+/** USER POINT - Open New Dialog **/
+/** END USER POINT - Open New Dialog **/
 			this.$.dialog.open()
 		},
 		clear: function() {
@@ -15959,7 +15963,7 @@ paper-menu {
 			if (this.field == "user")
 				this.$.User_select_dialog.open_select_dialog()
 			if (this.field == "resource")
-				this.$.Resource_select_dialog.open_select_dialog(this.$.User_select_dialog.item.profile)
+				this.$.Resource_select_dialog.open_select_dialog()
 			if (this.field == "app")
 				this.$.App_select_dialog.open_select_dialog()
 			if (this.field == "model")
@@ -15968,24 +15972,6 @@ paper-menu {
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
-			
-			if (this.field == 'resource')
-			{
-				var path = this.$.Resource_select_dialog.item.path
-				switch(path)
-				{
-				  case '/App':
-					this.$.app_line.className = "";
-					this.$.model_line.className = "hide";
-				  break;
-				  case '/Model':
-					this.$.app_line.className = "hide";
-					this.$.model_line.className = "";
-				  break;
-				  default:
-					//error
-				}
-			}
 		},
 		create: function() {
 			this.$.ajax2.url = config_server() + "UserResource"
@@ -15998,6 +15984,8 @@ paper-menu {
 			this.$.ajax2.generateRequest()
 		},
 		record_created: function() {
+/** USER POINT - Record Created **/
+/** END USER POINT - Record Created **/
 			alert("Created UserResource id="+this.$.ajax2.lastResponse.id)
 			// ask for create another one
 			if (!this.$.repeat.checked) {
@@ -16027,12 +16015,14 @@ paper-menu {
 		ajax_error: function() {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
-		}  
+		}
+/** USER POINT - New Functions **/
+/** END USER POINT - New Functions **/		
 	})
 </script>
 </dom-module>
 
-<!-- display-form: version 5.10 -->
+<!-- display-form: version 5.20 -->
 
 <dom-module id="UserResource-display">
 <template>
@@ -16075,15 +16065,19 @@ paper-menu {
 		open_display_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Display Dialog **/
+/** END USER POINT - Open Display Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
 			}
+/** USER POINT - Display Functions **/
+/** END USER POINT - Display Functions **/
 	})
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.10 -->
+<!-- edit-form: version 5.20 -->
 
 <dom-module id="UserResource-edit">
 <template>
@@ -16135,6 +16129,8 @@ paper-menu {
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Edit Dialog **/
+/** END USER POINT - Open Edit Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -16172,6 +16168,8 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_updated: function() {
+/** USER POINT - Record Updated **/
+/** END USER POINT - Record Updated **/
 			alert("<%= lng('Record Updated')%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -16180,11 +16178,13 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+/** USER POINT - Edit Functions **/
+/** END USER POINT - Edit Functions **/
 	})
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.10 -->
+<!-- delete-form: version 5.20 -->
 
 <dom-module id="UserResource-delete">
 <template>
@@ -16232,6 +16232,8 @@ paper-menu {
 		open_delete_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
+/** USER POINT - Open Delete Dialog **/
+/** END USER POINT - Open Delete Dialog **/
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -16244,6 +16246,8 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_deleted: function() {
+/** USER POINT - Record Deleted **/
+/** END USER POINT - Record Deleted **/
 			alert("<%= lng('Record Deleted')%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -16252,6 +16256,8 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
+/** USER POINT - Delete Functions **/
+/** END USER POINT - Delete Functions **/
 	})
 </script>
 </dom-module>
@@ -16317,12 +16323,8 @@ paper-menu {
 			this.item = {}
 			this.item.key = e.toElement.id
 			this.item.name = e.toElement.innerHTML
-			
-			var filtro = {"id": Number(this.item.key)}
-			//var item = this.data.find(filtro)[0]
-			this.item.profile = Number(this.data.find(filtro)[0].profile.id)
-			
 			this.$.dialog.close()
+			//this.close()
 			this.fire('item_selected')
 		},
 		ajax_error: function() {
@@ -16350,7 +16352,7 @@ paper-menu {
 		<div><input id="filtro" type="{{tipo}}" on-input="filter" placeholder="<%= lng('Resource')%>..."></div>
 		<paper-dialog-scrollable>
 		<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
-			<div id="{{item.id}}" path="{{item.path}}" on-click="select">{{item.name}}</div>
+			<div id="{{item.id}}" on-click="select">{{item.name}}</div>
 		</template>
 		</paper-dialog-scrollable>
 	</paper-dialog>
@@ -16358,10 +16360,9 @@ paper-menu {
 <script>
 	Polymer({
 		is: "Resource-select",
-		open_select_dialog: function(profile) {
+		open_select_dialog: function() {
 			this.$.filtro.value = ""
-			//this.$.ajax.url= config_server() +"Resource"
-			this.$.ajax.url= config_server() + "Profile/getDataResources?profile=" + profile
+			this.$.ajax.url= config_server() +"Resource"
 			var db = new loki()
 			this.data = db.addCollection("data_Resource")
 			this.filtered_data = []
@@ -16393,7 +16394,6 @@ paper-menu {
 			this.item = {}
 			this.item.key = e.toElement.id
 			this.item.name = e.toElement.innerHTML
-			this.item.path = e.toElement.path
 			this.$.dialog.close()
 			//this.close()
 			this.fire('item_selected')
@@ -17162,7 +17162,7 @@ Polymer({
 </dom-module>
 <top-bar><%= lng("%s %s",lng("List"),lng("UserResource"))%></top-bar>
 <paper-material class="card" elevation="2">
-	<UserResource-list></UserResource-list>
+	<UserResource-list id="UserResource_list"></UserResource-list>
 </paper-material>
 </body>
 </html>
