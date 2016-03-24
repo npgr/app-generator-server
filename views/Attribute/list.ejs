@@ -1,4 +1,4 @@
-<!-- list template: version 6.40 -->
+<!-- list template: version 6.41 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -15599,7 +15599,7 @@ if (!window.Promise) {
 	width: 33em;
 }
 .card {
-	width: 64em;
+	width: 80em;
 	top: 30px;
 	left: 15px;
 }
@@ -15644,7 +15644,7 @@ paper-menu {
 /** END USER POINT - General Style **/
 </style>
 
-<!-- topBar template: version 1.21 -->
+<!-- topBar template: version 1.22 -->
 
 <dom-module id="top-bar">
 <template>
@@ -15742,7 +15742,7 @@ paper-menu {
 			<ul class="dropdown-content" tabindex="0"><%
 			  var arr = _.map(_.filter(resources, {'Group': n}), function(n4) { return n4.name})
 			  _.forEach(arr, function(n2, key2) { %>
-				<li class="dropdown-item" on-click="<%= n2 %>"><iron-icon icon="chevron-right"></iron-icon><%= lng(n2) %></li><%
+				<li class="dropdown-item" on-click="<%= n2 %>"><iron-icon icon="chevron-right"></iron-icon><%= lng(n2.replace(/_/g,' ')) %></li><%
 			  }) %>
 			</ul>
 		  </iron-dropdown>
@@ -16732,17 +16732,6 @@ paper-menu {
 </script>
 </dom-module>
 
-
-<!-- select-model: version 5.10 -->
- <% 
- function lng(word) {
-	return __("word")
- }
- function lng(word1, word2, word3) {
-	return __(word1, word2, word3)
- }
-%>  
-
 <!-- select-model: version 5.10 -->
  <% 
  function lng(word) {
@@ -17576,6 +17565,7 @@ Polymer({
 	this.$.ajax.generateRequest()
   },
   load_data: function() {
+
 	while(this.data.data[0]) {
         this.data.remove(this.data.data[0])
       }
@@ -17609,13 +17599,7 @@ Polymer({
 		{
 			this.$.ajax.lastResponse[i].model_display_id = 0
 			this.$.ajax.lastResponse[i].model_display_name = ""
-		}
-		//this.$.ajax.lastResponse[i].filter_des= this.enums.filter[this.$.ajax.lastResponse[i].filter]
-		//this.$.ajax.lastResponse[i].list_des= this.enums.list[this.$.ajax.lastResponse[i].list]
-		//this.$.ajax.lastResponse[i].display_des= this.enums.display[this.$.ajax.lastResponse[i].display]
-		//this.$.ajax.lastResponse[i].create_des= this.enums.create[this.$.ajax.lastResponse[i].create]
-		//this.$.ajax.lastResponse[i].update_des= this.enums.update[this.$.ajax.lastResponse[i].update]
-		//this.$.ajax.lastResponse[i].delete_des= this.enums.delete[this.$.ajax.lastResponse[i].delete]
+		}	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()

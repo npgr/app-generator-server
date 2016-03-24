@@ -1,4 +1,4 @@
-<!-- list template: version 6.40 -->
+<!-- list template: version 6.41 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -15635,7 +15635,7 @@ paper-menu {
 /** END USER POINT - General Style **/
 </style>
 
-<!-- topBar template: version 1.21 -->
+<!-- topBar template: version 1.22 -->
 
 <dom-module id="top-bar">
 <template>
@@ -15733,7 +15733,7 @@ paper-menu {
 			<ul class="dropdown-content" tabindex="0"><%
 			  var arr = _.map(_.filter(resources, {'Group': n}), function(n4) { return n4.name})
 			  _.forEach(arr, function(n2, key2) { %>
-				<li class="dropdown-item" on-click="<%= n2 %>"><iron-icon icon="chevron-right"></iron-icon><%= lng(n2) %></li><%
+				<li class="dropdown-item" on-click="<%= n2 %>"><iron-icon icon="chevron-right"></iron-icon><%= lng(n2.replace(/_/g,' ')) %></li><%
 			  }) %>
 			</ul>
 		  </iron-dropdown>
