@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  //migrate: 'alter',
+  migrate: 'alter',
 
   attributes: {
 	//_card_width: '60em',
@@ -43,6 +43,7 @@ module.exports = {
 	pwd: {
 		//description: "Password",
 		//hide: true,
+		//password: true,
 		type: 'string',
 		required: true
 	},
