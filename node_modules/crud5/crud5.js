@@ -19,6 +19,9 @@ function getInputType(type) {
 		case 'date':
 			return 'date'
 			break
+		case 'password':
+			return 'password'
+			break
 		default:
 			return 'text'
 	}
@@ -110,6 +113,7 @@ function set_jsondata_lines(crud, keys) {
 		}
 		else  // <input>
 		{
+			if (jsondata[keys[i]].password) jsondata[keys[i]].type = 'password'
 			type = getInputType(jsondata[keys[i]].type)
 			// input field
 			if (jsondata[keys[i]].textarea_cols)
