@@ -44,24 +44,24 @@ module.exports = {
 		var app_id = req.param('app')
 		App.destroy({id: app_id})
 		  .exec(function(err, apps_deleted) {
-		    console.log('deleted Apps: ', apps_deleted)
+		    //console.log('deleted Apps: ', apps_deleted)
 			Model.destroy({app: apps_deleted[0].id})
 			  .exec(function(err, models) {
-				console.log('model deleted: ', models )
+				//console.log('model deleted: ', models )
 				for (j=0; j< models.length; j++)
 				  Attribute.destroy({model: models[j].id})
 					.exec(function(err, attrs) {
-						console.log('Attrs deleted: ', attrs)
+						//console.log('Attrs deleted: ', attrs)
 				  })  
 			})
 			ModelFunction.destroy({app: apps_deleted[0].id})
 			  .exec(function(err, mfuncs) {
-				console.log('mfunction deleted: ', mfuncs)
+				//console.log('mfunction deleted: ', mfuncs)
 				for (i=0; i < mfuncs.length; i++)
 				{
 					FunctionList.destroy({mfunction: mfuncs[i].id})
 					  .exec(function(err, f_list) {
-						console.log('Function List deleted: ', f_list)
+						//console.log('Function List deleted: ', f_list)
 					})
 					
 				}
