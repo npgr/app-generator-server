@@ -43,7 +43,7 @@
 	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 </script>
 <style>
-#btn_area { 
+#btn_area {
 	display: inline-block;
 	margin-left: 30px;
 }
@@ -320,6 +320,10 @@ paper-menu {
 				<td><div id="port" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
+				<td><div id="status" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><div id="repository" on-click="change_field"></div></td>
 			</tr>
@@ -351,6 +355,7 @@ paper-menu {
 			this.show_field("db")
 			this.show_field("path")
 			this.show_field("port")
+			this.show_field("status")
 			this.show_field("repository")
 			this.$.dialog.open()
 		},
@@ -439,6 +444,13 @@ paper-menu {
 				<td><input id="port" type="number" name="port" required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
+				<td><select id="status" name="status" disabled>
+						<option value="started"><%= lng('Started')%></option>
+						<option value="stopped" selected><%= lng('Stopped')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><input id="repository" type="text" name="repository"></td>
 			</tr>
@@ -497,6 +509,7 @@ paper-menu {
 			  record.db = this.$.db.value
 			  record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
+			  record.status = this.$.status.value
 			  record.repository = this.$.repository.value			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
@@ -611,6 +624,13 @@ paper-menu {
 				<td><input id="port" type="number" name="port" value="{{item.port}}" disabled></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
+				<td><select id="status" name="status" disabled>
+						<option value="started"><%= lng('Started')%></option>
+						<option value="stopped"><%= lng('Stopped')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><input id="repository" type="text" name="repository" value="{{item.repository}}" disabled></td>
 			</tr>
@@ -636,6 +656,7 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.type.value = item.type
 			this.$.db.value = item.db
+			this.$.status.value = item.status
 			}
 /** USER POINT - Display Functions **/
 /** END USER POINT - Display Functions **/
@@ -699,6 +720,13 @@ paper-menu {
 				<td><input id="port" type="number" name="port" value="{{item.port}}" required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
+				<td><select id="status" name="status" disabled>
+						<option value="started"><%= lng('Started')%></option>
+						<option value="stopped"><%= lng('Stopped')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><input id="repository" type="text" name="repository" value="{{item.repository}}"></td>
 			</tr>
@@ -727,6 +755,7 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.type.value = item.type
 			this.$.db.value = item.db
+			this.$.status.value = item.status
 			},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
@@ -751,6 +780,7 @@ paper-menu {
 			record.db = this.$.db.value
 			record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
+			record.status = this.$.status.value
 			record.repository = this.$.repository.value
 			this.$.ajax.url = config_server() + "App/" +record.id
 			this.$.ajax.params = record
@@ -838,6 +868,13 @@ paper-menu {
 				<td><input id="port" type="number" name="port" value="{{item.port}}" disabled></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
+				<td><select id="status" name="status" disabled>
+						<option value="started"><%= lng('Started')%></option>
+						<option value="stopped"><%= lng('Stopped')%></option>
+					</select></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><input id="repository" type="text" name="repository" value="{{item.repository}}" disabled></td>
 			</tr>
@@ -866,6 +903,7 @@ paper-menu {
 		set_select_fields(item) {
 			this.$.type.value = item.type
 			this.$.db.value = item.db
+			this.$.status.value = item.status
 			},
 		form_submit: function() {
 			this.$.submit_delete.click()
@@ -914,7 +952,8 @@ paper-menu {
 		<option value="type"><%= lng('Type')%></option>  <%= lng('Database')%>
 		<option value="db"><%= lng('Database')%></option>  <%= lng('Path')%>
 		<option value="path"><%= lng('Path')%></option>  <%= lng('Port')%>
-		<option value="port"><%= lng('Port')%></option>  <%= lng('Repository')%>
+		<option value="port"><%= lng('Port')%></option>  <%= lng('Status')%>
+		<option value="status"><%= lng('Status')%></option>  <%= lng('Repository')%>
 		<option value="repository"><%= lng('Repository')%></option>
 	</select>
 	<select id="op">   
@@ -955,6 +994,7 @@ paper-menu {
 		<option value="db"><%= lng('Database')%></option>
 		<option value="path"><%= lng('Path')%></option>
 		<option value="port"><%= lng('Port')%></option>
+		<option value="status"><%= lng('Status')%></option>
 		<option value="repository"><%= lng('Repository')%></option>
 	</select>
 	<select id="op2" class="hide" >   
@@ -1003,6 +1043,8 @@ paper-menu {
 			<iron-icon id="path_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_port" on-click="sort_by_field"><%= lng('Port')%><div id="port_sort_d" class="hide">
 			<iron-icon id="port_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_status" on-click="sort_by_field"><%= lng('Status')%><div id="status_sort_d" class="hide">
+			<iron-icon id="status_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_repository" on-click="sort_by_field"><%= lng('Repository')%><div id="repository_sort_d" class="hide">
 			<iron-icon id="repository_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
@@ -1018,6 +1060,7 @@ paper-menu {
 		<td class="col_db"></td>
 		<td class="col_path"></td>
 		<td class="col_port"></td>
+		<td class="col_status"></td>
 		<td class="col_repository"></td>
 	</tr>
 	</tfoot>-->
@@ -1035,6 +1078,7 @@ paper-menu {
 		<template is="dom-if" if="{{column.db}}"><td>{{item.db_des}}</td></template>
 		<template is="dom-if" if="{{column.path}}"><td>{{item.path}}</td></template>
 		<template is="dom-if" if="{{column.port}}"><td>{{item.port}}</td></template>
+		<template is="dom-if" if="{{column.status}}"><td>{{item.status_des}}</td></template>
 		<template is="dom-if" if="{{column.repository}}"><td>{{item.repository}}</td></template>
 	</tr>
 	</template>
@@ -1069,11 +1113,13 @@ Polymer({
 				{column: "db", enum: ["postgres","mysql","mongodb","disk","rethinkdb","cassandra","leveldb"], enumdes: ["<%= lng("PostgreSQL")%>","<%= lng("MySQL")%>","<%= lng("MongoDB")%>","<%= lng("Disk")%>","<%= lng("RethinkDB")%>","<%= lng("Cassandra")%>","<%= lng("LevelDB")%>"], display: true},
 				{column: "path", type: "string", display: false},
 				{column: "port", type: "integer", display: true},
+				{column: "status", enum: ["started","stopped"], enumdes: ["<%= lng("Started")%>","<%= lng("Stopped")%>"], display: true},
 				{column: "repository", type: "string", display: false}
 		]
 		this.enums = {}
 		this.enums.type = {web:"<%= lng('Web App (Browser)')%>",web2:"<%= lng('Web App (electron)')%>",desktop:"<%= lng('Desktop')%>",mobil:"<%= lng('Mobil')%>"}
 		this.enums.db = {postgres:"<%= lng('PostgreSQL')%>",mysql:"<%= lng('MySQL')%>",mongodb:"<%= lng('MongoDB')%>",disk:"<%= lng('Disk')%>",rethinkdb:"<%= lng('RethinkDB')%>",cassandra:"<%= lng('Cassandra')%>",leveldb:"<%= lng('LevelDB')%>"}
+		this.enums.status = {started:"<%= lng('Started')%>",stopped:"<%= lng('Stopped')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
 		this.data = db.addCollection("data_App")
@@ -1313,6 +1359,7 @@ Polymer({
 		this.$.db_sort_d.classList.add("hide")
 		this.$.path_sort_d.classList.add("hide")
 		this.$.port_sort_d.classList.add("hide")
+		this.$.status_sort_d.classList.add("hide")
 		this.$.repository_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
@@ -1469,7 +1516,8 @@ Polymer({
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
 	{
 		this.$.ajax.lastResponse[i].type_des= this.enums.type[this.$.ajax.lastResponse[i].type]
-		this.$.ajax.lastResponse[i].db_des= this.enums.db[this.$.ajax.lastResponse[i].db]	
+		this.$.ajax.lastResponse[i].db_des= this.enums.db[this.$.ajax.lastResponse[i].db]
+		this.$.ajax.lastResponse[i].status_des= this.enums.status[this.$.ajax.lastResponse[i].status]	
 		this.data.insert(this.$.ajax.lastResponse[i])
 	}
 	this.filter()

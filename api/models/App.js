@@ -7,7 +7,7 @@
 
 module.exports = {
 
-	//migrate: 'safe',
+	migrate: 'alter',
 	
   attributes: {
 	//_title: 'App',
@@ -70,6 +70,12 @@ module.exports = {
 		//description: 'Port',
 		type: 'integer',
 		required: true
+	},
+	status: {
+		//description: 'Status',
+		type: 'string',
+		enum: ['started', 'stopped']
+		//,enumdes: ['Started', 'Stopped']
 	},
 	repository: {
 		//description: 'Repository',

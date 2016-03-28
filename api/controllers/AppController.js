@@ -40,6 +40,14 @@ module.exports = {
 			})
 		}
 	},
+	status: function(req, res) {
+		var id = req.param('id')
+		var sts = req.param('sts')		
+		App.update({id: id}, {status: sts})
+		   .exec(function afterwards(err, updated){
+				res.json(updated)
+		})
+	},
 	deleteApp : function (req, res) {
 		var app_id = req.param('app')
 		App.destroy({id: app_id})
