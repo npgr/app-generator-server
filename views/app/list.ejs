@@ -934,6 +934,7 @@ paper-menu {
 <dom-module id="App-list">
 <template>
 <!--USER POINT - List Style-->
+	<iron-ajax id="ajax2" handle-as="json" on-response="" on-error="ajax_error"></iron-ajax>
 <!--END USER POINT - List Style-->
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
 	<App-list-columns id="App_list_columns" on-close="update_columns"></App-list-columns>
@@ -1144,6 +1145,7 @@ Polymer({
 			}, 600);	
 		}, false);*/
 //USER POINT - List End Ready
+		first_time = true
 //END USER POINT - List End Ready
 	},
 	help: function() {
@@ -1541,7 +1543,19 @@ Polymer({
 	var item = this.data.find(filtro)[0]
 	
 	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('start-app', {app: item.name, port: item.port, path: item.path});
+	ipcRenderer.send('start-app', {id: item.id, app: item.name, port: item.port, path: item.path});
+	
+	if (first_time)
+	{
+		first_time = false
+		ipcRenderer.on('started-app',  function(event, arg) { 
+			this.$.ajax2.url = config_server() + "App/status?id="+item.id+"&sts=started"
+			this.$.ajax2.generateRequest()
+			item.status = 'started'
+			this.data.update(item)
+			//alert('Application '+arg.app_id+' started')
+		})
+	}
   },
   stop: function() {
 	this.$.menu_dialog.close()
@@ -1554,8 +1568,15 @@ Polymer({
 	const stop = spawn('sh', [ 'stop.sh' ], { cwd: item.path+'/'+item.name })
 	
 	stop.on('close', function(code)	{
-		if (code == 0) alert('<%= lng('Aplication Stopped') %>', '<%= lng('Stop App') %>')
-		   else  alert('<%= lng('Aplication Cannot be Stopped') %>', '<%= lng('Stop App') %>')
+		if (code == 0) 
+		{
+			this.$.ajax2.url = config_server() + "App/status?id="+item.id+"&sts=stopped"
+			this.$.ajax2.generateRequest()
+			item.status = 'stopped'
+			this.data.update(item)
+			alert('<%= lng('Aplication Stopped') %>', '<%= lng('Stop App') %>')
+		}
+		 else alert('<%= lng('Aplication Cannot be Stopped') %>', '<%= lng('Stop App') %>')
 	});
   } 
 //END USER POINT - List Functions
