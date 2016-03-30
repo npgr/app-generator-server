@@ -35,6 +35,12 @@ module.exports = {
 		type: 'string',
 		required: true
 	},
+	title: {
+		//description: 'Title',
+		//hide: true,
+		type: 'string',
+		required: true
+	},
 	version: {
 		//description: 'Version',
 		type: 'string'
@@ -55,8 +61,8 @@ module.exports = {
 	db: {
 		//description: 'Database',
 		type: 'string',
-		enum: ['postgres', 'mysql', 'mongodb', 'disk', 'rethinkdb', 'cassandra', 'leveldb']
-		//,enumdes: ['PostgreSQL', 'MySQL', 'MongoDB', 'Disk', 'RethinkDB', 'Cassandra', 'LevelDB']
+		enum: ['postgres', 'mysql', 'mongodb', 'redis', 'disk', 'orientdb', 'filemaker']
+		//,enumdes: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Disk', 'OrientDB', 'FileMaker']
 	},
 	path: {
 		//description: 'Path',
@@ -76,6 +82,16 @@ module.exports = {
 		type: 'string',
 		enum: ['started', 'stopped']
 		//,enumdes: ['Started', 'Stopped']
+	},
+	author: {
+		//description: 'Author',
+		//hide: true,
+		type: 'string'
+	},
+	license: {
+		//description: 'License',
+		//hide: true,
+		type: 'string'
 	},
 	repository: {
 		//description: 'Repository',

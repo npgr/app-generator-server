@@ -70,7 +70,12 @@
   ,"Start App": "Iniciar App"
   ,"Stop App": "Detener App"
   ,"Aplication Cannot be Stopped": "La Aplicación no pudo ser Detenida"
-  ,"Aplication Stopped": "Aplicación Detenida"
+  ,"Application Stopped": "Aplicación Detenida"
+  ,"Application #app Stopped": "Aplicación #app Detenida"
+  ,"Application #app Started": "Aplicación #app Iniciada"
   ,"Started": "Iniciado"
   ,"Stopped": "Detenido"
+  ,"Author": "Autor"
+  ,"License": "Licencia"
+  ,"Title": "Titulo"
 }

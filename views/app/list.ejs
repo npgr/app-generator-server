@@ -296,6 +296,10 @@ paper-menu {
 				<td><div id="name" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="title"><%= lng('Title')%></label></td>
+				<td><div id="title" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
 				<td><div id="version" on-click="change_field"></div></td>
 			</tr>
@@ -324,6 +328,14 @@ paper-menu {
 				<td><div id="status" on-click="change_field"></div></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="author"><%= lng('Author')%></label></td>
+				<td><div id="author" on-click="change_field"></div></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="license"><%= lng('License')%></label></td>
+				<td><div id="license" on-click="change_field"></div></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
 				<td><div id="repository" on-click="change_field"></div></td>
 			</tr>
@@ -349,6 +361,7 @@ paper-menu {
 			this.column= column
 			this.show_field("id")
 			this.show_field("name")
+			this.show_field("title")
 			this.show_field("version")
 			this.show_field("description")
 			this.show_field("type")
@@ -356,6 +369,8 @@ paper-menu {
 			this.show_field("path")
 			this.show_field("port")
 			this.show_field("status")
+			this.show_field("author")
+			this.show_field("license")
 			this.show_field("repository")
 			this.$.dialog.open()
 		},
@@ -407,6 +422,10 @@ paper-menu {
 				<td><input id="name" type="text" name="name" on-keyup="valid_file_chars" required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="title"><%= lng('Title')%><strong class="red"> *</strong></label></td>
+				<td><input id="title" type="text" name="title" required></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
 				<td><input id="version" type="text" name="version"></td>
 			</tr>
@@ -429,10 +448,10 @@ paper-menu {
 						<option value="postgres"><%= lng('PostgreSQL')%></option>
 						<option value="mysql"><%= lng('MySQL')%></option>
 						<option value="mongodb"><%= lng('MongoDB')%></option>
+						<option value="redis"><%= lng('Redis')%></option>
 						<option value="disk"><%= lng('Disk')%></option>
-						<option value="rethinkdb"><%= lng('RethinkDB')%></option>
-						<option value="cassandra"><%= lng('Cassandra')%></option>
-						<option value="leveldb"><%= lng('LevelDB')%></option>
+						<option value="orientdb"><%= lng('OrientDB')%></option>
+						<option value="filemaker"><%= lng('FileMaker')%></option>
 					</select></td>
 			</tr>
 			<tr>
@@ -449,6 +468,14 @@ paper-menu {
 						<option value="started"><%= lng('Started')%></option>
 						<option value="stopped" selected><%= lng('Stopped')%></option>
 					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="author"><%= lng('Author')%></label></td>
+				<td><input id="author" type="text" name="author"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="license"><%= lng('License')%></label></td>
+				<td><input id="license" type="text" name="license"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
@@ -483,10 +510,13 @@ paper-menu {
 		clear: function() {
 			this.$.id.value = ''
 			this.$.name.value = ''
+			this.$.title.value = ''
 			this.$.version.value = ''
 			this.$.description.value = ''
 			this.$.path.value = ''
 			this.$.port.value = ''
+			this.$.author.value = ''
+			this.$.license.value = ''
 			this.$.repository.value = ''
 		},
 		select_field_b: function(e) {
@@ -503,6 +533,7 @@ paper-menu {
 			this.$.ajax2.url = config_server() + "App"
 			var record = {}
 			  record.name = this.$.name.value
+			  record.title = this.$.title.value
 			  record.version = this.$.version.value
 			  record.description = this.$.description.value
 			  record.type = this.$.type.value
@@ -510,6 +541,8 @@ paper-menu {
 			  record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
 			  record.status = this.$.status.value
+			  record.author = this.$.author.value
+			  record.license = this.$.license.value
 			  record.repository = this.$.repository.value			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
@@ -560,7 +593,7 @@ paper-menu {
 			//console.log(app_util.npm_install())
 	
 			const ipcRenderer = require('electron').ipcRenderer;
-			ipcRenderer.send('new-app', {app: this.$.name.value, port: this.$.port.value, path: this.$.path.value});
+			ipcRenderer.send('new-app', {app: this.$.name.value, port: this.$.port.value, path: this.$.path.value, app_des: this.$.description.value, ver: this.$.version.value, repo: this.$.repository.value, author: this.$.author.value, license: this.$.license.value, app_title: this.$.title.value});
 		},
 		valid_file_chars: function() {	
 			this.$.name.value = drop_invalid_file_chars(this.$.name.value)
@@ -587,6 +620,10 @@ paper-menu {
 				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="title"><%= lng('Title')%></label></td>
+				<td><input id="title" type="text" name="title" value="{{item.title}}" disabled></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
 				<td><input id="version" type="text" name="version" value="{{item.version}}" disabled></td>
 			</tr>
@@ -609,10 +646,10 @@ paper-menu {
 						<option value="postgres"><%= lng('PostgreSQL')%></option>
 						<option value="mysql"><%= lng('MySQL')%></option>
 						<option value="mongodb"><%= lng('MongoDB')%></option>
+						<option value="redis"><%= lng('Redis')%></option>
 						<option value="disk"><%= lng('Disk')%></option>
-						<option value="rethinkdb"><%= lng('RethinkDB')%></option>
-						<option value="cassandra"><%= lng('Cassandra')%></option>
-						<option value="leveldb"><%= lng('LevelDB')%></option>
+						<option value="orientdb"><%= lng('OrientDB')%></option>
+						<option value="filemaker"><%= lng('FileMaker')%></option>
 					</select></td>
 			</tr>
 			<tr>
@@ -629,6 +666,14 @@ paper-menu {
 						<option value="started"><%= lng('Started')%></option>
 						<option value="stopped"><%= lng('Stopped')%></option>
 					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="author"><%= lng('Author')%></label></td>
+				<td><input id="author" type="text" name="author" value="{{item.author}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="license"><%= lng('License')%></label></td>
+				<td><input id="license" type="text" name="license" value="{{item.license}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
@@ -683,6 +728,10 @@ paper-menu {
 				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="title"><%= lng('Title')%><strong class="red"> *</strong></label></td>
+				<td><input id="title" type="text" name="title" value="{{item.title}}" required></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
 				<td><input id="version" type="text" name="version" value="{{item.version}}"></td>
 			</tr>
@@ -705,15 +754,15 @@ paper-menu {
 						<option value="postgres"><%= lng('PostgreSQL')%></option>
 						<option value="mysql"><%= lng('MySQL')%></option>
 						<option value="mongodb"><%= lng('MongoDB')%></option>
+						<option value="redis"><%= lng('Redis')%></option>
 						<option value="disk"><%= lng('Disk')%></option>
-						<option value="rethinkdb"><%= lng('RethinkDB')%></option>
-						<option value="cassandra"><%= lng('Cassandra')%></option>
-						<option value="leveldb"><%= lng('LevelDB')%></option>
+						<option value="orientdb"><%= lng('OrientDB')%></option>
+						<option value="filemaker"><%= lng('FileMaker')%></option>
 					</select></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" disabled required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -721,10 +770,18 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
-				<td><select id="status" name="status" disabled>
+				<td><select id="status" name="status">
 						<option value="started"><%= lng('Started')%></option>
 						<option value="stopped"><%= lng('Stopped')%></option>
 					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="author"><%= lng('Author')%></label></td>
+				<td><input id="author" type="text" name="author" value="{{item.author}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="license"><%= lng('License')%></label></td>
+				<td><input id="license" type="text" name="license" value="{{item.license}}"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
@@ -774,6 +831,7 @@ paper-menu {
 			var record = {}
 			record.id = Number(this.$.id.value)
 			record.name = this.$.name.value
+			record.title = this.$.title.value
 			record.version = this.$.version.value
 			record.description = this.$.description.value
 			record.type = this.$.type.value
@@ -781,6 +839,8 @@ paper-menu {
 			record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
 			record.status = this.$.status.value
+			record.author = this.$.author.value
+			record.license = this.$.license.value
 			record.repository = this.$.repository.value
 			this.$.ajax.url = config_server() + "App/" +record.id
 			this.$.ajax.params = record
@@ -831,6 +891,10 @@ paper-menu {
 				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="title"><%= lng('Title')%></label></td>
+				<td><input id="title" type="text" name="title" value="{{item.title}}" disabled></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="version"><%= lng('Version')%></label></td>
 				<td><input id="version" type="text" name="version" value="{{item.version}}" disabled></td>
 			</tr>
@@ -853,10 +917,10 @@ paper-menu {
 						<option value="postgres"><%= lng('PostgreSQL')%></option>
 						<option value="mysql"><%= lng('MySQL')%></option>
 						<option value="mongodb"><%= lng('MongoDB')%></option>
+						<option value="redis"><%= lng('Redis')%></option>
 						<option value="disk"><%= lng('Disk')%></option>
-						<option value="rethinkdb"><%= lng('RethinkDB')%></option>
-						<option value="cassandra"><%= lng('Cassandra')%></option>
-						<option value="leveldb"><%= lng('LevelDB')%></option>
+						<option value="orientdb"><%= lng('OrientDB')%></option>
+						<option value="filemaker"><%= lng('FileMaker')%></option>
 					</select></td>
 			</tr>
 			<tr>
@@ -873,6 +937,14 @@ paper-menu {
 						<option value="started"><%= lng('Started')%></option>
 						<option value="stopped"><%= lng('Stopped')%></option>
 					</select></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="author"><%= lng('Author')%></label></td>
+				<td><input id="author" type="text" name="author" value="{{item.author}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="license"><%= lng('License')%></label></td>
+				<td><input id="license" type="text" name="license" value="{{item.license}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="repository"><%= lng('Repository')%></label></td>
@@ -947,14 +1019,17 @@ paper-menu {
 <!--END USER POINT - List Header-->
 	<select id="filter" on-change="input_type">  <%= lng('Id')%>
 		<option value="id"><%= lng('Id')%></option>  <%= lng('Name')%>
-		<option value="name"><%= lng('Name')%></option>  <%= lng('Version')%>
+		<option value="name"><%= lng('Name')%></option>  <%= lng('Title')%>
+		<option value="title"><%= lng('Title')%></option>  <%= lng('Version')%>
 		<option value="version"><%= lng('Version')%></option>  <%= lng('Description')%>
 		<option value="description"><%= lng('Description')%></option>  <%= lng('Type')%>
 		<option value="type"><%= lng('Type')%></option>  <%= lng('Database')%>
 		<option value="db"><%= lng('Database')%></option>  <%= lng('Path')%>
 		<option value="path"><%= lng('Path')%></option>  <%= lng('Port')%>
 		<option value="port"><%= lng('Port')%></option>  <%= lng('Status')%>
-		<option value="status"><%= lng('Status')%></option>  <%= lng('Repository')%>
+		<option value="status"><%= lng('Status')%></option>  <%= lng('Author')%>
+		<option value="author"><%= lng('Author')%></option>  <%= lng('License')%>
+		<option value="license"><%= lng('License')%></option>  <%= lng('Repository')%>
 		<option value="repository"><%= lng('Repository')%></option>
 	</select>
 	<select id="op">   
@@ -989,6 +1064,7 @@ paper-menu {
 	<select id="filter2" class="hide" on-change="input_type2">
 		<option value="id"><%= lng('Id')%></option>
 		<option value="name"><%= lng('Name')%></option>
+		<option value="title"><%= lng('Title')%></option>
 		<option value="version"><%= lng('Version')%></option>
 		<option value="description"><%= lng('Description')%></option>
 		<option value="type"><%= lng('Type')%></option>
@@ -996,6 +1072,8 @@ paper-menu {
 		<option value="path"><%= lng('Path')%></option>
 		<option value="port"><%= lng('Port')%></option>
 		<option value="status"><%= lng('Status')%></option>
+		<option value="author"><%= lng('Author')%></option>
+		<option value="license"><%= lng('License')%></option>
 		<option value="repository"><%= lng('Repository')%></option>
 	</select>
 	<select id="op2" class="hide" >   
@@ -1032,6 +1110,8 @@ paper-menu {
 			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_name" on-click="sort_by_field"><%= lng('Name')%><div id="name_sort_d" class="hide">
 			<iron-icon id="name_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_title" on-click="sort_by_field"><%= lng('Title')%><div id="title_sort_d" class="hide">
+			<iron-icon id="title_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_version" on-click="sort_by_field"><%= lng('Version')%><div id="version_sort_d" class="hide">
 			<iron-icon id="version_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_description" on-click="sort_by_field"><%= lng('Description')%><div id="description_sort_d" class="hide">
@@ -1046,6 +1126,10 @@ paper-menu {
 			<iron-icon id="port_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_status" on-click="sort_by_field"><%= lng('Status')%><div id="status_sort_d" class="hide">
 			<iron-icon id="status_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_author" on-click="sort_by_field"><%= lng('Author')%><div id="author_sort_d" class="hide">
+			<iron-icon id="author_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_license" on-click="sort_by_field"><%= lng('License')%><div id="license_sort_d" class="hide">
+			<iron-icon id="license_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_repository" on-click="sort_by_field"><%= lng('Repository')%><div id="repository_sort_d" class="hide">
 			<iron-icon id="repository_sort" icon="arrow-drop-up"></iron-icon></div></th>
 	  </tr>
@@ -1055,6 +1139,7 @@ paper-menu {
 		<td class="ops"></td>
 		<td class="col_id"></td>
 		<td class="col_name"></td>
+		<td class="col_title"></td>
 		<td class="col_version"></td>
 		<td class="col_description"></td>
 		<td class="col_type"></td>
@@ -1062,6 +1147,8 @@ paper-menu {
 		<td class="col_path"></td>
 		<td class="col_port"></td>
 		<td class="col_status"></td>
+		<td class="col_author"></td>
+		<td class="col_license"></td>
 		<td class="col_repository"></td>
 	</tr>
 	</tfoot>-->
@@ -1073,6 +1160,7 @@ paper-menu {
 		</td>
 		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
 		<template is="dom-if" if="{{column.name}}"><td>{{item.name}}</td></template>
+		<template is="dom-if" if="{{column.title}}"><td>{{item.title}}</td></template>
 		<template is="dom-if" if="{{column.version}}"><td>{{item.version}}</td></template>
 		<template is="dom-if" if="{{column.description}}"><td>{{item.description}}</td></template>
 		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
@@ -1080,6 +1168,8 @@ paper-menu {
 		<template is="dom-if" if="{{column.path}}"><td>{{item.path}}</td></template>
 		<template is="dom-if" if="{{column.port}}"><td>{{item.port}}</td></template>
 		<template is="dom-if" if="{{column.status}}"><td>{{item.status_des}}</td></template>
+		<template is="dom-if" if="{{column.author}}"><td>{{item.author}}</td></template>
+		<template is="dom-if" if="{{column.license}}"><td>{{item.license}}</td></template>
 		<template is="dom-if" if="{{column.repository}}"><td>{{item.repository}}</td></template>
 	</tr>
 	</template>
@@ -1108,18 +1198,21 @@ Polymer({
 		this.cur_filter = {}
 		var _model = [{column: "id", type: "integer", display: false},
 				{column: "name", type: "string", display: true},
+				{column: "title", type: "string", display: false},
 				{column: "version", type: "string", display: true},
 				{column: "description", type: "string", display: false},
 				{column: "type", enum: ["web","web2","desktop","mobil"], enumdes: ["<%= lng("Web App (Browser)")%>","<%= lng("Web App (electron)")%>","<%= lng("Desktop")%>","<%= lng("Mobil")%>"], display: true},
-				{column: "db", enum: ["postgres","mysql","mongodb","disk","rethinkdb","cassandra","leveldb"], enumdes: ["<%= lng("PostgreSQL")%>","<%= lng("MySQL")%>","<%= lng("MongoDB")%>","<%= lng("Disk")%>","<%= lng("RethinkDB")%>","<%= lng("Cassandra")%>","<%= lng("LevelDB")%>"], display: true},
+				{column: "db", enum: ["postgres","mysql","mongodb","redis","disk","orientdb","filemaker"], enumdes: ["<%= lng("PostgreSQL")%>","<%= lng("MySQL")%>","<%= lng("MongoDB")%>","<%= lng("Redis")%>","<%= lng("Disk")%>","<%= lng("OrientDB")%>","<%= lng("FileMaker")%>"], display: true},
 				{column: "path", type: "string", display: false},
 				{column: "port", type: "integer", display: true},
 				{column: "status", enum: ["started","stopped"], enumdes: ["<%= lng("Started")%>","<%= lng("Stopped")%>"], display: true},
+				{column: "author", type: "string", display: false},
+				{column: "license", type: "string", display: false},
 				{column: "repository", type: "string", display: false}
 		]
 		this.enums = {}
 		this.enums.type = {web:"<%= lng('Web App (Browser)')%>",web2:"<%= lng('Web App (electron)')%>",desktop:"<%= lng('Desktop')%>",mobil:"<%= lng('Mobil')%>"}
-		this.enums.db = {postgres:"<%= lng('PostgreSQL')%>",mysql:"<%= lng('MySQL')%>",mongodb:"<%= lng('MongoDB')%>",disk:"<%= lng('Disk')%>",rethinkdb:"<%= lng('RethinkDB')%>",cassandra:"<%= lng('Cassandra')%>",leveldb:"<%= lng('LevelDB')%>"}
+		this.enums.db = {postgres:"<%= lng('PostgreSQL')%>",mysql:"<%= lng('MySQL')%>",mongodb:"<%= lng('MongoDB')%>",redis:"<%= lng('Redis')%>",disk:"<%= lng('Disk')%>",orientdb:"<%= lng('OrientDB')%>",filemaker:"<%= lng('FileMaker')%>"}
 		this.enums.status = {started:"<%= lng('Started')%>",stopped:"<%= lng('Stopped')%>"}
 		//var _data = <%- data %>
 		var db = new loki()
@@ -1355,6 +1448,7 @@ Polymer({
 	hide_sort_icons: function() {
 		this.$.id_sort_d.classList.add("hide")
 		this.$.name_sort_d.classList.add("hide")
+		this.$.title_sort_d.classList.add("hide")
 		this.$.version_sort_d.classList.add("hide")
 		this.$.description_sort_d.classList.add("hide")
 		this.$.type_sort_d.classList.add("hide")
@@ -1362,6 +1456,8 @@ Polymer({
 		this.$.path_sort_d.classList.add("hide")
 		this.$.port_sort_d.classList.add("hide")
 		this.$.status_sort_d.classList.add("hide")
+		this.$.author_sort_d.classList.add("hide")
+		this.$.license_sort_d.classList.add("hide")
 		this.$.repository_sort_d.classList.add("hide")
 	},
 	sort_by_field: function(e) {
@@ -1560,7 +1656,9 @@ Polymer({
 		first_time = false
 		ipcRenderer.on('started-app',  function(event, arg) { 
 			document.getElementById('App_list').upd_app_sts('started')
-			alert('Application '+arg.app+' Started')
+			var msg = '<%= lng('Application #app Started') %>'
+			msg = msg.replace('#app',arg.app)
+			alert(msg)
 		})
 	}
   },
@@ -1579,7 +1677,9 @@ Polymer({
 		{
 			document.getElementById('App_list').upd_app_sts('stopped')
 			var name = document.getElementById('App_list').item.name
-			alert('Application '+name+' Stopped')
+			var msg = '<%= lng('Application #app Stopped') %>'
+			msg = msg.replace('#app',name)
+			alert(msg)
 		}
 		 else alert('<%= lng('Aplication Cannot be Stopped') %>', '<%= lng('Stop App') %>')
 	});
