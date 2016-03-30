@@ -934,7 +934,7 @@ paper-menu {
 <dom-module id="App-list">
 <template>
 <!--USER POINT - List Style-->
-	<iron-ajax id="ajax2" handle-as="json" on-response="" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax2" handle-as="json" on-response="app_updated" on-error="ajax_error"></iron-ajax>
 <!--END USER POINT - List Style-->
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
 	<App-list-columns id="App_list_columns" on-close="update_columns"></App-list-columns>
@@ -1537,44 +1537,49 @@ Polymer({
 //	post(config_server() + "Model/list", post_data, 'post')
 	window.location.href = config_server() + "Model/list?app=" + rs.name + '&app_id=' + rs.id 
   },
+  upd_app_sts: function(sts) {
+	this.$.ajax2.url = config_server() + "App/status?id="+this.item.id+"&sts="+sts
+	this.$.ajax2.generateRequest()
+	this.item.status = sts
+	this.data.update(this.item)
+  },
+  app_updated: function() {
+	//this.filter()
+	this.reload()
+  },
   start: function() {
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
-	var item = this.data.find(filtro)[0]
+	this.item = this.data.find(filtro)[0]
 	
 	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('start-app', {id: item.id, app: item.name, port: item.port, path: item.path});
+	ipcRenderer.send('start-app', {id: this.item.id, app: this.item.name, port: this.item.port, path: this.item.path});
 	
 	if (first_time)
 	{
 		first_time = false
 		ipcRenderer.on('started-app',  function(event, arg) { 
-			this.$.ajax2.url = config_server() + "App/status?id="+item.id+"&sts=started"
-			this.$.ajax2.generateRequest()
-			item.status = 'started'
-			this.data.update(item)
-			//alert('Application '+arg.app_id+' started')
+			document.getElementById('App_list').upd_app_sts('started')
+			alert('Application '+arg.app+' Started')
 		})
 	}
   },
   stop: function() {
 	this.$.menu_dialog.close()
 	var filtro = {"id": this.key}
-	var item = this.data.find(filtro)[0]
+	this.item = this.data.find(filtro)[0]
 	
 	const remote = require('electron').remote
 	const spawn = remote.require('child_process').spawn;
 			
-	const stop = spawn('sh', [ 'stop.sh' ], { cwd: item.path+'/'+item.name })
+	const stop = spawn('sh', [ 'stop.sh' ], { cwd: this.item.path+'/'+this.item.name })
 	
 	stop.on('close', function(code)	{
 		if (code == 0) 
 		{
-			this.$.ajax2.url = config_server() + "App/status?id="+item.id+"&sts=stopped"
-			this.$.ajax2.generateRequest()
-			item.status = 'stopped'
-			this.data.update(item)
-			alert('<%= lng('Aplication Stopped') %>', '<%= lng('Stop App') %>')
+			document.getElementById('App_list').upd_app_sts('stopped')
+			var name = document.getElementById('App_list').item.name
+			alert('Application '+name+' Stopped')
 		}
 		 else alert('<%= lng('Aplication Cannot be Stopped') %>', '<%= lng('Stop App') %>')
 	});
