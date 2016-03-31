@@ -435,7 +435,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type">
+				<td><select id="type" name="type" disabled>
 						<option value="web"><%= lng('Web App (Browser)')%></option>
 						<option value="web2"><%= lng('Web App (electron)')%></option>
 						<option value="desktop"><%= lng('Desktop')%></option>
@@ -741,7 +741,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="type"><%= lng('Type')%></label></td>
-				<td><select id="type" name="type">
+				<td><select id="type" name="type" disabled>
 						<option value="web"><%= lng('Web App (Browser)')%></option>
 						<option value="web2"><%= lng('Web App (electron)')%></option>
 						<option value="desktop"><%= lng('Desktop')%></option>
@@ -850,7 +850,9 @@ paper-menu {
 /** USER POINT - Record Updated **/
 			const remote = require('electron').remote
 			var app_util = remote.require('./app_util.js')
-			app_util.set_port(this.$.name.value, this.$.port.value)
+			app_util.set_port(this.$.name.value, this.$.port.value, this.$.path.value)
+			app_util.set_package_json(this.$.name.value , this.$.path.value, this.$.description.value, this.$.version.value, this.$.repository.value, this.$.author.value, this.$.license.value)
+			app_util.set_view_layout(this.$.name.value, this.$.title.value, this.$.path.value)
 /** END USER POINT - Record Updated **/
 			alert("<%= lng('Record Updated')%>")
 			this.$.dialog.close()
