@@ -1,4 +1,4 @@
-<!-- list template: version 7.00 -->
+<!-- list template: version 7.02 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -545,11 +545,8 @@ paper-menu {
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
 	<!-- Load Attributes of Model -->
 	<iron-ajax id="ajax2" handle-as="json" on-response="generate_model" on-error="ajax_error"></iron-ajax>
-	<Model-list-columns id="Model_list_columns" on-close="update_columns"></Model-list-columns>
 	<Model-new id="Model_new_dialog" on-close="reload"></Model-new>
-	<Model-display id="Model_display_dialog"></Model-display>
 	<Model-edit id="Model_edit_dialog" on-close="reload"></Model-edit>
-	<Model-delete id="Model_delete_dialog" on-close="reload"></Model-delete>
 	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Model"))%></div>-->
 <!--USER POINT - List Header-->

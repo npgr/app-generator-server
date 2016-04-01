@@ -1,4 +1,4 @@
-<!-- list template: version 7.00 -->
+<!-- list template: version 7.02 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -246,14 +246,11 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- list-columns: version 5.10 -->
+<!-- list-columns: version 5.12 -->
 
 <dom-module id="ModelFunction-list-columns">
 <template>
 <style>
-	/*#dialog {
-		width: 24em;
-	}*/
 	.green {
 		background-color: green;
 		color: white;
@@ -263,6 +260,15 @@ paper-menu {
 		color: white;
 		background-color: orange;
 		height: 30px;
+	}
+	#dialog {
+		width: 27em;
+	}
+	#dialog table div {
+		width: 5.5em;
+		text-align: center;
+		padding-top: 5px;
+		height: 28px;
 	}
 </style>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
@@ -802,11 +808,8 @@ paper-menu {
 <!--END USER POINT - List Style-->
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
 	<ModelFunction-list-columns id="ModelFunction_list_columns" on-close="update_columns"></ModelFunction-list-columns>
-	<ModelFunction-new id="ModelFunction_new_dialog" on-close="reload"></ModelFunction-new>
-	<ModelFunction-display id="ModelFunction_display_dialog"></ModelFunction-display>
 	<FunctionList-edit id="FunctionList_edit_dialog" on-close="reload"></FunctionList-edit>
 	<!--<ModelFunction-edit id="ModelFunction_edit_dialog" on-close="reload"></ModelFunction-edit>-->
-	<ModelFunction-delete id="ModelFunction_delete_dialog" on-close="reload"></ModelFunction-delete>
 	<App-select id="App_select_dialog" on-item_selected="set_select_field"></App-select>
 	<Model-select id="Model_select_dialog" on-item_selected="set_select_field"></Model-select>	
 	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Funcion"))%></div>-->
