@@ -88,8 +88,9 @@ module.exports = function(req, res, next) {
 		}
 		else
 		{
+			req.setLocale(req.session.languagePreference);
 			console.log(colors.red(time + req.method+' '+req.originalUrl+' Not Authorized for user '+req.session.user))
-			var msg = { auth_msg: "Not Authorized to Perform this Option"}
+			var msg = { auth_msg: req.__("User Not Authorized to this Option")}
 			return res.json(msg)
 			/** if page then redirect **/
 		}

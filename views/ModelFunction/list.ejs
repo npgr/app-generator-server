@@ -1,4 +1,4 @@
-<!-- list template: version 7.03 -->
+<!-- list template: version 7.05 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -354,7 +354,7 @@ paper-menu {
 
 
 
-<!-- edit-form: version 5.20 -->
+<!-- edit-form: version 5.21 -->
 
 <dom-module id="ModelFunction-edit">
 <template>
@@ -453,6 +453,12 @@ paper-menu {
 			this.$.ajax.generateRequest()
 		},
 		record_updated: function() {
+			/** Validate Resource Authorized **/
+			if (this.$.ajax2.lastResponse.auth_msg)
+			{
+				alert(this.$.ajax2.lastResponse.auth_msg)
+				return
+			}
 /** USER POINT - Record Updated **/
 /** END USER POINT - Record Updated **/
 			alert("<%= lng('Record Updated')%>")
@@ -1346,6 +1352,12 @@ Polymer({
 	while(this.data.data[0]) {
         this.data.remove(this.data.data[0])
       }
+	/** Validate Resource Authorized **/
+	if (this.$.ajax2.lastResponse.auth_msg)
+	{
+		alert(this.$.ajax2.lastResponse.auth_msg)
+		return
+	}
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
 	{
 		if (this.$.ajax.lastResponse[i].app){
