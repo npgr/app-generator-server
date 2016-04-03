@@ -42,9 +42,10 @@ module.exports = function(req, res, next) {
 	//console.log('headers: ', req.headers)
 	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass &&
 		req.route.path != '/db/import'){
-		
+
 		//console.log('Redirecting to login from '+req.route.path)
-		return res.redirect('/login')
+		//return res.redirect('/login')
+		return res.forbidden('Unathorized Access') //return res.view('403')
 	}
 			
 	
