@@ -25,7 +25,8 @@ module.exports = {
 		res.render("User/login")
 	},
 	signout: function(req, res) {
-		req.session.user = null
+		//req.session.user = null
+		req.session = null
 		res.redirect("/login")
 	},
 	validateLogin: function(req, res) {
