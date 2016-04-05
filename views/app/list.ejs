@@ -246,9 +246,6 @@ paper-menu {
 			this.$.menubar.classList.toggle('menubar')
 		},
 		signout: function() {
-			//alert('hostname: '+location.hostname+', Port: '+location.port)
-			const ipcRenderer = require('electron').ipcRenderer;
-			ipcRenderer.send('exit-main');
 			window.location.assign(config_server() + "signout")
 		}<%
 	_.forEach(groups, function(n, key) {

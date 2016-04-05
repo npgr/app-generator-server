@@ -26,8 +26,9 @@ module.exports = {
 	},
 	signout: function(req, res) {
 		//req.session.user = null
+		//res.redirect("/login")
 		req.session = null
-		res.redirect("/login")
+		res.redirect("/pages/byebye.html")
 	},
 	validateLogin: function(req, res) {
 		User.findOneByUsr(req.body.username)

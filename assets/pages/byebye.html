@@ -1,0 +1,22 @@
+<html>
+<header>
+	<title>Good Bye, Welcome Back</title>
+</header>
+<body>
+	<style>
+		body {
+			background-color: rgb(100, 100, 100)
+		}
+		img {
+			position: absolute;
+			top: 10%;
+			left: 20%;
+		}
+	</style>
+	<img src="/images/Good-Bye-Graphics.gif"></img>
+	<script>
+		const ipcRenderer = require('electron').ipcRenderer;
+		ipcRenderer.send('exit-main');
+	</script>
+</body>
+</html>
