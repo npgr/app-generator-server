@@ -1,4 +1,4 @@
-<!-- list template: version 7.05 -->
+<!-- list template: version 7.06 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -39,8 +39,10 @@
 	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
 <script>	
 // Redirect to https
+  <% if (process.env.HTTPS == 'true') { %>
   if (window.location.protocol != "https:" && window.location.href.indexOf('localhost') == -1)
 	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+  <% } %>
 </script>
 <style>
 #btn_area {
