@@ -242,9 +242,9 @@ paper-menu {
 	Polymer({
 		is: "top-bar",
 		ready: function() {
-			this.user = <%- user %>
+			this.user = <%- JSON.stringify(user) %>
 			console.log('User: ', this.user)
-		}
+		},
 		back: function() {
 			window.history.back();
 		},
@@ -285,35 +285,21 @@ paper-menu {
 <template>
 	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
 	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
-		<Account-select id="Account_select_dialog" on-item_selected="set_select_field"></Account-select>
-		<Profile-select id="Profile_select_dialog" on-item_selected="set_select_field"></Profile-select>
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("User"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
 			<table class="table_dialog" style="width:100%">
 			<tr>
-				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
-				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+				<td><label class="left_label" for="usr"><%= lng('User')%></label></td>
+				<td><input id="usr" type="text" name="usr" value="{{item.usr}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="account"><%= lng('Account')%></label></td>
-				<td><iron-icon icon="find-in-page" field="account" on-click="select_field_b"></iron-icon><input id="account" type="text" name="account" key={{item.account_id}} value="{{item.account_name}}" on-click="select_field" readonly></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="usr"><%= lng('User')%><strong class="red"> *</strong></label></td>
-				<td><input id="usr" type="text" name="usr" value="{{item.usr}}" required></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="name"><%= lng('Name')%><strong class="red"> *</strong></label></td>
-				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
+				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="pwd"><%= lng('Password')%><strong class="red"> *</strong></label></td>
 				<td><input id="pwd" type="password" name="pwd" value="{{item.pwd}}" required></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="profile"><%= lng('Profile')%><strong class="red"> *</strong></label></td>
-				<td><iron-icon icon="find-in-page" field="profile" on-click="select_field_b"></iron-icon><input id="profile" type="text" name="profile" key={{item.profile_id}} value="{{item.profile_name}}" required on-click="select_field" readonly></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="email"><%= lng('email')%></label></td>
@@ -325,13 +311,6 @@ paper-menu {
 						<option value="en"><%= lng('English')%></option>
 						<option value="es"><%= lng('Español')%></option>
 						<option value="pt"><%= lng('Portugues')%></option>
-					</select></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="status"><%= lng('Status')%></label></td>
-				<td><select id="status" name="status">
-						<option value="A"><%= lng('Active')%></option>
-						<option value="I"><%= lng('Inactive')%></option>
 					</select></td>
 			</tr>
 			</table>
@@ -358,17 +337,9 @@ paper-menu {
 		},
 		set_select_fields(item) {
 			this.$.language.value = item.language
-			this.$.status.value = item.status
 			},
 		select_field_b: function(e) {
 			this.$[e.toElement.getAttribute("field")].click()
-		},
-		select_field: function(e) {
-			this.field = e.toElement.id
-			if (this.field == "account")
-				this.$.Account_select_dialog.open_select_dialog()
-			if (this.field == "profile")
-				this.$.Profile_select_dialog.open_select_dialog()
 		},
 		set_select_field: function(e) {
 			this.$[this.field].value = this.$[e.srcElement.id].item.name
@@ -380,14 +351,11 @@ paper-menu {
 		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
-			record.account = this.$.account.key
 			record.usr = this.$.usr.value
 			record.name = this.$.name.value
 			record.pwd = this.$.pwd.value
-			record.profile = this.$.profile.key
 			record.email = this.$.email.value
 			record.language = this.$.language.value
-			record.status = this.$.status.value
 			this.$.ajax.url = config_server() + "User/" +record.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
@@ -431,17 +399,17 @@ paper-menu {
 		background-color: orange;
 		height: 30px;
 	}
-	#dialog {
+	#dialog_columns {
 		width: 27em;
 	}
-	#dialog table div {
+	#dialog_columns table div {
 		width: 5.5em;
 		text-align: center;
 		padding-top: 5px;
 		height: 28px;
 	}
 </style>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+	<paper-dialog id="dialog_columns" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Columns"),lng("App"))%></h2>
 			<paper-dialog-scrollable>
 			<table class="table_dialog" style="width:100%">
