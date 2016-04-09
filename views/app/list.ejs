@@ -241,6 +241,10 @@ paper-menu {
 <script>
 	Polymer({
 		is: "top-bar",
+		ready: function() {
+			this.user = <%- user %>
+			console.log('User: ', this.user)
+		}
 		back: function() {
 			window.history.back();
 		},
@@ -266,8 +270,8 @@ paper-menu {
 			window.location.assign(config_server() + "<%= n.path.substring(1) %>")
 		}<%
 	}})%>
-	, edit_profile: function() {
-		this.$.user_edit_profile.open_dialog()
+	,edit_profile: function() {
+		this.$.user_edit_profile.open_dialog(this.user)
 	}
 	})
 /** USER POINT - Top Bar Functions **/
