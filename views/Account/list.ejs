@@ -1,4 +1,4 @@
-<!-- list template: version 7.06 -->
+<!-- list template: version 7.10 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -257,7 +257,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- list-columns: version 5.11 -->
+<!-- list-columns: version 5.12 -->
 
 <dom-module id="Account-list-columns">
 <template>
@@ -272,17 +272,17 @@ paper-menu {
 		background-color: orange;
 		height: 30px;
 	}
-	#dialog {
+	#dialog_columns {
 		width: 27em;
 	}
-	#dialog table div {
+	#dialog_columns table div {
 		width: 5.5em;
 		text-align: center;
 		padding-top: 5px;
 		height: 28px;
 	}
 </style>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+	<paper-dialog id="dialog_columns" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Columns"),lng("Account"))%></h2>
 			<paper-dialog-scrollable>
 			<table class="table_dialog" style="width:100%">
@@ -321,7 +321,7 @@ paper-menu {
 			this.show_field("id")
 			this.show_field("name")
 			this.show_field("users")
-			this.$.dialog.open()
+			this.$.dialog_columns.open()
 		},
 		change_field: function(e) {
 			var field = e.toElement.id
@@ -344,14 +344,14 @@ paper-menu {
 		},
 		submit_form: function() {
 			this.updated = true
-			this.$.dialog.close()
+			this.$.dialog_columns.close()
 			this.fire('close')
 		}
 	})
 </script>
 </dom-module>
 
-<!-- new-form: version 5.22 -->
+<!-- new-form: version 5.23 -->
 
 <dom-module id="Account-new">
 <template>
@@ -421,7 +421,7 @@ paper-menu {
 		},
 		record_created: function() {
 			/** Validate Resource Authorized **/
-			if (this.$.ajax2.lastResponse.auth_msg)
+			if (typeof this.$.ajax2.lastResponse.auth_msg !== 'undefined')
 			{
 				alert(this.$.ajax2.lastResponse.auth_msg)
 				return
@@ -511,7 +511,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.21 -->
+<!-- edit-form: version 5.22 -->
 
 <dom-module id="Account-edit">
 <template>
@@ -581,9 +581,9 @@ paper-menu {
 		},
 		record_updated: function() {
 			/** Validate Resource Authorized **/
-			if (this.$.ajax2.lastResponse.auth_msg)
+			if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
 			{
-				alert(this.$.ajax2.lastResponse.auth_msg)
+				alert(this.$.ajax.lastResponse.auth_msg)
 				return
 			}
 /** USER POINT - Record Updated **/
@@ -602,7 +602,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.21 -->
+<!-- delete-form: version 5.22 -->
 
 <dom-module id="Account-delete">
 <template>
@@ -657,9 +657,9 @@ paper-menu {
 		},
 		record_deleted: function() {
 			/** Validate Resource Authorized **/
-			if (this.$.ajax2.lastResponse.auth_msg)
+			if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
 			{
-				alert(this.$.ajax2.lastResponse.auth_msg)
+				alert(this.$.ajax.lastResponse.auth_msg)
 				return
 			}
 /** USER POINT - Record Deleted **/
@@ -1201,7 +1201,7 @@ Polymer({
         this.data.remove(this.data.data[0])
       }
 	/** Validate Resource Authorized **/
-	if (this.$.ajax.lastResponse.auth_msg)
+	if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
 	{
 		alert(this.$.ajax.lastResponse.auth_msg)
 		return

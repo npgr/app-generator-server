@@ -1,4 +1,4 @@
-<!-- list template: version 7.06 -->
+<!-- list template: version 7.10 -->
 <% if (crud == "crud6") { 
 %> >% 
  function lng(word) {
@@ -722,7 +722,7 @@ Polymer({
         this.data.remove(this.data.data[0])
       }
 	/** Validate Resource Authorized **/
-	if (this.$.ajax.lastResponse.auth_msg)
+	if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
 	{
 		alert(this.$.ajax.lastResponse.auth_msg)
 		return
