@@ -45,6 +45,7 @@ module.exports = {
 						req.session.user = req.body.username
 						req.session.username = data.name
 						req.session.profile = data.profile
+						req.session.email = data.email
 						req.session.languagePreference = data.language 
 						
 						/*Resource.find({id: data.profile.firstpage})

@@ -271,6 +271,7 @@ paper-menu {
 		}<%
 	}})%>
 	,edit_profile: function() {
+		this.user.usr = this.user.user
 		this.$.user_edit_profile.open_dialog(this.user)
 	}
 	})
@@ -1758,9 +1759,9 @@ Polymer({
         this.data.remove(this.data.data[0])
       }
 	/** Validate Resource Authorized **/
-	if (this.$.ajax2.lastResponse.auth_msg)
+	if (typeof (this.$.ajax.lastResponse.auth_msg) !== 'undefined')
 	{
-		alert(this.$.ajax2.lastResponse.auth_msg)
+		alert(this.$.ajax.lastResponse.auth_msg)
 		return
 	}
 	for (i=0; i< this.$.ajax.lastResponse.length; i++)
