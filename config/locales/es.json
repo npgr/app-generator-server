@@ -79,5 +79,7 @@
   ,"Author": "Autor"
   ,"License": "Licencia"
   ,"Title": "Titulo"
-  ,"User Not Authorized to this Option": "Usuario no Autorizado para esta Opción"
+  ,"User Not Authorized to this Option": "Usuario no Autorizado a esta Opción"
+  ,"Current Password Incorrect": "Contraseña Incorrecta"
+  ,"Profile Changed, Close Session to Apply Changes": "Usuario Cambiado, Cierre la Sesión para Aplicar Cambios"
 }

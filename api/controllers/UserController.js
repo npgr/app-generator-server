@@ -106,7 +106,7 @@ module.exports = {
 				res.view("User/list")
  			//})
  	},
-	updProfile: function (req, res) {
+	UpdProfile: function (req, res) {
 		/*var uPrf = {}
 		uPrf.id = req.param('id')
 		uPrf.pwd_old = req.param('pwd_old')
@@ -116,14 +116,25 @@ module.exports = {
 		
 		console.log('Profile ', uPrf)*/
 		
+		
 		User.findOneById(Number(req.param('id')))
 			.exec(function(err, data){ 
 				if (data.pwd != req.param('pwd_old'))
 				{
-					console.log('Error on password, ',req.param('pwd_old'), data.pwd)
-					return
+					var msg = { auth_msg: req.__("Current Password Incorrect"), err: true}
+					return res.json(msg)
+					//console.log('Error on password, ',req.param('pwd_old'), data.pwd)
+					//return
 				}
-				console.log('Password Correct')
+				var updated_data = { email: req.param('email'), language: req.param('language')}
+				if (data.pwd_1 != '')
+					updated_data.pwd =  req.param('pwd_1')
+				
+				User.update({id: req.param('id')}, updated_data)
+				  .exec(function(err, updated) {
+					var msg = { auth_msg: req.__("Profile Changed, Close Session to Apply Changes")}
+					return res.json(msg)
+				  }) 	
 			})
 	},
 	export : function(req, res) {

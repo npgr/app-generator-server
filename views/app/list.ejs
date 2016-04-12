@@ -54,7 +54,7 @@
 }
 .card {
 	width: 64em;
-	top: 30px;
+	top: 13px;
 	left: 15px;
 }
 th div {
@@ -132,7 +132,7 @@ paper-menu {
 	.menubar {
 		width: 100%;
 		position: relative;
-		top: 40px;
+		top: 23px;
 		z-index: 1;
 		display: flex;
 		//justify-content: space-between;
@@ -191,8 +191,8 @@ paper-menu {
 		width: 120px;
 	}
 </style>
-	<App-new id="App_new_dialog" on-close="reload"></App-new>
 	<user-edit-profile id='user_edit_profile'></user-edit-profile>
+	<App-new id="App_new_dialog" on-close="reload"></App-new>
 	<div id="menubar" class="hide">
 	  <div on-click="back"><%= lng('Back') %></div><%
 	  groups = _.map(_.uniq(resources, 'Group'),function(n) { return n.Group })
@@ -243,7 +243,6 @@ paper-menu {
 		is: "top-bar",
 		ready: function() {
 			this.user = <%- JSON.stringify(user) %>
-			console.log('User: ', this.user)
 		},
 		back: function() {
 			window.history.back();
@@ -385,16 +384,14 @@ paper-menu {
 		},
 		record_updated: function() {
 			/** Validate Resource Authorized **/
-			if (this.$.ajax.lastResponse.auth_msg)
-			{
-				alert(this.$.ajax.lastResponse.auth_msg)
-				return
-			}
+			alert(this.$.ajax.lastResponse.auth_msg)
 /** USER POINT - Record Updated **/
 /** END USER POINT - Record Updated **/
-			alert("<%= lng('Record Updated')%>")
-			this.$.dialog_profile.close()
-			this.fire('close')
+			if (typeof this.$.ajax.lastResponse.err === 'undefined')
+			{
+				this.$.dialog_profile.close()
+				this.fire('close')
+			}
 		},
 		ajax_error: function() {
 			console.log(this.$.ajax.lastError)
@@ -405,7 +402,6 @@ paper-menu {
 	})
 </script>
 </dom-module>
-
 
 <!-- list-columns: version 5.11 -->
 
