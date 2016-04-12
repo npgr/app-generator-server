@@ -192,7 +192,6 @@ paper-menu {
 	}
 </style>
 	<user-edit-profile id='user_edit_profile'></user-edit-profile>
-	<App-new id="App_new_dialog" on-close="reload"></App-new>
 	<div id="menubar" class="hide">
 	  <div on-click="back"><%= lng('Back') %></div><%
 	  groups = _.map(_.uniq(resources, 'Group'),function(n) { return n.Group })
