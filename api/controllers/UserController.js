@@ -106,6 +106,26 @@ module.exports = {
 				res.view("User/list")
  			//})
  	},
+	updProfile: function (req, res) {
+		/*var uPrf = {}
+		uPrf.id = req.param('id')
+		uPrf.pwd_old = req.param('pwd_old')
+		uPrf.pwd_1 = req.param('pwd_1')
+		uPrf.email = req.param('email')
+		uPrf.language = req.param('language')
+		
+		console.log('Profile ', uPrf)*/
+		
+		User.findOneById(Number(req.param('id')))
+			.exec(function(err, data){ 
+				if (data.pwd != req.param('pwd_old'))
+				{
+					console.log('Error on password, ',req.param('pwd_old'), data.pwd)
+					return
+				}
+				console.log('Password Correct')
+			})
+	},
 	export : function(req, res) {
 		User.find()
 		 .exec(function(err, users) {

@@ -283,9 +283,14 @@ paper-menu {
 <!-- edit-form: version 5.21 -->
 
 <dom-module id="User-edit-profile">
-<template>
+<template
+	<style>
+		#dialog_profile {
+			width: 36em;
+		}
+	</style>
 	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
-	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+	<paper-dialog id="dialog_profile" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("User"))%></h2>
 		<paper-dialog-scrollable>
 		<form id="form" action="javascript:void(0);" on-submit="update">
@@ -299,8 +304,16 @@ paper-menu {
 				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="pwd"><%= lng('Password')%><strong class="red"> *</strong></label></td>
-				<td><input id="pwd" type="password" name="pwd" value="{{item.pwd}}" required></td>
+				<td><label class="left_label" for="pwd_old"><%= lng('Current Password')%><strong class="red"> *</strong></label></td>
+				<td><input id="pwd_old" type="password" name="pwd_old" value="{{item.pwd_old}}" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_1"><%= lng('New Password')%></label></td>
+				<td><input id="pwd_1" type="password" name="pwd_1" value="{{item.pwd_1}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm New Password')%></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd_2}}"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="email"><%= lng('email')%></label></td>
@@ -334,7 +347,7 @@ paper-menu {
 			this.set_select_fields(item)
 /** USER POINT - Open Edit Dialog **/
 /** END USER POINT - Open Edit Dialog **/
-			this.$.dialog.open()
+			this.$.dialog_profile.open()
 		},
 		set_select_fields(item) {
 			this.$.language.value = item.language
@@ -347,31 +360,40 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
+			if (this.$.pwd_1.value != this.$.pwd_2.value)
+			{
+				alert('New Password must be equal to Confirm Password')
+				return 
+			}
+			if ((this.$.pwd_1.value != '') && (this.$.pwd_old.value == '')) 
+			{
+				alert('Old Password missing')
+				return
+			}
 			this.$.submit_update.click()
 		},
 		update: function() {
 			var record = {}
-			record.id = Number(this.$.id.value)
-			record.usr = this.$.usr.value
-			record.name = this.$.name.value
-			record.pwd = this.$.pwd.value
+			//record.id = this.item.id
+			record.pwd_old = this.$.pwd_old.value
+			record.pwd_1 = this.$.pwd_1.value
 			record.email = this.$.email.value
 			record.language = this.$.language.value
-			this.$.ajax.url = config_server() + "User/" +record.id
+			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
 		},
 		record_updated: function() {
 			/** Validate Resource Authorized **/
-			if (this.$.ajax2.lastResponse.auth_msg)
+			if (this.$.ajax.lastResponse.auth_msg)
 			{
-				alert(this.$.ajax2.lastResponse.auth_msg)
+				alert(this.$.ajax.lastResponse.auth_msg)
 				return
 			}
 /** USER POINT - Record Updated **/
 /** END USER POINT - Record Updated **/
 			alert("<%= lng('Record Updated')%>")
-			this.$.dialog.close()
+			this.$.dialog_profile.close()
 			this.fire('close')
 		},
 		ajax_error: function() {
