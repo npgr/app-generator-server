@@ -1,4 +1,4 @@
-<!-- list template: version 7.10 -->
+<!-- list template: version 7.15 -->
 <% if (crud == "crud6") { 
 %> >% 
  function lng(word) {
@@ -82,7 +82,7 @@
 }
 .card {
 	width: <%= card_width%>;
-	top: 30px;
+	top: 13px;
 	left: 15px;
 }
 th div {
