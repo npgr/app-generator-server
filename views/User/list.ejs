@@ -551,6 +551,10 @@ paper-menu {
 				<td><input id="pwd" type="password" name="pwd" required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm Password')%><strong class="red"> *</strong></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2" required></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="profile"><%= lng('Profile')%><strong class="red"> *</strong></label></td>
 				<td><iron-icon icon="find-in-page" field="profile" on-click="select_field_b"></iron-icon><input id="profile" type="text" name="profile" key=0 required on-click="select_field" readonly></td>
 			</tr>
@@ -621,6 +625,11 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		create: function() {
+			if (this.$.pwd.value != this.$.pwd_2.value)
+			{
+				alert("<%= lng('New Password must be equal to Confirm Password') %>")
+				return
+			}
 			this.$.ajax2.url = config_server() + "User"
 			var record = {}
 			record.account = this.$.account.key
@@ -792,6 +801,10 @@ paper-menu {
 				<td><input id="pwd" type="password" name="pwd" value="{{item.pwd}}" required></td>
 			</tr>
 			<tr>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm Password')%><strong class="red"> *</strong></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd}}" required></td>
+			</tr>
+			<tr>
 				<td><label class="left_label" for="profile"><%= lng('Profile')%><strong class="red"> *</strong></label></td>
 				<td><iron-icon icon="find-in-page" field="profile" on-click="select_field_b"></iron-icon><input id="profile" type="text" name="profile" key={{item.profile_id}} value="{{item.profile_name}}" required on-click="select_field" readonly></td>
 			</tr>
@@ -831,6 +844,7 @@ paper-menu {
 		is: "User-edit",
 		open_dialog: function(item) {
 			this.item = item
+			this.item.pwd_2 = this.item.pwd
 			this.set_select_fields(item)
 /** USER POINT - Open Edit Dialog **/
 /** END USER POINT - Open Edit Dialog **/
@@ -858,6 +872,11 @@ paper-menu {
 			this.$.submit_update.click()
 		},
 		update: function() {
+			if (this.$.pwd.value != this.$.pwd_2.value)
+			{
+				alert("<%= lng('New Password must be equal to Confirm Password') %>")
+				return
+			}
 			var record = {}
 			record.id = Number(this.$.id.value)
 			record.account = this.$.account.key
