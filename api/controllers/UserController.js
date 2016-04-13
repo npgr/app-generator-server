@@ -98,27 +98,15 @@ module.exports = {
 			})
 	},
 	list : function (req, res) {
-		//User.find()
- 			//.exec(function(err, data){
-				res.locals.resources = req.session.resources
- 				res.locals.user = {user: req.session.user, name: req.session.username}
- 				res.locals.data = []
-				res.view("User/list")
- 			//})
+		res.locals.resources = req.session.resources
+		res.locals.user = {id: req.session.userid, user: req.session.user, name: req.session.username, 
+		 email: req.session.email, language: req.session.languagePreference}
+		res.locals.data = []
+		res.view("User/list")
  	},
 	UpdProfile: function (req, res) {
-		/*var uPrf = {}
-		uPrf.id = req.param('id')
-		uPrf.pwd_old = req.param('pwd_old')
-		uPrf.pwd_1 = req.param('pwd_1')
-		uPrf.email = req.param('email')
-		uPrf.language = req.param('language')
-		
-		console.log('Profile ', uPrf)*/
-		
-		
 		User.findOneById(Number(req.param('id')))
-			.exec(function(err, data){ 
+			.exec(function(err, data){
 				if (data.pwd != req.param('pwd_old'))
 				{
 					var msg = { auth_msg: req.__("Current Password Incorrect"), err: true}
@@ -127,14 +115,20 @@ module.exports = {
 					//return
 				}
 				var updated_data = { email: req.param('email'), language: req.param('language')}
-				if (data.pwd_1 != '')
+				if (req.param('pwd_1') != '')
 					updated_data.pwd =  req.param('pwd_1')
 				
 				User.update({id: req.param('id')}, updated_data)
 				  .exec(function(err, updated) {
-					var msg = { auth_msg: req.__("Profile Changed, Close Session to Apply Changes")}
-					return res.json(msg)
-				  }) 	
+					if (err) console.log('Error: ', err)
+					  else
+					 {
+						req.session.email = req.param('email')
+						req.session.languagePreference = req.param('language')
+						var msg = { auth_msg: req.__("Profile Changed, Close Session to Apply Changes")}
+						return res.json(msg)
+					 }
+				}) 	
 			})
 	},
 	export : function(req, res) {
