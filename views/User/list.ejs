@@ -877,6 +877,12 @@ paper-menu {
 				alert("<%= lng('New Password must be equal to Confirm Password') %>")
 				return
 			}
+			var minlength = 6
+			if (this.$.pwd.value.length < minlength)
+			{
+				alert("<%= lng('Password Must have al least 6 Characters') %>")
+				return
+			}
 			var record = {}
 			record.id = Number(this.$.id.value)
 			record.account = this.$.account.key
