@@ -17,7 +17,8 @@ module.exports = {
 				 .populate('ref_model')
 				 .exec(function(err, attrs) {
 					res.locals.resources = req.session.resources
-					res.locals.user = {user: req.session.user, name: req.session.username}
+					res.locals.user = {id: req.session.userid, user: req.session.user, name: req.session.username, 
+		 email: req.session.email, language: req.session.languagePreference}
 					//res.locals.data = JSON.stringify(data)
 					res.locals.data = []
 					res.locals.attrs = JSON.stringify(attrs)

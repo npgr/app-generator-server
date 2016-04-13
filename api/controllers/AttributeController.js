@@ -19,12 +19,13 @@ module.exports = {
 	list : function (req, res) {
 		//Attribute.find()
 		//	.exec(function(err, data){
-				res.locals.resources = req.session.resources
-				res.locals.user = {user: req.session.user, name: req.session.username}
+		res.locals.resources = req.session.resources
+		res.locals.user = {id: req.session.userid, user: req.session.user, name: req.session.username, 
+		 email: req.session.email, language: req.session.languagePreference}
 		//		res.locals.data = JSON.stringify(data)
-				res.locals.data = []
-				//res.locals.model = JSON.stringify(req.body)
-				res.view("Attribute/list")
+		res.locals.data = []
+		//res.locals.model = JSON.stringify(req.body)
+		res.view("Attribute/list")
 		//	})
 	},
 	export : function(req, res) {

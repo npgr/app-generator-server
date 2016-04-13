@@ -1,4 +1,4 @@
-<!-- list template: version 7.10 -->
+<!-- list template: version 7.15 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -54,7 +54,7 @@
 }
 .card {
 	width: 80em;
-	top: 30px;
+	top: 13px;
 	left: 15px;
 }
 th div {
@@ -80,7 +80,7 @@ paper-menu {
 /** END USER POINT - General Style **/
 </style>
 
-<!-- topBar template: version 1.25 -->
+<!-- topBar template: version 1.30 -->
 
 <dom-module id="top-bar">
 <template>
@@ -114,7 +114,7 @@ paper-menu {
 	.menubar {
 		width: 100%;
 		position: relative;
-		top: 40px;
+		top: 23px;
 		z-index: 1;
 		display: flex;
 		//justify-content: space-between;
@@ -173,6 +173,7 @@ paper-menu {
 		width: 120px;
 	}
 </style>
+	<user-edit-profile id='user_edit_profile'></user-edit-profile>
 	<div id="menubar" class="hide">
 	  <div on-click="back"><%= lng('Back') %></div><%
 	  groups = _.map(_.uniq(resources, 'Group'),function(n) { return n.Group })
@@ -207,8 +208,10 @@ paper-menu {
 			  <hr>
 			  <li class="dropdown-item"><iron-icon icon="drafts"></iron-icon>Messages</li>
 			  <li class="dropdown-item"><iron-icon icon="settings"></iron-icon>Preferences</li>-->
+<!-- USER POINT - User Menu -->
+<!-- END USER POINT - User Menu -->
 			  <hr>
-			  <li class="dropdown-item"><iron-icon icon="perm-identity"></iron-icon><%= lng('Profile') %></li>
+			  <li class="dropdown-item" on-click="edit_profile"><iron-icon icon="perm-identity"></iron-icon><%= lng('Profile') %></li>
 			  <li class="dropdown-item" on-click="signout"><iron-icon icon="exit-to-app"></iron-icon><%= lng('Log Out') %></li>
 			</ul>
 		  </iron-dropdown>
@@ -219,6 +222,9 @@ paper-menu {
 <script>
 	Polymer({
 		is: "top-bar",
+		ready: function() {
+ 			this.user = <%- JSON.stringify(user) %>
+ 		},
 		back: function() {
 			window.history.back();
 		},
@@ -244,6 +250,136 @@ paper-menu {
 			window.location.assign(config_server() + "<%= n.path.substring(1) %>")
 		}<%
 	}})%>
+	,edit_profile: function() {
+		this.user.usr = this.user.user
+		this.$.user_edit_profile.open_dialog(this.user)
+	}
+/** USER POINT - Top Bar Functions **/
+/** END USER POINT - Top Bar Functions **/
+	})
+</script>
+</dom-module>
+
+<!-- edit-form: version 5.21 -->
+
+<dom-module id="User-edit-profile">
+<template
+	<style>
+		#dialog_profile {
+			width: 36em;
+		}
+	</style>
+	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog_profile" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("User"))%></h2>
+		<paper-dialog-scrollable>
+		<form id="form" action="javascript:void(0);" on-submit="update">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="usr"><%= lng('User')%></label></td>
+				<td><input id="usr" type="text" name="usr" value="{{item.usr}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_old"><%= lng('Current Password')%><strong class="red"> *</strong></label></td>
+				<td><input id="pwd_old" type="password" name="pwd_old" value="{{item.pwd_old}}" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_1"><%= lng('New Password')%></label></td>
+				<td><input id="pwd_1" type="password" name="pwd_1" value="{{item.pwd_1}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm New Password')%></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd_2}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="email"><%= lng('email')%></label></td>
+				<td><input id="email" type="text" name="email" value="{{item.email}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="language"><%= lng('Language')%></label></td>
+				<td><select id="language" name="language">
+						<option value="en"><%= lng('English')%></option>
+						<option value="es"><%= lng('Español')%></option>
+						<option value="pt"><%= lng('Portugues')%></option>
+					</select></td>
+			</tr>
+			</table>
+			<div class="buttons">
+			  <input id="submit_update" class="hide" type="submit" value="CAMBIAR">
+			  <div class="card_line">
+				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
+				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+			  </div>
+			</div>
+		</form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "User-edit-profile",
+		open_dialog: function(item) {
+			this.item = item
+			this.set_select_fields(item)
+/** USER POINT - Open Edit Dialog **/
+/** END USER POINT - Open Edit Dialog **/
+			this.$.dialog_profile.open()
+		},
+		set_select_fields(item) {
+			this.$.language.value = item.language
+			},
+		select_field_b: function(e) {
+			this.$[e.toElement.getAttribute("field")].click()
+		},
+		set_select_field: function(e) {
+			this.$[this.field].value = this.$[e.srcElement.id].item.name
+			this.$[this.field].key = this.$[e.srcElement.id].item.key
+		},
+		submit_form: function() {
+			if (this.$.pwd_1.value != this.$.pwd_2.value)
+			{
+				alert('New Password must be equal to Confirm Password')
+				return 
+			}
+			if ((this.$.pwd_1.value != '') && (this.$.pwd_old.value == '')) 
+			{
+				alert('Old Password missing')
+				return
+			}
+			this.$.submit_update.click()
+		},
+		update: function() {
+			var record = {}
+			//record.id = this.item.id
+			record.pwd_old = this.$.pwd_old.value
+			record.pwd_1 = this.$.pwd_1.value
+			record.email = this.$.email.value
+			record.language = this.$.language.value
+			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id
+			this.$.ajax.params = record
+			this.$.ajax.generateRequest()
+		},
+		record_updated: function() {
+			/** Validate Resource Authorized **/
+			alert(this.$.ajax.lastResponse.auth_msg)
+/** USER POINT - Record Updated **/
+/** END USER POINT - Record Updated **/
+			if (typeof this.$.ajax.lastResponse.err === 'undefined')
+			{
+				this.$.dialog_profile.close()
+				this.fire('close')
+			}
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+/** USER POINT - Edit Functions **/
+/** END USER POINT - Edit Functions **/
 	})
 </script>
 </dom-module>
