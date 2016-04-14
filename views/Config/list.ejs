@@ -1,0 +1,1227 @@
+<!-- list template: version 7.15 -->
+ <% 
+ function lng(word) {
+	return __("word")
+ }
+ function lng(word1, word2, word3) {
+	return __(word1, word2, word3)
+ }
+%>  
+<html>
+<head><meta charset="UTF-8">
+	<title><%= lng("%s %s",lng("List"),lng("Configuration"))%></title>
+	<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+	<script src="/bower_components/intro.js/minified/intro.min.js"></script>
+	<script src="/js2/lokijs/build/lokijs.min.js"></script>
+	<script src="/js2/x2js-v1.1.5/xml2json.min.js"></script>
+	<script src="/components/app-config/app-config.js"></script>
+	<script src="/components/app-util/app-util.js"></script>
+	<link rel="stylesheet" href="/styles/app.css">
+	<link rel="stylesheet" href="/bower_components/intro.js/minified/introjs.min.css">
+	<!-- polymer Components -->
+	<link rel="import" href="/bower_components/paper-material/paper-material.html">
+	<link rel="import" href="/bower_components/paper-input/paper-input.html">
+	<link rel="import" href="/bower_components/paper-fab/paper-fab.html">
+	<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+	<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+	<link rel="import" href="/bower_components/iron-dropdown/iron-dropdown.html">
+	<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+	<link rel="import" href="/bower_components/paper-button/paper-button.html">
+	<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+	<link rel="import" href="/bower_components/paper-menu/paper-menu.html">
+	<link rel="import" href="/bower_components/paper-item/paper-item.html">
+	<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+	<!-- Forms imports -->
+	<link rel="import" href="/bower_components/polymer/polymer.html">
+	<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+	<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+	<link rel="import" href="/bower_components/neon-animation/animations/scale-up-animation.html">
+	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+<script>	
+// Redirect to https
+  <% if (process.env.HTTPS == 'true') { %>
+  if (window.location.protocol != "https:" && window.location.href.indexOf('localhost') == -1)
+	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+  <% } %>
+</script>
+<style>
+#btn_area {
+	display: inline-block;
+	margin-left: 20px;
+}
+#dialog {
+	width: 30em;
+}
+.card {
+	width: 60em;
+	top: 13px;
+	left: 15px;
+}
+th div {
+	display: inline;
+}
+#menu_dialog {
+	position: absolute;
+	left: 45px;
+}
+paper-item {
+	min-height: 20px;
+	line-height: 35px;
+}
+paper-dialog {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+paper-menu {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+/** USER POINT - General Style **/
+/** END USER POINT - General Style **/
+</style>
+
+<!-- topBar template: version 1.30 -->
+
+<dom-module id="top-bar">
+<template>
+<style>
+	.topbar1 {
+		position: fixed;
+		top: 0;
+		margin-top: 0;
+		width: 100%;
+		z-index: 1;
+		//background-color: #039BE5;
+		//background-color: #26A69A;
+		background-color: #0097A7; //cyan 700
+		color: white;
+		//height: 40px;
+		font-family: verdana, sans-serif;
+	}
+	.topBar {
+		display: flex;
+		justify-content: space-between;
+		width: 94%;
+		margin-top: 10px;
+		margin-left:3%;
+		z-index: 1;
+		//background-color: #039BE5; blue
+		//background-color: #26A69A; green
+		background-color: #0097A7; 
+		color: white;
+		height: 30px;
+	}
+	.menubar {
+		width: 100%;
+		position: relative;
+		top: 23px;
+		z-index: 1;
+		display: flex;
+		//justify-content: space-between;
+		justify-content: flex-start;
+		background-color: #007080;
+		height: 30px;
+	}
+	.menubar > div {
+		color: white;
+		margin-left: 20px;
+		margin-top: 5px;
+	}
+	.menubar > div:first-of-type {
+		margin-left: 120px;
+	}
+	.barTitle {
+		margin-top: -3px;
+		font-size: 20px;
+	}
+	.barItem {
+		font-size: 15px;
+	}
+	.dropdown-content {
+		margin-top: 30px;
+		//margin-left: 0px,
+		display: block;
+		position: relative;
+		background-color: #fff;
+		color: black;
+		box-shadow: 0px 2px 6px #ccc;
+		padding: 10px;
+		border-radius: 3px;
+    }
+	.dropdown-item {
+		padding: 5px;
+		color: rgb(100, 100, 100);
+	}
+	/*.dropdown-item:not(:last-of-type) {
+		border-bottom: 1px solid #eee;
+	}*/
+	.top_border {
+		border-top: 1px solid #eee;
+	}
+	.bar_icon {
+		padding: 0;
+		width: 24px;
+		height: 24px;
+	}
+	.inline {
+		display: inline;
+	}
+	#dropdown_user iron-icon {
+		margin-right: 5px;
+	}
+	#dropdown_user {
+		width: 120px;
+	}
+</style>
+	<user-edit-profile id='user_edit_profile'></user-edit-profile>
+	<div id="menubar" class="hide">
+	  <div on-click="back"><%= lng('Back') %></div><%
+	  groups = _.map(_.uniq(resources, 'Group'),function(n) { return n.Group })
+	  _.forEach(groups , function(n, key) { 
+		if (n != '') {%>
+		<div on-click="open_<%= n %>_menu"><%= lng(n) %>
+		  <iron-dropdown id="dropdown_<%= n %>"  horizontal-align="left"  vertical-align="top">
+			<ul class="dropdown-content" tabindex="0"><%
+			  var arr = _.map(_.filter(resources, {'Group': n}), function(n4) { return n4.name})
+			  _.forEach(arr, function(n2, key2) { %>
+				<li class="dropdown-item" on-click="<%= n2 %>"><iron-icon icon="chevron-right"></iron-icon><%= lng(n2.replace(/_/g,' ')) %></li><%
+			  }) %>
+			</ul>
+		  </iron-dropdown>
+		</div><%
+	  } } ) %>
+	</div>
+	<div class="topbar1">
+	  <div class="topBar">
+		<div class="barItem" on-click="open_app_menu">
+		  <paper-icon-button class="bar_icon" icon="menu"></paper-icon-button>
+		  <div class="inline">Menu</div>
+		</div>
+		<div class="barTitle"><content></content></div>
+		<div class="barItem" on-click="open_user_menu">
+		  <paper-icon-button class="bar_icon" icon="account-circle"></paper-icon-button>
+		  <div class="inline dropdown-trigger"><%= user.user%></div>
+		  <iron-icon icon="arrow-drop-down"></iron-icon>
+		  <iron-dropdown id="dropdown_user"  horizontal-align="right" vertical-align="top">
+			<ul class="dropdown-content" tabindex="0">
+			  <!--<li class="dropdown-item"><iron-icon icon="assessment"></iron-icon>Dashboard</li>
+			  <hr>
+			  <li class="dropdown-item"><iron-icon icon="drafts"></iron-icon>Messages</li>
+			  <li class="dropdown-item"><iron-icon icon="settings"></iron-icon>Preferences</li>-->
+<!-- USER POINT - User Menu -->
+<!-- END USER POINT - User Menu -->
+			  <hr>
+			  <li class="dropdown-item" on-click="edit_profile"><iron-icon icon="perm-identity"></iron-icon><%= lng('Profile') %></li>
+			  <li class="dropdown-item" on-click="signout"><iron-icon icon="exit-to-app"></iron-icon><%= lng('Log Out') %></li>
+			</ul>
+		  </iron-dropdown>
+		</div>
+	  </div>
+	</div>
+</template>
+<script>
+	Polymer({
+		is: "top-bar",
+		ready: function() {
+ 			this.user = <%- JSON.stringify(user) %>
+ 		},
+		back: function() {
+			window.history.back();
+		},
+		open_user_menu: function() {
+			this.$.dropdown_user.toggle()
+		},
+		open_app_menu: function() {
+			this.$.menubar.classList.toggle('hide')
+			this.$.menubar.classList.toggle('menubar')
+		},
+		signout: function() {
+			window.location.assign(config_server() + "signout")
+		}<%
+	_.forEach(groups, function(n, key) {
+	  if(n != '') {%>
+		,open_<%= n %>_menu: function() {
+			this.$.dropdown_<%= n%>.toggle()
+		}<%
+	}})
+	_.forEach(resources, function(n, key) { 
+	  if (n.resource.type == "page") {%>
+		,<%= n.name %>: function() {
+			window.location.assign(config_server() + "<%= n.path.substring(1) %>")
+		}<%
+	}})%>
+	,edit_profile: function() {
+		this.user.usr = this.user.user
+		this.$.user_edit_profile.open_dialog(this.user)
+	}
+/** USER POINT - Top Bar Functions **/
+/** END USER POINT - Top Bar Functions **/
+	})
+</script>
+</dom-module>
+
+<!-- edit-form: version 5.21 -->
+
+<dom-module id="User-edit-profile">
+<template
+	<style>
+		#dialog_profile {
+			width: 36em;
+		}
+	</style>
+	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog_profile" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("User"))%></h2>
+		<paper-dialog-scrollable>
+		<form id="form" action="javascript:void(0);" on-submit="update">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="usr"><%= lng('User')%></label></td>
+				<td><input id="usr" type="text" name="usr" value="{{item.usr}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
+				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_old"><%= lng('Current Password')%><strong class="red"> *</strong></label></td>
+				<td><input id="pwd_old" type="password" name="pwd_old" value="{{item.pwd_old}}" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_1"><%= lng('New Password')%></label></td>
+				<td><input id="pwd_1" type="password" name="pwd_1" value="{{item.pwd_1}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm New Password')%></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd_2}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="email"><%= lng('email')%></label></td>
+				<td><input id="email" type="text" name="email" value="{{item.email}}"></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="language"><%= lng('Language')%></label></td>
+				<td><select id="language" name="language">
+						<option value="en"><%= lng('English')%></option>
+						<option value="es"><%= lng('Español')%></option>
+						<option value="pt"><%= lng('Portugues')%></option>
+					</select></td>
+			</tr>
+			</table>
+			<div class="buttons">
+			  <input id="submit_update" class="hide" type="submit" value="CAMBIAR">
+			  <div class="card_line">
+				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
+				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+			  </div>
+			</div>
+		</form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "User-edit-profile",
+		open_dialog: function(item) {
+			this.item = item
+			this.set_select_fields(item)
+/** USER POINT - Open Edit Dialog **/
+/** END USER POINT - Open Edit Dialog **/
+			this.$.dialog_profile.open()
+		},
+		set_select_fields(item) {
+			this.$.language.value = item.language
+			},
+		select_field_b: function(e) {
+			this.$[e.toElement.getAttribute("field")].click()
+		},
+		set_select_field: function(e) {
+			this.$[this.field].value = this.$[e.srcElement.id].item.name
+			this.$[this.field].key = this.$[e.srcElement.id].item.key
+		},
+		submit_form: function() {
+			if (this.$.pwd_1.value != this.$.pwd_2.value)
+			{
+				alert('New Password must be equal to Confirm Password')
+				return 
+			}
+			if ((this.$.pwd_1.value != '') && (this.$.pwd_old.value == '')) 
+			{
+				alert('Old Password missing')
+				return
+			}
+			this.$.submit_update.click()
+		},
+		update: function() {
+			var record = {}
+			//record.id = this.item.id
+			record.pwd_old = this.$.pwd_old.value
+			record.pwd_1 = this.$.pwd_1.value
+			record.email = this.$.email.value
+			record.language = this.$.language.value
+			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id
+			this.$.ajax.params = record
+			this.$.ajax.generateRequest()
+		},
+		record_updated: function() {
+			/** Validate Resource Authorized **/
+			alert(this.$.ajax.lastResponse.auth_msg)
+/** USER POINT - Record Updated **/
+/** END USER POINT - Record Updated **/
+			if (typeof this.$.ajax.lastResponse.err === 'undefined')
+			{
+				this.$.dialog_profile.close()
+				this.fire('close')
+			}
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+/** USER POINT - Edit Functions **/
+/** END USER POINT - Edit Functions **/
+	})
+</script>
+</dom-module>
+
+
+
+<!-- new-form: version 5.23 -->
+
+<dom-module id="Config-new">
+<template>
+	<iron-ajax id="ajax" handle-as="json" on-response="validate_record" on-error="ajax_error"></iron-ajax>
+	<iron-ajax id="ajax2" method="POST" handle-as="json" on-response="record_created" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Create"),lng("Configuration"))%></h2>
+		<paper-dialog-scrollable>
+		  <form id="form" action="javascript:void(0);" on-submit="create">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
+				<td><input id="id" type="number" name="id" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="item"><%= lng('Item')%><strong class="red"> *</strong></label></td>
+				<td><input id="item" type="text" name="item" style="text-transform:uppercase" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="description"><%= lng('Description')%><strong class="red"> *</strong></label></td>
+				<td><input id="description" type="text" name="description" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="value"><%= lng('Value')%><strong class="red"> *</strong></label></td>
+				<td><input id="value" type="text" name="value" required></td>
+			</tr>
+			</table>
+			<div class="buttons">
+				<input id="submit_btn" class="hide" type="submit" value="CREAR">
+				<div class="card_line">
+					<%= lng('Repeat ')%><input id="repeat" type="checkbox" name="repeat">
+					<paper-button id="create_btn" class="btn" on-click="submit_form" raised><%= lng('Create')%></paper-button>
+					<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+				</div>
+			</div>
+		  </form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "Config-new",
+		open_dialog: function() {
+			this.clear()
+/** USER POINT - Open New Dialog **/
+/** END USER POINT - Open New Dialog **/
+			this.$.dialog.open()
+		},
+		clear: function() {
+			this.$.id.value = ''
+			this.$.item.value = ''
+			this.$.description.value = ''
+			this.$.value.value = ''
+		},
+		select_field_b: function(e) {
+			this.$[e.toElement.getAttribute("field")].click()
+		},
+		select_field: function(e) {
+			this.field = e.toElement.id
+		},
+		set_select_field: function(e) {
+			this.$[this.field].value = this.$[e.srcElement.id].item.name
+			this.$[this.field].key = this.$[e.srcElement.id].item.key
+		},
+		create: function() {
+			this.$.ajax2.url = config_server() + "Config"
+			var record = {}
+			  record.item = this.$.item.value.toUpperCase()
+			  record.description = this.$.description.value
+			  record.value = this.$.value.value			
+			this.$.ajax2.params = record
+			this.$.ajax2.generateRequest()
+		},
+		record_created: function() {
+			/** Validate Resource Authorized **/
+			if (typeof this.$.ajax2.lastResponse.auth_msg !== 'undefined')
+			{
+				alert(this.$.ajax2.lastResponse.auth_msg)
+				return
+			}
+/** USER POINT - Record Created **/
+/** END USER POINT - Record Created **/
+			alert("<%= lng('Record Created')%>")
+			// ask for create another one
+			if (!this.$.repeat.checked) {
+				this.$.dialog.close()
+				this.fire('close')
+			} else 
+				this.clear()
+		},
+		submit_form: function() {
+			if (!isNaN(this.$.id.value))
+			{
+				if (this.$.id.value > 0)
+				{
+					this.$.ajax.url = config_server() + "Config/exist/"+this.$.id.value
+					this.$.ajax.generateRequest()
+				}
+				else this.$.submit_btn.click()
+			} else
+				this.$.submit_btn.click()
+		},
+		validate_record: function() {
+			if (this.$.ajax.lastResponse.exist) 
+				alert("<%= lng('Record already Exist')%>")
+			else
+				this.$.submit_btn.click()
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+/** USER POINT - New Functions **/
+/** END USER POINT - New Functions **/		
+	})
+</script>
+</dom-module>
+
+
+
+<!-- edit-form: version 5.22 -->
+
+<dom-module id="Config-edit">
+<template>
+	<iron-ajax id="ajax" method="PUT" handle-as="json" on-response="record_updated" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Configuration"))%></h2>
+		<paper-dialog-scrollable>
+		<form id="form" action="javascript:void(0);" on-submit="update">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
+				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="item"><%= lng('Item')%><strong class="red"> *</strong></label></td>
+				<td><input id="item" type="text" name="item" value="{{item.item}}" style="text-transform:uppercase" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="description"><%= lng('Description')%><strong class="red"> *</strong></label></td>
+				<td><input id="description" type="text" name="description" value="{{item.description}}" required></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="value"><%= lng('Value')%><strong class="red"> *</strong></label></td>
+				<td><input id="value" type="text" name="value" value="{{item.value}}" required></td>
+			</tr>
+			</table>
+			<div class="buttons">
+			  <input id="submit_update" class="hide" type="submit" value="CAMBIAR">
+			  <div class="card_line">
+				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
+				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+			  </div>
+			</div>
+		</form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "Config-edit",
+		open_dialog: function(item) {
+			this.item = item
+			this.set_select_fields(item)
+/** USER POINT - Open Edit Dialog **/
+/** END USER POINT - Open Edit Dialog **/
+			this.$.dialog.open()
+		},
+		set_select_fields(item) {
+			},
+		select_field_b: function(e) {
+			this.$[e.toElement.getAttribute("field")].click()
+		},
+		select_field: function(e) {
+			this.field = e.toElement.id
+		},
+		set_select_field: function(e) {
+			this.$[this.field].value = this.$[e.srcElement.id].item.name
+			this.$[this.field].key = this.$[e.srcElement.id].item.key
+		},
+		submit_form: function() {
+			this.$.submit_update.click()
+		},
+		update: function() {
+			var record = {}
+			record.id = Number(this.$.id.value)
+			record.item = this.$.item.value.toUpperCase()
+			record.description = this.$.description.value
+			record.value = this.$.value.value
+			this.$.ajax.url = config_server() + "Config/" +record.id
+			this.$.ajax.params = record
+			this.$.ajax.generateRequest()
+		},
+		record_updated: function() {
+			/** Validate Resource Authorized **/
+			if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
+			{
+				alert(this.$.ajax.lastResponse.auth_msg)
+				return
+			}
+/** USER POINT - Record Updated **/
+/** END USER POINT - Record Updated **/
+			alert("<%= lng('Record Updated')%>")
+			this.$.dialog.close()
+			this.fire('close')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+/** USER POINT - Edit Functions **/
+/** END USER POINT - Edit Functions **/
+	})
+</script>
+</dom-module>
+
+<!-- delete-form: version 5.22 -->
+
+<dom-module id="Config-delete">
+<template>
+	<iron-ajax id="ajax" method="DELETE" handle-as="json" on-response="record_deleted" on-error="ajax_error"></iron-ajax>
+	<paper-dialog id="dialog" modal vertical layout entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+		<h2 class="card_title"><%= lng("%s %s",lng("Delete"),lng("Configuration"))%></h2>
+		<paper-dialog-scrollable>
+		<form id="form" action="javascript:void(0);" on-submit="delete">
+			<table class="table_dialog" style="width:100%">
+			<tr>
+				<td><label class="left_label" for="id"><%= lng('Id')%></label></td>
+				<td><input id="id" type="number" name="id" value="{{item.id}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="item"><%= lng('Item')%></label></td>
+				<td><input id="item" type="text" name="item" value="{{item.item}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="description"><%= lng('Description')%></label></td>
+				<td><input id="description" type="text" name="description" value="{{item.description}}" disabled></td>
+			</tr>
+			<tr>
+				<td><label class="left_label" for="value"><%= lng('Value')%></label></td>
+				<td><input id="value" type="text" name="value" value="{{item.value}}" disabled></td>
+			</tr>
+			</table>
+		<div class="buttons">
+			<input id="submit_delete" class="hide" type="submit" value="BORRAR">
+			<div class="card_line">
+				<paper-button id="delete_btn" class="btn" on-click="form_submit" raised><%= lng('Delete')%></paper-button>
+				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+			</div>
+		</div>
+		</form>
+		</paper-dialog-scrollable>
+	</paper-dialog>
+</template>
+<script>
+	Polymer({
+		is: "Config-delete",
+		open_delete_dialog: function(item) {
+			this.item = item
+			this.set_select_fields(item)
+/** USER POINT - Open Delete Dialog **/
+/** END USER POINT - Open Delete Dialog **/
+			this.$.dialog.open()
+		},
+		set_select_fields(item) {
+			},
+		form_submit: function() {
+			this.$.submit_delete.click()
+		},
+		delete: function() {
+			this.$.ajax.url = config_server() + "Config/"+this.item.id
+			this.$.ajax.generateRequest()
+		},
+		record_deleted: function() {
+			/** Validate Resource Authorized **/
+			if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
+			{
+				alert(this.$.ajax.lastResponse.auth_msg)
+				return
+			}
+/** USER POINT - Record Deleted **/
+/** END USER POINT - Record Deleted **/
+			alert("<%= lng('Record Deleted')%>")
+			this.$.dialog.close()
+			this.fire('close')
+		},
+		ajax_error: function() {
+			console.log(this.$.ajax.lastError)
+			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+		}
+/** USER POINT - Delete Functions **/
+/** END USER POINT - Delete Functions **/
+	})
+</script>
+</dom-module>
+
+
+
+<dom-module id="Config-list">
+<template>
+<!--USER POINT - List Style-->
+<!--END USER POINT - List Style-->
+	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax>
+	<Config-new id="Config_new_dialog" on-close="reload"></Config-new>
+	<Config-edit id="Config_edit_dialog" on-close="reload"></Config-edit>
+	<Config-delete id="Config_delete_dialog" on-close="reload"></Config-delete>	
+	<!--<div class="card_title"><%= lng("%s %s",lng("List"),lng("Configuration"))%></div>-->
+<!--USER POINT - List Header-->
+<!--END USER POINT - List Header-->
+	<select id="filter" on-change="input_type">  <%= lng('Id')%>
+		<option value="id"><%= lng('Id')%></option>  <%= lng('Item')%>
+		<option value="item"><%= lng('Item')%></option>  <%= lng('Description')%>
+		<option value="description"><%= lng('Description')%></option>  <%= lng('Value')%>
+		<option value="value"><%= lng('Value')%></option>
+	</select>
+	<select id="op">   
+		<option value="$eq"><%= lng('Equal to')%></option>
+		<option value="$ne"><%= lng('Different to')%></option>
+		<option value="$contains"><%= lng('Contains')%></option>
+		<option value="$gte"><%= lng('Greater or Equal to')%></option>
+		<option value="$lte"><%= lng('Less or Equal to')%></option>
+	</select>
+	<input id="filtro" type="{{tipo}}" on-click="select_field">
+	<select id="select" class="hide">
+	  <template is="dom-repeat" items="{{opts}}">
+		<option value="{{item.op}}">{{item.des}}</option>
+	  </template>
+	</select>
+	<select id="logic" on-change="logic_operator">
+		<option value="-">---</option>
+		<option value="$and">And</option>
+		<option value="$or">Or</option>
+	</select>
+	<paper-button class="btn" on-click="filter" raised><%= lng('Find')%></paper-button>
+	<strong id="total">{{regs}}</strong>
+	<div id="btn_area">
+		<paper-fab id="btn_add" mini on-click="new" icon="add"></paper-fab>
+		<paper-fab id="btn_down" mini on-click="download" icon="file-download"></paper-fab>
+		<paper-fab id="btn_print" mini on-click="print" icon="print"></paper-fab>
+		<paper-fab id="btn_help" mini on-click="help" icon="help"></paper-fab>
+		<!--<paper-fab id="btn_menu" mini on-click="menu" icon="list"></paper-fab>-->
+	</div>
+	<a href="{{download_data}}" id="link" class="hide" download="Configuration.xml">Download Data</a>
+	<br>
+	<select id="filter2" class="hide" on-change="input_type2">
+		<option value="id"><%= lng('Id')%></option>
+		<option value="item"><%= lng('Item')%></option>
+		<option value="description"><%= lng('Description')%></option>
+		<option value="value"><%= lng('Value')%></option>
+	</select>
+	<select id="op2" class="hide" >   
+		<option value="$eq"><%= lng('Equal to')%></option>
+		<option value="$ne"><%= lng('Different to')%></option>
+		<option value="$contains"><%= lng('Contains')%></option>
+		<option value="$gte"><%= lng('Greater or Equal to')%></option>
+		<option value="$lte"><%= lng('Less or Equal to')%></option>
+	</select>
+	<input id="filtro2" class="hide" type="{{tipo2}}" on-click="select_field">
+	<select id="select2" class="hide">
+	  <template is="dom-repeat" items="{{opts2}}">
+		<option value="{{item.op}}">{{item.des}}</option>
+	  </template>
+	</select>
+
+	<paper-dialog id="menu_dialog"> 
+		<paper-menu>
+			<paper-item on-click="edit" style="min-height:20px;line-height:35px;"><%= lng('Edit')%></paper-item>
+			<paper-item on-click="delete" style="min-height:20px;line-height:35px;"><%= lng('Delete')%></paper-item>
+<!--USER POINT - List Detail Menu-->
+<!--END USER POINT - List Detail Menu-->
+		</paper-menu>
+	</paper-dialog>
+	<table id="data_table" class="table_list" style="width:100%">
+	<thead>
+	  <tr>
+		<th id="th_ops" class="ops"><paper-icon-button on-click="list_columns" icon="settings"></paper-icon-button></th>
+		<th class="col_id" on-click="sort_by_field"><%= lng('Id')%><div id="id_sort_d" class="hide">
+			<iron-icon id="id_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_item" on-click="sort_by_field"><%= lng('Item')%><div id="item_sort_d" class="hide">
+			<iron-icon id="item_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_description" on-click="sort_by_field"><%= lng('Description')%><div id="description_sort_d" class="hide">
+			<iron-icon id="description_sort" icon="arrow-drop-up"></iron-icon></div></th>
+		<th class="col_value" on-click="sort_by_field"><%= lng('Value')%><div id="value_sort_d" class="hide">
+			<iron-icon id="value_sort" icon="arrow-drop-up"></iron-icon></div></th>
+	  </tr>
+	</thead>
+	<!--<tfoot>
+	<tr>
+		<td class="ops"></td>
+		<td class="col_id"></td>
+		<td class="col_item"></td>
+		<td class="col_description"></td>
+		<td class="col_value"></td>
+	</tr>
+	</tfoot>-->
+	<tbody>
+	<template id="template_items" is="dom-repeat" items="{{filtered_data}}">
+	<tr>
+		<td id="td_ops" class="ops">
+			<paper-icon-button key="{{item.id}}" on-click="item_menu_toggle" class="icon-op" icon="list"></paper-icon-button>
+		</td>
+		<template is="dom-if" if="{{column.id}}"><td>{{item.id}}</td></template>
+		<template is="dom-if" if="{{column.item}}"><td>{{item.item}}</td></template>
+		<template is="dom-if" if="{{column.description}}"><td>{{item.description}}</td></template>
+		<template is="dom-if" if="{{column.value}}"><td>{{item.value}}</td></template>
+	</tr>
+	</template>
+	</tbody>
+</table>
+</template>
+<script>
+Polymer({
+	is: "Config-list",
+	properties: {
+		//cur_sort: { field: "id", isdesc: false },
+		//cur_filter: {}
+	},
+	ready: function() {
+//USER POINT - List Start Ready
+//END USER POINT - List Start Ready
+		// For Sharepoint
+		if (typeof String.prototype.startsWith != 'function') {
+			// see below for better implementation!
+			String.prototype.startsWith = function (str){
+				return this.indexOf(str) === 0;
+			}
+		}
+		this.$.ajax.url = config_server() + "Config"
+		this.cur_sort = { field: "id", isdesc: true }
+		this.cur_filter = {}
+		var _model = [{column: "id", type: "integer", display: false},
+				{column: "item", type: "string", display: true},
+				{column: "description", type: "string", display: true},
+				{column: "value", type: "string", display: true}
+		]
+		this.enums = {}
+		//var _data = <%- data %>
+		var db = new loki()
+		this.data = db.addCollection("data_Config")
+		this.model = db.addCollection("model_Config")
+		this.reload()
+		for (i=0; i< _model.length ; i++)
+			this.model.insert(_model[i])
+		_model = {}
+		this.input_type()
+		this.set_filter() //and columns & sort from localStorage
+		var intro = introJs()
+		intro.setOptions({
+			doneLabel: '<%= lng('Exit')%>',
+			steps: [
+				{ element: '#btn_help',
+				intro: 'Para Obtener Ayuda acerca de esta página, puede utilizar el boton de ayuda'}],
+			showStepNumbers:false
+		})
+		/*document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(function(){
+				intro.start()
+			}, 600);	
+		}, false);*/
+//USER POINT - List End Ready
+//END USER POINT - List End Ready
+	},
+	help: function() {
+
+		var intro = introJs()
+		
+		intro.setOptions({ 
+			skipLabel: '<%= lng('Exit')%>', 
+			nextLabel: '<%= lng('Next')%>', 
+			prevLabel: '<%= lng('Previous')%>',
+			doneLabel: '<%= lng('Exit')%>',
+			showStepNumbers:false,
+			steps: [
+				{ element: '#filter',
+				intro: 'Puede seleccionar cualquier campo como filtro de la lista'},
+				{ element: '#op',
+				intro: 'operación de comparación'},
+				{ element: '#filtro',
+				intro: 'valor de comparación'},
+				{ element: '#logic',
+				intro: 'Se puede agregar un segundo filtro'},
+				{ element: '#btn_add',
+				intro: 'Botón para crear nuevo registro'},
+				{ element: '#btn_down',
+				intro: 'Boton para descargar archivo de datos, el cual puede ser leido en Excel'},
+				{ element: '#btn_print',
+				intro: 'Botón de Impresión, se puede exportar a pdf'},
+				{element: '#data_table',
+				intro: 'Lista de registros filtrados',
+				position: 'top'},
+				{element: '#td_ops',
+				intro: 'Opciones para:<br> - Visualizar Registro<br> - Editar Registro<br> - Borrar Registro'}
+			]
+		})
+		intro.start()
+	},
+	update_columns: function() {
+		var columns = {}
+		this.column = this.$.Config_list_columns.column
+		for (i=0; i < this.model.data.length; i++ )
+		{
+			this.model.data[i].display = this.column[this.model.data[i].column]
+			columns[this.model.data[i].column] = this.column[this.model.data[i].column]
+		}
+		localStorage["Config-list-columns"] = JSON.stringify(columns)
+		this.show_columns()
+		// reset filter
+		this.$.filter.value = "id"
+		this.$.op.value = "$eq"
+		this.$.filtro.value = ""
+		this.$.logic.value = "-"
+		this.logic_operator()
+		this.filter()
+	},
+	show_columns: function() {
+		var column = ''
+		this.column = {}
+		var el = []
+		for (i=0; i < this.model.data.length; i++)
+		{
+			this.column[this.model.data[i].column] = this.model.data[i].display
+			column = 'col_'+ this.model.data[i].column
+			el = this.$.data_table.querySelectorAll('.'+column)
+			for (j=0; j< el.length; j++)
+				if (this.model.data[i].display)
+					el[j].classList.remove("hide")
+				else
+					el[j].classList.add("hide")
+		}
+	},
+	date_dma: function(datex) {
+		return datex_dma(datex)
+	},
+	logic_operator: function() {
+		if (this.$.logic.value == "-") {
+			this.$.filter2.className = "hide"
+			this.$.op2.className = "hide"
+			this.$.filtro2.className = "hide"
+			this.$.select2.className = "hide"
+		} else
+		{
+			this.$.filter2.className = ""
+			this.$.op2.className = ""
+			this.input_type(2)
+			//this.$.filtro2.className = ""
+			//this.$.select2.className = ""
+		}
+	},
+	select_field: function(e) {
+		this.field = e.toElement.id
+		var filter = ""
+		switch (this.field) {
+		  case "filtro":
+			filter = "filter"
+		  break;
+		  case "filtro2":
+			filter = "filter2"
+		  break;
+		}
+		if (filter != "")
+		{
+		}
+	},
+	set_select_field: function(e) {
+		this.$[this.field].value = this.$[e.srcElement.id].item.name
+	},
+	set_filter: function() {
+		if (localStorage["Config-list-filter"])
+		{
+			var stored_filter = JSON.parse(localStorage["Config-list-filter"])
+			this.$.filter.value = stored_filter.filter
+			this.$.op.value = stored_filter.op
+			this.input_type()
+			var column = this.model.find({ "column": this.$.filter.value})
+			if (column[0].enum)
+				if (column[0].type != "number")
+					this.$.select.value = stored_filter.value
+				else
+					this.$.select.value = Number(stored_filter.value)
+			else
+				if (column[0].type != "number")
+					this.$.filtro.value = stored_filter.value
+				else
+					this.$.filtro.value = Number(stored_filter.value)
+			if  (stored_filter.filter2)
+			{
+				this.$.logic.value = stored_filter.logic
+				this.logic_operator()
+				this.$.filter2.value = stored_filter.filter2
+				this.$.op2.value = stored_filter.op2
+				this.input_type(2)
+				var column = this.model.find({ "column": this.$.filter2.value})
+				if (column[0].enum)
+					if (column[0].type != "number")
+						this.$.select2.value = stored_filter.value2
+					else
+						this.$.select2.value = Number(stored_filter.value2)
+				else
+					if (column[0].type != "number")
+						this.$.filtro2.value = stored_filter.value2
+					else
+						this.$.filtro2.value = Number(stored_filter.value2)
+			}
+			this.filter()
+		}
+		if (localStorage["Config-list-columns"])
+		{
+			var columns = JSON.parse(localStorage["Config-list-columns"])
+			for (i=0; i < this.model.data.length; i++ )
+			  this.model.data[i].display = columns[this.model.data[i].column]
+		}
+		this.show_columns()
+	},
+	filter: function() {
+		var stored_filter = {}
+ 		var name = this.$.filter.value
+
+		stored_filter.filter = name
+		var op = this.$.op.value
+		stored_filter.op = op 
+		var valor = {}
+		this.cur_filter = {}
+		if (this.$.filtro.getAttribute("class") != "hide")
+			if (this.$.filtro.getAttribute("type") == "number") 
+				valor[op] = Number(this.$.filtro.value)
+		 	else 
+				valor[op] = this.$.filtro.value
+		else 
+			valor[op] = this.$.select.value
+		this.cur_filter[name] = valor
+		stored_filter.value = valor[op]
+		if (this.$.logic.value != "-")
+		{
+			name = this.$.filter2.value
+			op = this.$.op2.value
+			stored_filter.logic = this.$.logic.value
+			stored_filter.filter2 = name
+			stored_filter.op2 = op 
+			valor = {}
+			var logic_op = this.$.logic.value
+			var filtro2 = {}
+			if (this.$.filtro2.getAttribute("class") != "hide")
+				if (this.$.filtro2.getAttribute("type") == "number") 
+					valor[op] = Number(this.$.filtro2.value)
+				else 
+					valor[op] = this.$.filtro2.value
+			else 
+				valor[op] = this.$.select2.value
+			stored_filter.value2 = valor[op]
+			filtro2[name] = valor
+			var filtro = this.cur_filter
+			this.cur_filter = {}
+			this.cur_filter[logic_op] = [filtro, filtro2]	
+		}
+		localStorage["Config-list-filter"] = JSON.stringify(stored_filter)
+		this.result_set = this.data.chain().find(this.cur_filter).simplesort(this.cur_sort.field, this.cur_sort.isdesc)
+		this.filtered_data = []
+		this.filtered_data = this.result_set.data()
+		this.regs = this.filtered_data.length + " reg"
+	},
+	hide_sort_icons: function() {
+		this.$.id_sort_d.classList.add("hide")
+		this.$.item_sort_d.classList.add("hide")
+		this.$.description_sort_d.classList.add("hide")
+		this.$.value_sort_d.classList.add("hide")
+	},
+	sort_by_field: function(e) {
+		var field = e.target.classList[0].replace('col_','')
+
+		this.hide_sort_icons()
+		this.sort(field)
+		if (this.cur_sort.isdesc)
+			this.$[field+"_sort"].setAttribute("icon", "arrow-drop-down")
+		  else
+			this.$[field+"_sort"].setAttribute("icon", "arrow-drop-up")
+		this.$[field+"_sort_d"].classList.remove("hide")	
+	},
+	sort: function(field) {
+		if (this.cur_sort.field == field)
+			this.cur_sort.isdesc = !this.cur_sort.isdesc
+		 else
+			this.cur_sort = { field: field, isdesc: false}
+		this.result_set = this.data.chain().find(this.cur_filter).simplesort(this.cur_sort.field, this.cur_sort.isdesc)
+		this.filtered_data = this.result_set.data()
+	},
+	input_type2: function() {
+		this.input_type(2)
+	},
+	input_type: function(n) {
+	if (n!= 2)
+	{
+		this.$.filtro.value = ""
+		var column = this.model.find({ "column": this.$.filter.value})
+	} 
+	else
+	{
+		this.$.filtro2.value = ""
+		var column = this.model.find({ "column": this.$.filter2.value})
+	}
+	if (column[0].type)
+	{
+		var tipo = ""
+		switch(column[0].type) {
+		case "string":
+			tipo = "text"
+		break;
+		case "boolean":
+			tipo = "boolean"
+		break;
+		case "integer":
+			tipo = "number"
+		break;
+		case "float":
+			tipo = "float"
+		break;
+		case "date":
+			tipo = "date"
+		break;
+		default:
+			tipo = "text"
+		}
+		if (n!= 2)
+		{
+			this.$.select.className = "hide"
+			this.$.filtro.className = ""
+			this.tipo = tipo
+		} 
+		else
+		{
+			this.$.select2.className = "hide"
+			this.$.filtro2.className = ""
+			this.tipo2 = tipo
+		}	
+	}
+	else
+	{
+		if (n!= 2)
+		{
+			this.$.select.className = ""
+			this.$.filtro.className = "hide"
+			this.opts = []
+			for (i=0; i< column[0].enum.length; i++)
+				this.push("opts", {"op": column[0].enum[i], "des": column[0].enumdes[i]})
+		}
+		else
+		{
+			this.$.select2.className = ""
+			this.$.filtro2.className = "hide"
+			this.opts2 = []
+			for (i=0; i< column[0].enum.length; i++)
+				this.push("opts2", {"op": column[0].enum[i], "des": column[0].enumdes[i]})
+		}
+	}
+	},
+	menu: function() {
+		
+	},
+	print: function() {
+
+		window.print()
+	},
+	download: function() {
+
+		var x2js = new X2JS();
+		var datoi = this.data.data
+		for (i=0; i<datoi.length; i++)
+		{
+			delete datoi[i].$loki
+			delete datoi[i].meta
+			delete datoi[i].createdAt
+			delete datoi[i].updatedAt
+		}
+		var dato = { "data": datoi }
+		var xml_data = x2js.json2xml_str(dato)
+		xml_data = "<x>"+xml_data+"</x>"
+		this.download_data = 'data:application/xml;charset=utf-8,'+xml_data
+		this.$.link.click()		
+	},
+	item_menu_toggle: function(e){
+		this.key = Number(e.toElement.offsetParent.key)
+		this.$.menu_dialog.style.top = e.toElement.offsetParent.offsetTop+20+"px"
+		this.$.menu_dialog.style.left = "30px"
+		this.$.menu_dialog.open()
+	},
+  edit: function(e) {
+
+	this.$.menu_dialog.close()
+	var filtro = {"id": this.key}
+	var item = this.data.find(filtro)[0]
+	this.$.Config_edit_dialog.open_dialog(item)
+  },
+  delete: function(e) {
+
+	this.$.menu_dialog.close()
+	var filtro = {"id": this.key}
+	var item = this.data.find(filtro)[0]
+	this.$.Config_delete_dialog.open_delete_dialog(item)
+  },
+  new: function() {
+
+	this.$.Config_new_dialog.open_dialog()
+  },
+  reload: function() {
+	this.$.ajax.generateRequest()
+  },
+  load_data: function() {
+
+	while(this.data.data[0]) {
+        this.data.remove(this.data.data[0])
+      }
+	/** Validate Resource Authorized **/
+	if (typeof this.$.ajax.lastResponse.auth_msg !== 'undefined')
+	{
+		alert(this.$.ajax.lastResponse.auth_msg)
+		return
+	}
+	for (i=0; i< this.$.ajax.lastResponse.length; i++)
+	{	
+		this.data.insert(this.$.ajax.lastResponse[i])
+	}
+	this.filter()
+  },
+  ajax_error: function() {
+
+	console.log(this.$.ajax.lastError)
+	alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
+  }
+//USER POINT - List Functions
+//END USER POINT - List Functions
+});
+</script>
+</dom-module>
+<top-bar><%= lng("%s %s",lng("List"),lng("Configuration"))%></top-bar>
+<paper-material class="card" elevation="2">
+	<Config-list id="Config_list"></Config-list>
+</paper-material>
+</body>
+</html>
