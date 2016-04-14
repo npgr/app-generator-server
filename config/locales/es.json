@@ -83,4 +83,5 @@
   ,"Current Password Incorrect": "Contraseña Incorrecta"
   ,"Profile Changed, Close Session to Apply Changes": "Usuario Cambiado, Cierre la Sesión para Aplicar Cambios"
   ,"New Password must be equal to Confirm Password": "El Nuevo Password debe ser igual al Password Confirmado"
+  ,"Password Must have al least %s Characters": "La Contraseña debe tener al menos %s Caracteres"
 }

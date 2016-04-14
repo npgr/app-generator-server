@@ -3,6 +3,9 @@
  function lng(word) {
 	return __("word")
  }
+ function lng(word1, word2) {
+	return __(word1, word2)
+ }
  function lng(word1, word2, word3) {
 	return __(word1, word2, word3)
  }
@@ -877,10 +880,10 @@ paper-menu {
 				alert("<%= lng('New Password must be equal to Confirm Password') %>")
 				return
 			}
-			var minlength = 6
+			var minlength = <%= process.env.PWD_MIN_LEN || 6 %>
 			if (this.$.pwd.value.length < minlength)
 			{
-				alert("<%= lng('Password Must have al least 6 Characters') %>")
+				alert("<%= lng('Password Must have al least %s Characters', process.env.PWD_MIN_LEN || 6) %>")
 				return
 			}
 			var record = {}
