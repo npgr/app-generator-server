@@ -10,14 +10,27 @@ module.exports = {
 		res.view("User/select")
 	},
 	login: function(req, res) {
+		/** Load App Config **/
+		if (typeof sails.config.appConfig == 'undefined')
+		{
+			sails.config.appConfig = {}
+			Config.find()
+				.exec(function (err, data) {
+					for (i=0; i < data.length; i++)
+						sails.config.appConfig[data[i].item] = data[i].value
+			})
+			//var key = 'PWD_MIN_LEN'
+			//sails.config.appConfig[key] = 65
+		}
+
 		if (process.env.BROWSER != 'true')
 		{
 		  if (!req.headers.client_appl)
 			return res.forbidden('Unathorized Access') //res.view('403')
 		  if (req.headers.client_appl != 'Generator')
 			return res.forbidden('Unathorized Access') //res.view('403')
-		} 
-		 
+		}
+
 		if (req.session.flash) 
 		{ 
 			res.locals.flash = _.clone(req.session.flash)

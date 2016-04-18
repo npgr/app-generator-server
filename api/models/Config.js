@@ -47,5 +47,18 @@ module.exports = {
 	}
 //End Attributes
   }
+  ,afterCreate: function (created, next) { 
+	sails.config.appConfig[created.item] = created.value
+	next()
+  }
+  ,afterUpdate: function (updated, next) { 
+	
+	sails.config.appConfig[updated.item] = updated.value
+	next()
+  }
+  ,afterDestroy: function (deleted, next) { 
+	delete sails.config.appConfig[deleted[0].item]
+	next()
+  }
 };
 
