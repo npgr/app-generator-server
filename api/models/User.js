@@ -84,6 +84,11 @@ module.exports = {
     }
 //End Attributes
   }
+  ,beforeUpdate: function(data, next) {
+	if (data.pwd == '')
+		delete data.pwd
+	next()
+  }
   //,beforeCreate: function (data, next) {
 	// Modelo sails_app2  (/api/services)
     // TODO: replace with new cipher service

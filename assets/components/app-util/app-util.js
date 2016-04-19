@@ -62,9 +62,9 @@ function post(path, params, method) {
 // and replace blank space with underscore
 function drop_invalid_file_chars(name)
 {
-		var regex = /[ ]/g
-		var output = name.replace(regex, '_')
+	var regex = /[ ]/g
+	var output = name.replace(regex, '_')
 			
-		regex = /[\\/:*?"<>|]/g
-		return output.replace(regex, '')
+	regex = /[\\/:*?"<>|]/g
+	return output.replace(regex, '')
 }

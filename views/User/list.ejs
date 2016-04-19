@@ -301,11 +301,11 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="pwd_1"><%= lng('New Password')%></label></td>
-				<td><input id="pwd_1" type="password" name="pwd_1" value="{{item.pwd_1}}"></td>
+				<td><input id="pwd_1" type="password" name="pwd_1"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="pwd_2"><%= lng('Confirm New Password')%></label></td>
-				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd_2}}"></td>
+				<td><input id="pwd_2" type="password" name="pwd_2"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="email"><%= lng('email')%></label></td>
@@ -337,8 +337,6 @@ paper-menu {
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
-/** USER POINT - Open Edit Dialog **/
-/** END USER POINT - Open Edit Dialog **/
 			this.$.dialog_profile.open()
 		},
 		set_select_fields(item) {
@@ -352,6 +350,12 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
+			var minlength = Number(<%= sails.config.appConfig.PWD_MIN_LEN || 6 %>)
+			if (this.$.pwd_1.value.length < minlength & this.$.pwd_1.value != '')
+			{
+				alert("<%= lng('Password Must have al least %s Characters', sails.config.appConfig.PWD_MIN_LEN || 6) %>")
+				return
+			}
 			if (this.$.pwd_1.value != this.$.pwd_2.value)
 			{
 				alert('New Password must be equal to Confirm Password')
@@ -367,8 +371,10 @@ paper-menu {
 		update: function() {
 			var record = {}
 			//record.id = this.item.id
-			record.pwd_old = this.$.pwd_old.value
+			record.pwd_old = require('crypto').createHash('sha256').update(this.$.pwd_old.value).digest('base64')
 			record.pwd_1 = this.$.pwd_1.value
+			if (this.$.pwd_1.value != '')
+				record.pwd_1 = require('crypto').createHash('sha256').update(this.$.pwd_1.value).digest('base64')
 			record.email = this.$.email.value
 			record.language = this.$.language.value
 			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id
@@ -378,8 +384,6 @@ paper-menu {
 		record_updated: function() {
 			/** Validate Resource Authorized **/
 			alert(this.$.ajax.lastResponse.auth_msg)
-/** USER POINT - Record Updated **/
-/** END USER POINT - Record Updated **/
 			if (typeof this.$.ajax.lastResponse.err === 'undefined')
 			{
 				this.$.dialog_profile.close()
@@ -390,8 +394,6 @@ paper-menu {
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
-/** USER POINT - Edit Functions **/
-/** END USER POINT - Edit Functions **/
 	})
 </script>
 </dom-module>
@@ -638,7 +640,7 @@ paper-menu {
 			record.account = this.$.account.key
 			  record.usr = this.$.usr.value
 			  record.name = this.$.name.value
-			  record.pwd = this.$.pwd.value
+			  record.pwd = require('crypto').createHash('sha256').update(this.$.pwd.value).digest('base64')
 			record.profile = this.$.profile.key
 			  record.email = this.$.email.value
 			  record.language = this.$.language.value
@@ -664,6 +666,8 @@ paper-menu {
 				this.clear()
 		},
 		submit_form: function() {
+/** USER POINT - Validate Before Create **/
+/** END USER POINT - Validate Before Create **/
 			if (!isNaN(this.$.id.value))
 			{
 				if (this.$.id.value > 0)
@@ -800,12 +804,12 @@ paper-menu {
 				<td><input id="name" type="text" name="name" value="{{item.name}}" required></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="pwd"><%= lng('Password')%><strong class="red"> *</strong></label></td>
-				<td><input id="pwd" type="password" name="pwd" value="{{item.pwd}}" required></td>
+				<td><label class="left_label" for="pwd"><%= lng('Password')%></label></td>
+				<td><input id="pwd" type="password" name="pwd"></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="pwd_2"><%= lng('Confirm Password')%><strong class="red"> *</strong></label></td>
-				<td><input id="pwd_2" type="password" name="pwd_2" value="{{item.pwd}}" required></td>
+				<td><label class="left_label" for="pwd_2"><%= lng('Confirm Password')%></label></td>
+				<td><input id="pwd_2" type="password" name="pwd_2"></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="profile"><%= lng('Profile')%><strong class="red"> *</strong></label></td>
@@ -846,8 +850,9 @@ paper-menu {
 	Polymer({
 		is: "User-edit",
 		open_dialog: function(item) {
+			item.pwd = ''
 			this.item = item
-			this.item.pwd_2 = this.item.pwd
+			//this.item.pwd_2 = this.item.pwd
 			this.set_select_fields(item)
 /** USER POINT - Open Edit Dialog **/
 /** END USER POINT - Open Edit Dialog **/
@@ -872,26 +877,29 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
-			this.$.submit_update.click()
-		},
-		update: function() {
+/** USER POINT - Validate Before Update **/
+/** END USER POINT - Validate Before Update **/
+			var minlength = Number(<%= sails.config.appConfig.PWD_MIN_LEN || 6 %>)
+			if (this.$.pwd.value.length < minlength & this.$.pwd.value != '')
+			{
+				alert("<%= lng('Password Must have al least %s Characters', sails.config.appConfig.PWD_MIN_LEN || 6) %>")
+				return
+			}
 			if (this.$.pwd.value != this.$.pwd_2.value)
 			{
 				alert("<%= lng('New Password must be equal to Confirm Password') %>")
 				return
 			}
-			var minlength = <%= process.env.PWD_MIN_LEN || 6 %>
-			if (this.$.pwd.value.length < minlength)
-			{
-				alert("<%= lng('Password Must have al least %s Characters', process.env.PWD_MIN_LEN || 6) %>")
-				return
-			}
+			this.$.submit_update.click()
+		},
+		update: function() {
 			var record = {}
 			record.id = Number(this.$.id.value)
 			record.account = this.$.account.key
 			record.usr = this.$.usr.value
 			record.name = this.$.name.value
-			record.pwd = this.$.pwd.value
+			if (this.$.pwd.value != '')
+				record.pwd = require('crypto').createHash('sha256').update(this.$.pwd.value).digest('base64')
 			record.profile = this.$.profile.key
 			record.email = this.$.email.value
 			record.language = this.$.language.value
