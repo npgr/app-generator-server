@@ -472,9 +472,9 @@ function generate_list_page(keys, key, title, crud, card_width, dialog_width, bt
 	
 	var IMPORT_FORM = fs.readFileSync('./templates/crud5/import-form.template', 'utf8');
 	
-	var TOPBAR = fs.readFileSync('./templates/crud5/topBar.template', 'utf8');
+	//var TOPBAR = fs.readFileSync('./templates/crud5/topBar.template', 'utf8');
 	
-	var list_template = compiled_List({ 'title': title , 'attrs': attrs, 'model': model, 'import_form': IMPORT_FORM, 'topBar': TOPBAR, 'columns_form': COLUMNS_FORM, 'new_form': NEW_FORM, 'display_form': DISPLAY_FORM, 'edit_form': EDIT_FORM, 'delete_form': DELETE_FORM, 'select_forms': SELECT_FORMS, 'key': key, 'keys': keys, 'jsondata': jsondata, 'crud': crud, 'card_width': card_width, 'dialog_width': dialog_width, 'btn_left': btn_left, 'columns': columns, 'download': download, 'print': print, 'new_reg': new_reg, 'edit': edit, 'delete_reg': delete_reg, 'display': display, 'ga': ga, 'user_point': user_point})
+	var list_template = compiled_List({ 'title': title , 'attrs': attrs, 'model': model, 'import_form': IMPORT_FORM, 'columns_form': COLUMNS_FORM, 'new_form': NEW_FORM, 'display_form': DISPLAY_FORM, 'edit_form': EDIT_FORM, 'delete_form': DELETE_FORM, 'select_forms': SELECT_FORMS, 'key': key, 'keys': keys, 'jsondata': jsondata, 'crud': crud, 'card_width': card_width, 'dialog_width': dialog_width, 'btn_left': btn_left, 'columns': columns, 'download': download, 'print': print, 'new_reg': new_reg, 'edit': edit, 'delete_reg': delete_reg, 'display': display, 'ga': ga, 'user_point': user_point})
 	
 	//list_template = list_template.replace('>%', '<%')
 	//list_template = list_template.replace('%<', '%>')
