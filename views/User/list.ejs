@@ -328,11 +328,6 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		create: function() {
-			if (this.$.pwd.value != this.$.pwd_2.value)
-			{
-				alert("<%= lng('New Password must be equal to Confirm Password') %>")
-				return
-			}
 			this.$.ajax2.url = config_server() + "User"
 			var record = {}
 			record.account = this.$.account.key
@@ -365,6 +360,11 @@ paper-menu {
 		},
 		submit_form: function() {
 /** USER POINT - Validate Before Create **/
+			if (this.$.pwd.value != this.$.pwd_2.value)
+			{
+				alert("<%= lng('New Password must be equal to Confirm Password') %>")
+				return
+			}
 /** END USER POINT - Validate Before Create **/
 			if (!isNaN(this.$.id.value))
 			{
@@ -576,7 +576,6 @@ paper-menu {
 		},
 		submit_form: function() {
 /** USER POINT - Validate Before Update **/
-/** END USER POINT - Validate Before Update **/
 			var minlength = Number(<%= sails.config.appConfig.PWD_MIN_LEN || 6 %>)
 			if (this.$.pwd.value.length < minlength & this.$.pwd.value != '')
 			{
@@ -588,6 +587,7 @@ paper-menu {
 				alert("<%= lng('New Password must be equal to Confirm Password') %>")
 				return
 			}
+/** END USER POINT - Validate Before Update **/
 			this.$.submit_update.click()
 		},
 		update: function() {
