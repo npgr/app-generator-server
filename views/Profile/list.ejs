@@ -278,6 +278,8 @@ paper-menu {
 				this.clear()
 		},
 		submit_form: function() {
+/** USER POINT - Validate Before Create **/
+/** END USER POINT - Validate Before Create **/
 			if (!isNaN(this.$.id.value))
 			{
 				if (this.$.id.value > 0)
@@ -412,6 +414,8 @@ paper-menu {
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
+/** USER POINT - Validate Before Update **/
+/** END USER POINT - Validate Before Update **/
 			this.$.submit_update.click()
 		},
 		update: function() {
