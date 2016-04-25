@@ -98,13 +98,16 @@ module.exports = function(req, res, next) {
 			/** if page then redirect **/
 		}
 		//console.log('languagePreference', req.session.languagePreference)
-		req.setLocale(req.session.languagePreference);
+		if (typeof req.session.languagePreference != 'undefined')	
+			req.setLocale(req.session.languagePreference);
 		return next()
 	}
 	else
 	{
 	//if (path == '/App') return res.json({msg: 'not Authorized'})
-		req.setLocale(req.session.languagePreference);
+		//console.log('authorized - language Preference: ', req.session.languagePreference)
+		if (typeof req.session.languagePreference != 'undefined')
+			req.setLocale(req.session.languagePreference);
 		return next()
 	}
   // User is not allowed
