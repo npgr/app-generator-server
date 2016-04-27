@@ -52,8 +52,10 @@ module.exports = {
 			.exec(function(err, data) {
 				if(err) res.json({ "error": err})
 				  else if (data) {
-					console.log('data pwd: ', data.pwd)
+					//console.log('data pwd: ', data.pwd)
 					console.log('req pwd:  ', req.body.password)
+					console.log('req pwd_date: ', req.body.today)
+					
 					if (data.pwd == req.body.password)
 					{
 						req.session.userid = data.id
