@@ -359,6 +359,19 @@ paper-menu {
 		},
 		submit_form: function() {
 /** USER POINT - Validate Before Create **/
+			var userMinLength = Number(<%= sails.config.appConfig.USER_MIN_LEN || 6 %>)
+			var pwdMinLength  = Number(<%= sails.config.appConfig.PWD_MIN_LEN  || 6 %>)
+
+			if (this.$.usr.value.length < userMinLength)
+			{
+				alert("<%= lng('Username Must have al least %s Characters', sails.config.appConfig.USER_MIN_LEN || 6) %>")
+				return
+			}
+			if (this.$.pwd.value.length < pwdMinLength & this.$.pwd.value != '')
+			{
+				alert("<%= lng('Password Must have al least %s Characters', sails.config.appConfig.PWD_MIN_LEN || 6) %>")
+				return
+			}
 			if (this.$.pwd.value != this.$.pwd_2.value)
 			{
 				alert("<%= lng('New Password must be equal to Confirm Password') %>")
@@ -575,8 +588,15 @@ paper-menu {
 		},
 		submit_form: function() {
 /** USER POINT - Validate Before Update **/
-			var minlength = Number(<%= sails.config.appConfig.PWD_MIN_LEN || 6 %>)
-			if (this.$.pwd.value.length < minlength & this.$.pwd.value != '')
+			var pwdMinLength  = Number(<%= sails.config.appConfig.PWD_MIN_LEN  || 6 %>)
+			var userMinLength = Number(<%= sails.config.appConfig.USER_MIN_LEN || 6 %>)
+			
+			if (this.$.usr.value.length < userMinLength)
+			{
+				alert("<%= lng('Username Must have al least %s Characters', sails.config.appConfig.USER_MIN_LEN || 6) %>")
+				return
+			}
+			if (this.$.pwd.value.length < pwdMinLength & this.$.pwd.value != '')
 			{
 				alert("<%= lng('Password Must have al least %s Characters', sails.config.appConfig.PWD_MIN_LEN || 6) %>")
 				return

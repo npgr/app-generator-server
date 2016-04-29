@@ -261,8 +261,15 @@
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
-			var minlength = Number(<%= sails.config.appConfig.PWD_MIN_LEN || 6 %>)
-			if (this.$.pwd_1.value.length < minlength & this.$.pwd_1.value != '')
+			var userMinLength = Number(<%= sails.config.appConfig.USER_MIN_LEN || 6 %>)
+			var pwdMinLength  = Number(<%= sails.config.appConfig.PWD_MIN_LEN  || 6 %>)
+			
+			if (this.$.usr.value.length < userMinLength)
+			{
+				alert("<%= lng('Username Must have al least %s Characters', sails.config.appConfig.USER_MIN_LEN || 6) %>")
+				return
+			}
+			if (this.$.pwd_1.value.length < pwdMinLength & this.$.pwd_1.value != '')
 			{
 				alert("<%= lng('Password Must have al least %s Characters', sails.config.appConfig.PWD_MIN_LEN || 6) %>")
 				return
