@@ -121,24 +121,38 @@
 				return
 			}
 			
-			var today = new Date()
+			var today = new Date().toString()
+			//var today = todayy.toString()
 			document.getElementById('today').value = today
 			
 			document.getElementById('pwd').value =  require('crypto').createHash('sha256').update(pwd).digest('base64')
 			
 			//document.getElementById('pwd').value = pwd_hash(pwd)
 			var key = 'IYSÑ(S][A()#FG[?=])])dihyb38d{´{}}'
-			
+
 			/** Salt **/
 			var pwd_salt = getPwdSalt(pwd, usr, today)
 			
 			var SHA512 = new Hashes.SHA512
-			SHA512.b64_hmac(pwd,key)
-			
+
+			SHA512.b64_hmac(pwd_salt, key)
+
 			document.getElementById('formLogin').submit()
 		}
 		function getPwdSalt(pwd, usr, today) {
-			var pwd_salt = usr.length/2
+			var middle = Math.round(usr.length/2)
+			var user_1 = usr.substring(0, middle)
+			var user_2 = usr.substring(middle)
+
+			middle = Math.round(today.length/2)
+			var today_1 = today.substring(0, middle)
+			var today_2 = today.substring(middle)
+
+			var reto = today_2 + user_2 + pwd + user_1 + today_1
+			
+			alert('pwd+salt: '+ reto)
+			
+			return 
 		}
 	</script>
 </body>
