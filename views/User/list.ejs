@@ -19,6 +19,7 @@
 	<script src="/bower_components/lokijs/build/lokijs.min.js"></script>
 	<script src="/bower_components/abdmob/x2js/xml2json.min.js"></script>
 	<script src="/components/app-config/app-config.js"></script>
+	<script src="/components/app-util/app-util.js"></script>
 	<link rel="stylesheet" href="/styles/app.css">
 	<link rel="stylesheet" href="/bower_components/intro.js/minified/introjs.min.css">
 	<!-- polymer Components -->
@@ -40,9 +41,8 @@
 	<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/scale-up-animation.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
-<!-- USER POINT - Include Libraries, Styles & Components  -->
-
-<!-- END USER POINT - Include Libraries, Styles & Components  -->
+<!-- USER POINT - Include Libraries, Styles & Components -->
+<!-- END USER POINT - Include Libraries, Styles & Components -->
 <script>
     // Google Analytics
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -487,7 +487,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.22 -->
+<!-- edit-form: version 5.23 -->
 
 <dom-module id="User-edit">
 <template>
@@ -655,7 +655,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.22 -->
+<!-- delete-form: version 5.23 -->
 
 <dom-module id="User-delete">
 <template>
@@ -738,6 +738,8 @@ paper-menu {
 			this.$.submit_delete.click()
 		},
 		delete: function() {
+/** USER POINT - Before Delete **/
+/** END USER POINT - Before Delete **/
 			this.$.ajax.url = config_server() + "User/"+this.item.id
 			this.$.ajax.generateRequest()
 		},
