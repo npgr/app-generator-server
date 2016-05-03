@@ -120,14 +120,6 @@
 				loginError.innerHTML = '<%= lng('Password Required') %>'
 				return
 			}
-			
-			//var today = new Date().toString()
-			//document.getElementById('today').value = today
-			
-			//document.getElementById('pwd').value =  require('crypto').createHash('sha256').update(pwd).digest('base64')
-
-			/** Salt **/
-			//var pwd_salt = getPwdSalt_Client(pwd, usr, today)
 
 			var SHA512 = new Hashes.SHA512
 

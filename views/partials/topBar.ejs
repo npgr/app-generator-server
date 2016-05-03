@@ -289,10 +289,15 @@
 		update: function() {
 			var record = {}
 			//record.id = this.item.id
-			record.pwd_old = require('crypto').createHash('sha256').update(this.$.pwd_old.value).digest('base64')
-			record.pwd_1 = this.$.pwd_1.value
-			if (this.$.pwd_1.value != '')
-				record.pwd_1 = require('crypto').createHash('sha256').update(this.$.pwd_1.value).digest('base64')
+			var pwd_old = this.$.pwd_old.value
+			var pwd_1 = this.$.pwd_1.value
+			var usr = this.$.usr.value
+
+			var SHA512 = new Hashes.SHA512
+
+			record.pwd_old = SHA512.b64_hmac(usr+pwd_old, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+			record.pwd_1 = SHA512.b64_hmac(usr+pwd_1, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+			
 			record.email = this.$.email.value
 			record.language = this.$.language.value
 			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id

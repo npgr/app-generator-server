@@ -52,6 +52,7 @@ module.exports.routes = {
   "/App/list": "AppController.list",
   "/Model/exist/:model": "ModelController.exist",
   "post /User": "UserController.create",
+  "put /User/:id": "UserController.update",
   "post /Model": "ModelController.create",
   "post /Model/list": "ModelController.list",
   "post /ModelFunction/list": "ModelFunctionController.list",

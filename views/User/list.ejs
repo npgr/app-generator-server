@@ -1,4 +1,4 @@
-<!-- list template: version 7.20 -->
+<!-- list template: version 7.23 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -335,15 +335,13 @@ paper-menu {
 			record.account = this.$.account.key
 			  record.usr = this.$.usr.value
 			  record.name = this.$.name.value
-			  record.pwd = this.$.pwd.value
 			record.profile = this.$.profile.key
 			  record.email = this.$.email.value
 			  record.language = this.$.language.value
 			  record.status = this.$.status.value
 /** USER POINT - Before Create **/
 			var SHA512 = new Hashes.SHA512
-
-			record.pwd = SHA512.b64_hmac(record.usr+record.pwd, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+			record.pwd = SHA512.b64_hmac(record.usr+this.$.pwd.value, '<%= sails.config.appConfig.HMAC_KEY1 %>')
 /** END USER POINT - Before Create **/			  
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
@@ -436,10 +434,6 @@ paper-menu {
 			<tr>
 				<td><label class="left_label" for="name"><%= lng('Name')%></label></td>
 				<td><input id="name" type="text" name="name" value="{{item.name}}" disabled></td>
-			</tr>
-			<tr>
-				<td><label class="left_label" for="pwd"><%= lng('Password')%></label></td>
-				<td><input id="pwd" type="password" name="pwd" value="{{item.pwd}}" disabled></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="profile"><%= lng('Profile')%></label></td>
@@ -623,12 +617,17 @@ paper-menu {
 			record.account = this.$.account.key
 			record.usr = this.$.usr.value
 			record.name = this.$.name.value
-			if (this.$.pwd.value != '')
-				record.pwd = require('crypto').createHash('sha256').update(this.$.pwd.value).digest('base64')
 			record.profile = this.$.profile.key
 			record.email = this.$.email.value
 			record.language = this.$.language.value
 			record.status = this.$.status.value
+/** USER POINT - Before Update **/
+			if (this.$.pwd.value != '')
+			{
+				var SHA512 = new Hashes.SHA512
+				record.pwd = SHA512.b64_hmac(record.usr+this.$.pwd.value, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+			}
+/** END USER POINT - Before Update **/
 			this.$.ajax.url = config_server() + "User/" +record.id
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
