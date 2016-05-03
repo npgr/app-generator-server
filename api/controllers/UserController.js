@@ -9,6 +9,21 @@ module.exports = {
 	select: function (req, res) {
 		res.view("User/select")
 	},
+	create: function(req, res, next) {
+		var record = req.params.all();
+		record.salt = require('crypto').randomBytes(12)
+		
+		var Hashes = require('jshashes')
+		var SHA512 = new Hashes.SHA512
+		
+		//record.pwd = require('crypto').createHash('sha256').update(this.$.pwd.value).digest('base64')
+		record.pwd = SHA512.b64_hmac(record.salt+record.pwd, sails.config.appConfig.HMAC_KEY2)
+		
+		User.create(record, function (err, created){
+			if (err) return next(err);
+			return res.json(created);
+		})
+	},
 	login: function(req, res) {
 		/** Load App Config **/
 		if (typeof sails.config.appConfig == 'undefined')
@@ -52,11 +67,19 @@ module.exports = {
 			.exec(function(err, data) {
 				if(err) res.json({ "error": err})
 				  else if (data) {
-					//console.log('data pwd: ', data.pwd)
-					console.log('req pwd:  ', req.body.password)
-					console.log('req pwd_date: ', req.body.today)
+				  
+					var client_pwd = req.body.password
+					//var pwd = client_pwd
+					var Hashes = require('jshashes')
+					var SHA512 = new Hashes.SHA512
+		
+					var pwd = SHA512.b64_hmac(data.salt+client_pwd, sails.config.appConfig.HMAC_KEY2)
 					
-					if (data.pwd == req.body.password)
+					/*console.log('client_pwd: ',client_pwd)
+					console.log('salt: ',data.salt)
+					console.log('pwd1: ', pwd)
+					console.log('pwd2: ',data.pwd)*/
+					if (data.pwd == pwd)
 					{
 						req.session.userid = data.id
 						req.session.user = req.body.username

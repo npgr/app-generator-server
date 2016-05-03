@@ -51,6 +51,7 @@ module.exports.routes = {
   "/App/deleteApp/:app": "AppController.deleteApp",
   "/App/list": "AppController.list",
   "/Model/exist/:model": "ModelController.exist",
+  "post /User": "UserController.create",
   "post /Model": "ModelController.create",
   "post /Model/list": "ModelController.list",
   "post /ModelFunction/list": "ModelFunctionController.list",

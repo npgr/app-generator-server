@@ -10,7 +10,7 @@
 <html>
 <head>
 	<script src="/components/app-config/app-config.js"></script>
-	<script src="bower_components/jshashes/hashes.min.js"></script>
+	<script src="/bower_components/jshashes/hashes.min.js"></script>
 	<!--<link rel="import" href="/bower_components/platinum-sw/platinum-sw-register.html">
 	<link rel="import" href="/bower_components/platinum-sw/platinum-sw-cache.html">-->
  <!--<link rel="prerender" href="/styles/app.css"  as="stylesheet" probability="1.0"/>-->
@@ -121,38 +121,20 @@
 				return
 			}
 			
-			var today = new Date().toString()
-			//var today = todayy.toString()
-			document.getElementById('today').value = today
+			//var today = new Date().toString()
+			//document.getElementById('today').value = today
 			
-			document.getElementById('pwd').value =  require('crypto').createHash('sha256').update(pwd).digest('base64')
-			
-			//document.getElementById('pwd').value = pwd_hash(pwd)
-			var key = 'IYSÑ(S][A()#FG[?=])])dihyb38d{´{}}'
+			//document.getElementById('pwd').value =  require('crypto').createHash('sha256').update(pwd).digest('base64')
 
 			/** Salt **/
-			var pwd_salt = getPwdSalt(pwd, usr, today)
-			
+			//var pwd_salt = getPwdSalt_Client(pwd, usr, today)
+
 			var SHA512 = new Hashes.SHA512
 
-			SHA512.b64_hmac(pwd_salt, key)
-
+			var pwd_hash = SHA512.b64_hmac(usr+pwd, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+			document.getElementById('pwd').value = pwd_hash
+			
 			document.getElementById('formLogin').submit()
-		}
-		function getPwdSalt(pwd, usr, today) {
-			var middle = Math.round(usr.length/2)
-			var user_1 = usr.substring(0, middle)
-			var user_2 = usr.substring(middle)
-
-			middle = Math.round(today.length/2)
-			var today_1 = today.substring(0, middle)
-			var today_2 = today.substring(middle)
-
-			var reto = today_2 + user_2 + pwd + user_1 + today_1
-			
-			alert('pwd+salt: '+ reto)
-			
-			return 
 		}
 	</script>
 </body>

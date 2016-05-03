@@ -15,10 +15,10 @@
 	<title><%= lng("%s %s",lng("List"),lng("User"))%></title>
 	<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	<script src="/bower_components/intro.js/minified/intro.min.js"></script>
+	<script src="/bower_components/jshashes/hashes.min.js"></script>
 	<script src="/bower_components/lokijs/build/lokijs.min.js"></script>
 	<script src="/bower_components/abdmob/x2js/xml2json.min.js"></script>
 	<script src="/components/app-config/app-config.js"></script>
-	<script src="/components/app-util/app-util.js"></script>
 	<link rel="stylesheet" href="/styles/app.css">
 	<link rel="stylesheet" href="/bower_components/intro.js/minified/introjs.min.css">
 	<!-- polymer Components -->
@@ -40,6 +40,9 @@
 	<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/scale-up-animation.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+<!-- USER POINT - Include Libraries, Styles & Components  -->
+
+<!-- END USER POINT - Include Libraries, Styles & Components  -->
 <script>
     // Google Analytics
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -332,11 +335,16 @@ paper-menu {
 			record.account = this.$.account.key
 			  record.usr = this.$.usr.value
 			  record.name = this.$.name.value
-			  record.pwd = require('crypto').createHash('sha256').update(this.$.pwd.value).digest('base64')
+			  record.pwd = this.$.pwd.value
 			record.profile = this.$.profile.key
 			  record.email = this.$.email.value
 			  record.language = this.$.language.value
-			  record.status = this.$.status.value			
+			  record.status = this.$.status.value
+/** USER POINT - Before Create **/
+			var SHA512 = new Hashes.SHA512
+
+			record.pwd = SHA512.b64_hmac(record.usr+record.pwd, '<%= sails.config.appConfig.HMAC_KEY1 %>')
+/** END USER POINT - Before Create **/			  
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
