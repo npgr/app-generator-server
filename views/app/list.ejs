@@ -1,4 +1,4 @@
-<!-- list template: version 7.22 -->
+<!-- list template: version 7.23 -->
  <% 
  function lng(word) {
 	return __("word")
@@ -15,6 +15,7 @@
 	<title><%= lng("%s %s",lng("List"),lng("App"))%></title>
 	<script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	<script src="/bower_components/intro.js/minified/intro.min.js"></script>
+	<script src="/bower_components/jshashes/hashes.min.js"></script>
 	<script src="/bower_components/lokijs/build/lokijs.min.js"></script>
 	<script src="/bower_components/abdmob/x2js/xml2json.min.js"></script>
 	<script src="/components/app-config/app-config.js"></script>
@@ -40,6 +41,8 @@
 	<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/scale-up-animation.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
+<!-- USER POINT - Include Libraries, Styles & Components -->
+<!-- END USER POINT - Include Libraries, Styles & Components -->
 <script>	
 // Redirect to https
   <% if (process.env.HTTPS == 'true') { %>
@@ -388,7 +391,9 @@ paper-menu {
 			  record.status = this.$.status.value
 			  record.author = this.$.author.value
 			  record.license = this.$.license.value
-			  record.repository = this.$.repository.value			
+			  record.repository = this.$.repository.value
+/** USER POINT - Before Create **/
+/** END USER POINT - Before Create **/			  
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
@@ -562,7 +567,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- edit-form: version 5.22 -->
+<!-- edit-form: version 5.23 -->
 
 <dom-module id="App-edit">
 <template>
@@ -698,6 +703,8 @@ paper-menu {
 			record.license = this.$.license.value
 			record.repository = this.$.repository.value
 			this.$.ajax.url = config_server() + "App/" +record.id
+/** USER POINT - Before Update **/
+/** END USER POINT - Before Update **/
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
 		},
@@ -735,7 +742,7 @@ paper-menu {
 </script>
 </dom-module>
 
-<!-- delete-form: version 5.22 -->
+<!-- delete-form: version 5.23 -->
 
 <dom-module id="App-delete">
 <template>
@@ -844,6 +851,8 @@ paper-menu {
 			this.$.submit_delete.click()
 		},
 		delete: function() {
+/** USER POINT - Before Delete **/
+/** END USER POINT - Before Delete **/
 			this.$.ajax.url = config_server() + "App/deleteApp/"+this.item.id
 			this.$.ajax.generateRequest()
 		},
