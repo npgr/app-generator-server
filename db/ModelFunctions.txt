@@ -1,1 +1,0 @@
-[{"app":3,"model":6,"name":"List Prueba","type":"list","id":6}]
