@@ -71,10 +71,14 @@ module.exports = {
 		res.render("User/login")
 	},
 	signout: function(req, res) {
-		//req.session.user = null
-		//res.redirect("/login")
+		
 		req.session = null
-		res.redirect("/pages/byebye.html")
+		if (sails.config.appConfig.EXIT_PAGE)
+			res.redirect(sails.config.appConfig.EXIT_PAGE)
+		else if (process.env.BROWSER)
+			res.redirect("/login")
+		 else
+			res.redirect("/pages/byebye.html")
 	},
 	validateLogin: function(req, res) {
 		User.findOneByUsr(req.body.username)
