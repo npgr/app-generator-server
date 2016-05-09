@@ -38,13 +38,13 @@ module.exports = function(req, res, next) {
 	
 	var bypass = false
 	if(req.headers.my_key)
-		if (req.headers.my_key == 'abc') bypass = true
+		if (req.headers.my_key == sails.config.appConfig.CLIENT_KEY) bypass = true
 	//console.log('headers: ', req.headers)
 	if (!req.session.user && req.route.path != '/login' && req.route.path != '/validateLogin' && !bypass &&
 		req.route.path != '/db/import'){
 
 		//console.log('Redirecting to login from '+req.route.path)
-		if (process.env.BROWSER == 'true')
+		if (sails.config.appConfig.BROWSER == 'true')
 			return res.redirect('/login')
 		else
 			return res.forbidden('Unathorized Access') //return res.view('403')

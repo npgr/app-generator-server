@@ -90,6 +90,17 @@
 	#dropdown_user {
 		width: 120px;
 	}
+	
+	#dialog_settings {
+		width: 36em;
+	}
+	#server_url {
+		width: 250px;
+	}
+	#window_width, #window_height {
+		width: 80px;
+	}
+	
 </style>
 	<user-edit-profile id='user_edit_profile'></user-edit-profile>
 	<user-settings id='user_settings'></user-settings>
@@ -329,7 +340,7 @@
 			width: 36em;
 		}
 		#server_url {
-			width: 180px;
+			width: 250px;
 		}
 		#window_width, #window_height {
 			width: 80px;
@@ -342,19 +353,19 @@
 			<table class="table_dialog" style="width:100%">
 			<tr>
 				<td><label class="left_label" for="server_url"><%= lng('Server URL')%><strong class="red"> *</strong></label></td>
-				<td><input id="server_url" type="text" name="server_url" value="{{item.server_url}}" required></td>
+				<td><input id="server_url" type="text" name="server_url" value="{{item.url}}" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="width"><%= lng('Window Width')%><strong class="red"> *</strong></label></td>
-				<td><input id="width" type="text" name="width" value="{{item.width}}" required></td>
+				<td><input id="window_width" type="text" name="width" value="{{item.width}}" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="height"><%= lng('Window Height')%><strong class="red"> *</strong></label></td>
-				<td><input id="height" type="text" name="height" value="{{item.height}}" required></td>
+				<td><input id="window_height" type="text" name="height" value="{{item.height}}" required></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('App Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="42" on-click="select_path" readOnly required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.apps_path}}" on-click="select_path" readOnly required></textarea></td>
 			</tr>
 			</table>
 			<div class="buttons">
@@ -372,6 +383,14 @@
 		is: "User-settings",
 		open_dialog: function() {
 			/** Load Data from file */
+			var fs = require('fs')
+			var data_raw = fs.readFileSync('./config.json', 'utf-8')
+			this.item = JSON.parse(data_raw)
+			
+			console.log('data: ', this.item)
+			
+			
+			
 			this.$.dialog_settings.open()
 		},
 		submit_form: function() {

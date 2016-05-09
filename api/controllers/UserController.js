@@ -53,7 +53,7 @@ module.exports = {
 			//sails.config.appConfig[key] = 65
 		}
 
-		if (process.env.BROWSER != 'true')
+		if (sails.config.appConfig.BROWSER != 'true')
 		{
 		  if (!req.headers.client_appl)
 			return res.forbidden('Unathorized Access') //res.view('403')
@@ -75,7 +75,7 @@ module.exports = {
 		req.session = null
 		if (sails.config.appConfig.EXIT_PAGE)
 			res.redirect(sails.config.appConfig.EXIT_PAGE)
-		else if (process.env.BROWSER)
+		else if (sails.config.appConfig.BROWSER)
 			res.redirect("/login")
 		 else
 			res.redirect("/pages/byebye.html")

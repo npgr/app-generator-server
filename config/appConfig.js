@@ -11,5 +11,9 @@ module.exports.appConfig = {
 	
 	/** Server Side **/
 	HMAC_KEY2 : 'oiuJT9398j)/&6303$#282365]DPJjuhgd',
+	
+	BROWSER: 'true',
+	
+	CLIENT_KEY: 'abc'
 
 };
