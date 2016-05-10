@@ -95,10 +95,10 @@
 		width: 36em;
 	}
 	#server_url {
-		width: 250px;
+		width: 300px;
 	}
 	#window_width, #window_height {
-		width: 80px;
+		width: 55px;
 	}
 	
 </style>
@@ -339,12 +339,6 @@
 		#dialog_settings {
 			width: 36em;
 		}
-		#server_url {
-			width: 250px;
-		}
-		#window_width, #window_height {
-			width: 80px;
-		}
 	</style>
 	<paper-dialog id="dialog_settings" modal vertical layout entry-animation="scale-up-animation" 	exit-animation="fade-out-animation">
 		<h2 class="card_title"><%= lng("%s %s",lng("Edit"),lng("Settings"))%></h2>
@@ -352,26 +346,26 @@
 		<form id="form" action="javascript:void(0);" on-submit="update">
 			<table class="table_dialog" style="width:100%">
 			<tr>
-				<td><label class="left_label" for="server_url"><%= lng('Server URL')%><strong class="red"> *</strong></label></td>
+				<td><label class="left_label" for="server_url"><%= lng("Server URL")%><strong class="red"> *</strong></label></td>
 				<td><input id="server_url" type="text" name="server_url" value="{{item.url}}" required></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="width"><%= lng('Window Width')%><strong class="red"> *</strong></label></td>
-				<td><input id="window_width" type="text" name="width" value="{{item.width}}" required></td>
+				<td><label class="left_label" for="width"><%= lng("Window Width")%><strong class="red"> *</strong></label></td>
+				<td><input id="window_width" type="number" name="width" value="{{item.width}}" required> px</td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="height"><%= lng('Window Height')%><strong class="red"> *</strong></label></td>
-				<td><input id="window_height" type="text" name="height" value="{{item.height}}" required></td>
+				<td><label class="left_label" for="height"><%= lng("Window Height")%><strong class="red"> *</strong></label></td>
+				<td><input id="window_height" type="number" name="height" value="{{item.height}}" required> px</td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('App Path')%><strong class="red"> *</strong></label></td>
+				<td><label class="left_label" for="path"><%= lng("Apps Path")%><strong class="red"> *</strong></label></td>
 				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.apps_path}}" on-click="select_path" readOnly required></textarea></td>
 			</tr>
 			</table>
 			<div class="buttons">
 			  <div class="card_line">
-				<paper-button id="update_btn" class="btn" on-click="submit_form" raised><%= lng('Change ')%></paper-button>
-				<paper-button id="exit_btn" class="btn" dialog-confirm raised><%= lng('Exit')%></paper-button>
+				<paper-button id="update_btn" class="btn" on-click="change" raised><%= lng("Change")%></paper-button>
+				<paper-button id="exit_btn" class="btn" on-click="exit" raised><%= lng("Exit")%></paper-button>
 			  </div>
 			</div>
 		</form>
@@ -387,41 +381,61 @@
 			var data_raw = fs.readFileSync('./config.json', 'utf-8')
 			this.item = JSON.parse(data_raw)
 			
-			console.log('data: ', this.item)
-			
-			
-			
 			this.$.dialog_settings.open()
-		},
-		submit_form: function() {
-
 		},
 		select_path: function() {
 			const dialog = require('electron').remote.dialog;
 			var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]})
 			this.$.path.value = path[0]
 		},
-		update: function() {
-			var record = {}
-			//record.id = this.item.id
-			record.pwd_old = require('crypto').createHash('sha256').update(this.$.pwd_old.value).digest('base64')
-			record.pwd_1 = this.$.pwd_1.value
-			if (this.$.pwd_1.value != '')
-				record.pwd_1 = require('crypto').createHash('sha256').update(this.$.pwd_1.value).digest('base64')
-			record.email = this.$.email.value
-			record.language = this.$.language.value
-			this.$.ajax.url = config_server() + "User/UpdProfile/"+this.item.id
-			this.$.ajax.params = record
-			this.$.ajax.generateRequest()
-		},
-		record_updated: function() {
-			/** Validate Resource Authorized **/
-			alert(this.$.ajax.lastResponse.auth_msg)
-			if (typeof this.$.ajax.lastResponse.err === 'undefined')
-			{
-				this.$.dialog_profile.close()
-				this.fire('close')
+		validate: function() {
+			if (this.$.server_url.value.indexOf('http') == -1){
+				this.$.server_url.focus()
+				alert('<%= lng("Server URL must start with http:// or https://")%>', '<%= lng("Warning")%>')
+				return false
 			}
+			if (Number(this.$.window_width.value) < 500) {
+				this.$.window_width.focus()
+				alert('<%= lng("Window Width must be Greater than 500px")%>', '<%= lng("Warning")%>')
+				return false
+			}
+			if (Number(this.$.window_height.value) < 400) {
+				this.$.window_height.focus()
+				alert('<%= lng("Window Height must be Greater than 400px")%>', '<%= lng("Warning")%>')
+				return false
+			}
+			if (this.$.path.value == "") {
+				this.$.path.focus()
+				alert('<%= lng("Applications Path Required")%>', '<%= lng("Warning")%>')
+				return false
+			}
+			return true
+		},
+		change: function() {
+			if (!this.validate()) return
+			
+			var config = {}
+			config.url = this.$.server_url.value
+			config.width = Number(this.$.window_width.value)
+			config.height = Number(this.$.window_height.value)
+			config.apps_path = this.$.path.value
+			config.colors = ""
+
+			var config_data = JSON.stringify(config)
+
+			var fs = require('fs')
+			fs.writeFileSync('./config.json', config_data, 'utf-8')
+			
+			alert('<%= lng("Configuration Changed")%>', '<%= lng("Configuration")%>')
+			
+			this.$.dialog_settings.close()
+			this.fire('close')
+		},
+		exit: function() {
+			//if (!this.validate()) return
+			
+			this.$.dialog_settings.close()
+			this.fire('close')
 		}
 	})
 </script>
