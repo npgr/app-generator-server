@@ -64,14 +64,6 @@ module.exports = {
 		enum: ['postgres', 'mysql', 'mongodb', 'redis', 'disk', 'orientdb', 'filemaker']
 		//,enumdes: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Disk', 'OrientDB', 'FileMaker']
 	},
-	path: {
-		//description: 'Path',
-		type: 'string',
-		//textarea_cols: 42,
-		//textarea_rows: 3,
-		//hide: true,
-		required: true
-	},
 	port: {
 		//description: 'Port',
 		type: 'integer',
