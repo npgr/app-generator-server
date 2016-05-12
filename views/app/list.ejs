@@ -164,10 +164,6 @@ paper-menu {
 				<td><div id="db" on-click="change_field"></div></td>
 			</tr>
 			<tr>
-				<td><label class="left_label" for="path"><%= lng('Path')%></label></td>
-				<td><div id="path" on-click="change_field"></div></td>
-			</tr>
-			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%></label></td>
 				<td><div id="port" on-click="change_field"></div></td>
 			</tr>
@@ -214,7 +210,6 @@ paper-menu {
 			this.show_field("description")
 			this.show_field("type")
 			this.show_field("db")
-			this.show_field("path")
 			this.show_field("port")
 			this.show_field("status")
 			this.show_field("author")
@@ -304,7 +299,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="42" on-click="select_path" readOnly required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" disabled required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -348,10 +343,12 @@ paper-menu {
 		open_dialog: function() {
 			this.clear()
 /** USER POINT - Open New Dialog **/
-			var path = __dirname
-			var end = path.indexOf('Generador\\client')
-			path = path.substring(0, end+16) + '\\apps'
-			this.$.path.value = path
+			var fs = require('fs')
+			
+			var data_raw = fs.readFileSync('./config.json', 'utf-8')
+			var item = JSON.parse(data_raw)
+
+			this.$.path.value = item.apps_path
 /** END USER POINT - Open New Dialog **/
 			this.$.dialog.open()
 		},
@@ -361,7 +358,6 @@ paper-menu {
 			this.$.title.value = ''
 			this.$.version.value = ''
 			this.$.description.value = ''
-			this.$.path.value = ''
 			this.$.port.value = ''
 			this.$.author.value = ''
 			this.$.license.value = ''
@@ -386,7 +382,6 @@ paper-menu {
 			  record.description = this.$.description.value
 			  record.type = this.$.type.value
 			  record.db = this.$.db.value
-			  record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
 			  record.status = this.$.status.value
 			  record.author = this.$.author.value
@@ -406,6 +401,7 @@ paper-menu {
 			}
 /** USER POINT - Record Created **/
 			alert("Click OK for Creating the Application "+ this.$.name.value+". It Will take about 5 minutes...")
+
 			this.create_app()
 /** END USER POINT - Record Created **/
 			// ask for create another one
@@ -440,12 +436,12 @@ paper-menu {
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
 /** USER POINT - New Functions **/
-		,select_path: function() {
+		/*,select_path: function() {
 			const dialog = require('electron').remote.dialog;
 			var path = dialog.showOpenDialog({ properties: [ 'openDirectory' ]})
 			this.$.path.value = path[0]
-		},
-		create_app: function() {
+		}*/
+		,create_app: function() {
 			//const remote = require('electron').remote
 			//var app_util = remote.require('./app_util.js')
 			//console.log(app_util.npm_install())
@@ -553,6 +549,12 @@ paper-menu {
 			this.item = item
 			this.set_select_fields(item)
 /** USER POINT - Open Display Dialog **/
+			var fs = require('fs')
+			
+			var data_raw = fs.readFileSync('./config.json', 'utf-8')
+			var item = JSON.parse(data_raw)
+
+			this.$.path.value = item.apps_path
 /** END USER POINT - Open Display Dialog **/
 			this.$.dialog.open()
 		},
@@ -620,7 +622,7 @@ paper-menu {
 			</tr>
 			<tr>
 				<td><label class="left_label" for="path"><%= lng('Path')%><strong class="red"> *</strong></label></td>
-				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" required></textarea></td>
+				<td><textarea id="path" name="path" rows="3" cols="42" value="{{item.path}}" disabled required></textarea></td>
 			</tr>
 			<tr>
 				<td><label class="left_label" for="port"><%= lng('Port')%><strong class="red"> *</strong></label></td>
@@ -664,6 +666,12 @@ paper-menu {
 			this.item = item
 			this.set_select_fields(item)
 /** USER POINT - Open Edit Dialog **/
+			var fs = require('fs')
+			
+			var data_raw = fs.readFileSync('./config.json', 'utf-8')
+			var item = JSON.parse(data_raw)
+
+			this.$.path.value = item.apps_path
 /** END USER POINT - Open Edit Dialog **/
 			this.$.dialog.open()
 		},
@@ -696,7 +704,6 @@ paper-menu {
 			record.description = this.$.description.value
 			record.type = this.$.type.value
 			record.db = this.$.db.value
-			record.path = this.$.path.value
 			record.port = Number(this.$.port.value)
 			record.status = this.$.status.value
 			record.author = this.$.author.value
@@ -839,6 +846,12 @@ paper-menu {
 			this.item = item
 			this.set_select_fields(item)
 /** USER POINT - Open Delete Dialog **/
+			var fs = require('fs')
+			
+			var data_raw = fs.readFileSync('./config.json', 'utf-8')
+			var item = JSON.parse(data_raw)
+
+			this.$.path.value = item.apps_path
 /** END USER POINT - Open Delete Dialog **/
 			this.$.dialog.open()
 		},
@@ -903,7 +916,6 @@ paper-menu {
 		<option value="description"><%= lng('Description')%></option>  <%= lng('Type')%>
 		<option value="type"><%= lng('Type')%></option>  <%= lng('Database')%>
 		<option value="db"><%= lng('Database')%></option>  <%= lng('Path')%>
-		<option value="path"><%= lng('Path')%></option>  <%= lng('Port')%>
 		<option value="port"><%= lng('Port')%></option>  <%= lng('Status')%>
 		<option value="status"><%= lng('Status')%></option>  <%= lng('Author')%>
 		<option value="author"><%= lng('Author')%></option>  <%= lng('License')%>
@@ -947,7 +959,6 @@ paper-menu {
 		<option value="description"><%= lng('Description')%></option>
 		<option value="type"><%= lng('Type')%></option>
 		<option value="db"><%= lng('Database')%></option>
-		<option value="path"><%= lng('Path')%></option>
 		<option value="port"><%= lng('Port')%></option>
 		<option value="status"><%= lng('Status')%></option>
 		<option value="author"><%= lng('Author')%></option>
@@ -998,8 +1009,6 @@ paper-menu {
 			<iron-icon id="type_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_db" on-click="sort_by_field"><%= lng('Database')%><div id="db_sort_d" class="hide">
 			<iron-icon id="db_sort" icon="arrow-drop-up"></iron-icon></div></th>
-		<th class="col_path" on-click="sort_by_field"><%= lng('Path')%><div id="path_sort_d" class="hide">
-			<iron-icon id="path_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_port" on-click="sort_by_field"><%= lng('Port')%><div id="port_sort_d" class="hide">
 			<iron-icon id="port_sort" icon="arrow-drop-up"></iron-icon></div></th>
 		<th class="col_status" on-click="sort_by_field"><%= lng('Status')%><div id="status_sort_d" class="hide">
@@ -1022,7 +1031,6 @@ paper-menu {
 		<td class="col_description"></td>
 		<td class="col_type"></td>
 		<td class="col_db"></td>
-		<td class="col_path"></td>
 		<td class="col_port"></td>
 		<td class="col_status"></td>
 		<td class="col_author"></td>
@@ -1043,7 +1051,6 @@ paper-menu {
 		<template is="dom-if" if="{{column.description}}"><td>{{item.description}}</td></template>
 		<template is="dom-if" if="{{column.type}}"><td>{{item.type_des}}</td></template>
 		<template is="dom-if" if="{{column.db}}"><td>{{item.db_des}}</td></template>
-		<template is="dom-if" if="{{column.path}}"><td>{{item.path}}</td></template>
 		<template is="dom-if" if="{{column.port}}"><td>{{item.port}}</td></template>
 		<template is="dom-if" if="{{column.status}}"><td>{{item.status_des}}</td></template>
 		<template is="dom-if" if="{{column.author}}"><td>{{item.author}}</td></template>
@@ -1081,7 +1088,6 @@ Polymer({
 				{column: "description", type: "string", display: false},
 				{column: "type", enum: ["web","web2","desktop","mobil"], enumdes: ["<%= lng("Web App (Browser)")%>","<%= lng("Web App (electron)")%>","<%= lng("Desktop")%>","<%= lng("Mobil")%>"], display: true},
 				{column: "db", enum: ["postgres","mysql","mongodb","redis","disk","orientdb","filemaker"], enumdes: ["<%= lng("PostgreSQL")%>","<%= lng("MySQL")%>","<%= lng("MongoDB")%>","<%= lng("Redis")%>","<%= lng("Disk")%>","<%= lng("OrientDB")%>","<%= lng("FileMaker")%>"], display: true},
-				{column: "path", type: "string", display: false},
 				{column: "port", type: "integer", display: true},
 				{column: "status", enum: ["started","stopped"], enumdes: ["<%= lng("Started")%>","<%= lng("Stopped")%>"], display: true},
 				{column: "author", type: "string", display: false},
@@ -1331,7 +1337,6 @@ Polymer({
 		this.$.description_sort_d.classList.add("hide")
 		this.$.type_sort_d.classList.add("hide")
 		this.$.db_sort_d.classList.add("hide")
-		this.$.path_sort_d.classList.add("hide")
 		this.$.port_sort_d.classList.add("hide")
 		this.$.status_sort_d.classList.add("hide")
 		this.$.author_sort_d.classList.add("hide")
@@ -1532,8 +1537,13 @@ Polymer({
 	var filtro = {"id": this.key}
 	this.item = this.data.find(filtro)[0]
 	
+	var fs = require('fs')
+			
+	var data_raw = fs.readFileSync('./config.json', 'utf-8')
+	var item = JSON.parse(data_raw)
+	
 	const ipcRenderer = require('electron').ipcRenderer;
-	ipcRenderer.send('start-app', {id: this.item.id, app: this.item.name, port: this.item.port, path: this.item.path});
+	ipcRenderer.send('start-app', {id: this.item.id, app: this.item.name, port: this.item.port, path: item.apps_path});
 	
 	if (first_time)
 	{
@@ -1551,10 +1561,15 @@ Polymer({
 	var filtro = {"id": this.key}
 	this.item = this.data.find(filtro)[0]
 	
+	var fs = require('fs')
+			
+	var data_raw = fs.readFileSync('./config.json', 'utf-8')
+	var item = JSON.parse(data_raw)
+	
 	const remote = require('electron').remote
 	const spawn = remote.require('child_process').spawn;
 			
-	const stop = spawn('sh', [ 'stop.sh' ], { cwd: this.item.path+'/'+this.item.name })
+	const stop = spawn('sh', [ 'stop.sh' ], { cwd: item.apps_path+'/'+this.item.name })
 	
 	stop.on('close', function(code)	{
 		if (code == 0) 
