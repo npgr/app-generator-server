@@ -16,6 +16,7 @@ function handleRequest(req, res){
 	{
 		var obj = JSON.parse(req.headers.data)
 		console.log('data: ', obj)
+		crud5 = require('./crud5')
 		//console.log('Response Succefull')
 		res.end('Response Succefull')
 	}
