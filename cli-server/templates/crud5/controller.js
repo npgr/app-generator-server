@@ -14,7 +14,7 @@
 				  else if (!data) res.json({ "exist": false})
 					else res.json({ "exist": true})
 			})
-	}
+	},
 	/*, display: function(req, res) {
 		res.view("App/display")
 	},

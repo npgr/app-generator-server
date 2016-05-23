@@ -14,11 +14,17 @@ function handleRequest(req, res){
 	console.log('request for: ', req.url) 
 	if (req.method == 'POST')
 	{
-		var obj = JSON.parse(req.headers.data)
-		console.log('data: ', obj)
+		jsondata = JSON.parse(req.headers.data)
+		model = req.headers.model
+		//console.log('data: ', obj)
 		crud5 = require('./crud5')
+		var data = crud5.generate('crud')
+		
+		console.log('Data: ',data)
 		//console.log('Response Succefull')
-		res.end('Response Succefull')
+		//res.end('Response Succefull')
+		res.setHeader('data-routes', '/User/exist/:id: UserController.exist,/User/list: UserController.list)')
+		res.end(data)
 	}
 	else 
 	{

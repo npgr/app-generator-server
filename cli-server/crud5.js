@@ -57,12 +57,18 @@ function generate_controller(key, crud) {
 	var CONTROLLER_TEMPLATE = fs.readFileSync('./templates/crud5/controller.template', 'utf8');
 	var compiled_Controller = _.template(CONTROLLER_TEMPLATE)
 
+	var item = { 'model': model, 'key': key, 'crud': crud}
+	console.log('item: ',item)
+	
 	var controller = compiled_Controller({ 'model': model, 'key': key, 'crud': crud})
-				
-	fs.writeFile('templates/crud5/controller.js', controller, function (err) {
+	
+	console.log('controller: ', controller)
+	
+	return controller
+	/*fs.writeFile('templates/crud5/controller.js', controller, function (err) {
 		if (err) console.log(err);
 		console.log('Created file templates/crud5/controller.js')
-	})
+	})*/
 }
 
 function generate_language(title, keys, jsondata) {
@@ -699,8 +705,8 @@ exports.generate = function(crud) {
 	// Models: User, Profile, Resources
 	// Login Form, userController.login, user.controller.validateLogin, policy Authorized
 	// TopBar
-	generate_controller(key, crud)
-	generate_language(model, keys, jsondata)
+	return generate_controller(key, crud)
+	/*generate_language(model, keys, jsondata)
 	generate_app_config()
 	generate_app_util()
 	NEW_FORM = ''
@@ -722,11 +728,12 @@ exports.generate = function(crud) {
 		generate_model_select(relation[i].model, relation[i].display, relation[i].key, relation[i].description, crud)
 	
 	generate_list_page(keys, key, title, crud, card_width, dialog_width, btn_left, columns, download, print, new_reg, edit, delete_reg, display, ga)
-	
+	*/
 	// resume-bar ??
 }
 
-exports.get_model = function(cb)
+/** On Client Side **/
+/*exports.get_model = function(cb)
 {
 	if (model) {
 		//console.log('creating a create page for model '+ model)
@@ -753,5 +760,5 @@ exports.get_model = function(cb)
 			}
 		})
 	}
-}
+}*/
 
