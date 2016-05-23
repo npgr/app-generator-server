@@ -11,7 +11,7 @@ module.exports = {
 	},
 	create: function(req, res, next) {
 		var record = req.params.all();
-		record.salt = require('crypto').randomBytes(12)
+		record.salt = require('crypto').randomBytes(12).toString('base64');
 		
 		var Hashes = require('jshashes')
 		var SHA512 = new Hashes.SHA512
@@ -27,7 +27,7 @@ module.exports = {
 		var record = req.params.all();
 		if (record.pwd != '')
 		{
-			record.salt = require('crypto').randomBytes(12)
+			record.salt = require('crypto').randomBytes(12).toString('base64');
 			var Hashes = require('jshashes')
 			var SHA512 = new Hashes.SHA512
 			record.pwd = SHA512.b64_hmac(record.salt+record.pwd, sails.config.appConfig.HMAC_KEY2)
@@ -86,7 +86,6 @@ module.exports = {
 			.exec(function(err, data) {
 				if(err) res.json({ "error": err})
 				  else if (data) {
-				  
 					var client_pwd = req.body.password
 					var Hashes = require('jshashes')
 					var SHA512 = new Hashes.SHA512
