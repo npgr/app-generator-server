@@ -1,13 +1,9 @@
 <%function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}%>
-/************  Routes:  config/routes.js ************/
-
-"/<%= model%>/exist/:<%= key.name%>": "<%= model%>Controller.exist",
+}
+%>"/<%= model%>/exist/:<%= key.name%>": "<%= model%>Controller.exist",
 "/<%= model%>/list": "<%= model%>Controller.list"
-
-/********** Controller: api/controllers/<<model_name>>Controller.js *******/
-
+/******* Controller *******/
 	exist: function(req, res, next) {
 		var <%= key.name%> = req.param("<%= key.name%>")
 		<% if (key.name === "id") { %> <%= model%>.findOne(id)<%
@@ -17,7 +13,7 @@
 				  else if (!data) res.json({ "exist": false})
 					else res.json({ "exist": true})
 			})
-	},
+	}
 	list : function (req, res) {
 		//<%= model%>.find()
 		//	.exec(function(err, data){
@@ -28,10 +24,3 @@
 				res.view("<%= model%>/list")
 		//	})
 	}
-	/*,byfield: function(req, res) {
-		<%= model%>.query('SELECT field, count(*) FROM <%= model%> group by field order by count desc', function(err, data) {
-			if (err) return res.serverError(err);
-			//return res.ok(results);
-			return res.json(data.rows)
-		});
-	}*/

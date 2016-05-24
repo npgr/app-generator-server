@@ -18,13 +18,14 @@ function handleRequest(req, res){
 		model = req.headers.model
 		//console.log('data: ', obj)
 		crud5 = require('./crud5')
-		var data = crud5.generate('crud')
-		
-		console.log('Data: ',data)
+		var data = crud5.generate('crud5')
+		//console.log('Data: ',data)
 
-		res.writeHead(200, {
-                    'data-routes': '/User/exist/:id: UserController.exist,/User/list: UserController.list'
-		})
+		/*res.writeHead(200, {
+			'data-routes': data.routes,
+			'data-controller': data.controller,
+			'data-language': data.language
+		})*/
 		res.end(data)
 	}
 	else 

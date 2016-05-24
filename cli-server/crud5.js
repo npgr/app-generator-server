@@ -70,11 +70,12 @@ function generate_language(title, keys, jsondata) {
 	var compiled_Language = _.template(LANGUAGE_TEMPLATE)
 
 	var language = compiled_Language({ 'title': title, 'keys': keys, 'jsondata': jsondata })
-				
-	fs.writeFile('templates/crud5/language.json', language, function (err) {
+		
+	return language
+	/*fs.writeFile('templates/crud5/language.json', language, function (err) {
 		if (err) console.log(err);
 		console.log('Created file templates/crud5/language.json')
-	})
+	})*/
 }
 
 function srv(crud, word) {
@@ -607,8 +608,9 @@ function generate_list_page(keys, key, title, crud, card_width, dialog_width, bt
 	list_template = list_template.replace(/>%/g, '<%')
 	list_template = list_template.replace(/%</g, '%>')
 	
+	return list_template
 	// Create Folder if not exist
-	var path = 'assets/'+model
+	/*var path = 'assets/'+model
 	if (crud == 'crud6')  path = 'views/'+model
 		
 	if (!fs.existsSync(path))	fs.mkdirSync(path)
@@ -621,7 +623,7 @@ function generate_list_page(keys, key, title, crud, card_width, dialog_width, bt
 	fs.writeFile(path, list_template, function (err) {
 		if (err) console.log(err);
 		console.log('Created file '+path)
-	})
+	})*/
 }
 
 exports.generate = function(crud) {
@@ -699,10 +701,12 @@ exports.generate = function(crud) {
 	// Models: User, Profile, Resources
 	// Login Form, userController.login, user.controller.validateLogin, policy Authorized
 	// TopBar
-	return generate_controller(key, crud)
-	/*generate_language(model, keys, jsondata)
-	generate_app_config()
-	generate_app_util()
+	var data = generate_controller(key, crud)
+	data += generate_language(model, keys, jsondata)
+
+	//generate_app_config()
+	//generate_app_util()
+	
 	NEW_FORM = ''
 	DISPLAY_FORM = ''
 	DELETE_FORM = ''
@@ -721,8 +725,10 @@ exports.generate = function(crud) {
 	for (i=0; i<relation.length; i++)
 		generate_model_select(relation[i].model, relation[i].display, relation[i].key, relation[i].description, crud)
 	
-	generate_list_page(keys, key, title, crud, card_width, dialog_width, btn_left, columns, download, print, new_reg, edit, delete_reg, display, ga)
-	*/
+	data += '/******* CRUD *******/\n'
+	data += generate_list_page(keys, key, title, crud, card_width, dialog_width, btn_left, columns, download, print, new_reg, edit, delete_reg, display, ga)
+	
+	return data
 	// resume-bar ??
 }
 
