@@ -21,9 +21,10 @@ function handleRequest(req, res){
 		var data = crud5.generate('crud')
 		
 		console.log('Data: ',data)
-		//console.log('Response Succefull')
-		//res.end('Response Succefull')
-		res.setHeader('data-routes', '/User/exist/:id: UserController.exist,/User/list: UserController.list)')
+
+		res.writeHead(200, {
+                    'data-routes': '/User/exist/:id: UserController.exist,/User/list: UserController.list'
+		})
 		res.end(data)
 	}
 	else 

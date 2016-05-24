@@ -57,14 +57,8 @@ function generate_controller(key, crud) {
 	var CONTROLLER_TEMPLATE = fs.readFileSync('./templates/crud5/controller.template', 'utf8');
 	var compiled_Controller = _.template(CONTROLLER_TEMPLATE)
 
-	var item = { 'model': model, 'key': key, 'crud': crud}
-	console.log('item: ',item)
+	return compiled_Controller({ 'model': model, 'key': key, 'crud': crud})
 	
-	var controller = compiled_Controller({ 'model': model, 'key': key, 'crud': crud})
-	
-	console.log('controller: ', controller)
-	
-	return controller
 	/*fs.writeFile('templates/crud5/controller.js', controller, function (err) {
 		if (err) console.log(err);
 		console.log('Created file templates/crud5/controller.js')
