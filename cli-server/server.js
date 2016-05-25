@@ -18,7 +18,7 @@ function handleRequest(req, res){
 		model = req.headers.model
 		//console.log('data: ', obj)
 		crud5 = require('./crud5')
-		var data = crud5.generate('crud5')
+		var data = crud5.generate('crud6')
 		//console.log('Data: ',data)
 
 		/*res.writeHead(200, {
