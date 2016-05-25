@@ -49,7 +49,7 @@
 		is: "<%= model%>-new",
 		open_dialog: function() {
 			this.clear()
-<%= user_point.open_new_dialog %>
+#up_open_new_dialog
 			this.$.dialog.open()
 		},
 		clear: function() {<%
@@ -94,7 +94,7 @@
 				} } else { %>
 			record.<%= keys[i]%> = Number(this.$.<%= keys[i]%>.value)<% 
 			} } }%>
-<%= user_point.before_create %>			
+#up_before_create			
 			this.$.ajax2.params = record
 			this.$.ajax2.generateRequest()
 		},
@@ -105,7 +105,7 @@
 				alert(this.$.ajax2.lastResponse.auth_msg)
 				return
 			}
-<%= user_point.record_created %>
+#up_record_created
 			alert("<%= srv(crud, "Record Created")%>")
 			// ask for create another one
 			if (!this.$.repeat.checked) {
@@ -115,7 +115,7 @@
 				this.clear()
 		},
 		submit_form: function() {
-<%= user_point.validate_before_create %>
+#up_validate_before_create
 			if (!isNaN(this.$.<%= key.name%>.value))
 			{
 				if (this.$.<%= key.name%>.value > 0)
@@ -137,7 +137,7 @@
 			console.log(this.$.ajax.lastError)
 			alert("<%= srv(crud, "Error Processing Request: ")%>", this.$.ajax.lastError)
 		}
-<%= user_point.new_functions %>		
+#up_new_functions		
 	})
 </script>
 </dom-module>

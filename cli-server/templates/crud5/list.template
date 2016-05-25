@@ -52,7 +52,7 @@
 	<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/scale-up-animation.html">
 	<link rel="import" href="/bower_components/neon-animation/animations/fade-out-animation.html">
-<%= user_point.include_libs %><%
+#up_include_libs <%
   if (crud == "crud5") { %>
 	<link rel="import" href="/components/<%= model%>-list-columns/<%= model%>-list-columns.html">
 	<link rel="import" href="/components/<%= model%>-new/<%= model%>-new.html">
@@ -109,7 +109,7 @@ paper-menu {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
-<%= user_point.general_style %>
+#up_general_style
 </style>
 
 >% include ../partials/topBar %<
@@ -128,7 +128,7 @@ paper-menu {
 
 <dom-module id="<%= model%>-list">
 <template>
-<%= user_point.list_style %>
+#up_list_style
 	<iron-ajax id="ajax" handle-as="json" on-response="load_data" on-error="ajax_error"></iron-ajax><% 
 if (columns_form != '') { %>
 	<<%= model%>-list-columns id="<%= model%>_list_columns" on-close="update_columns"></<%= model%>-list-columns><% 
@@ -149,7 +149,7 @@ if (columns_form != '') { %>
   } else {%>
 	<div class="card_title">List <%= title%></div><%
   } %>
-<%= user_point.list_header %>
+#up_list_header
 	<select id="filter" on-change="input_type"><% 
 		for (i=0; i < keys.length; i++) { 
 			if (jsondata[keys[i]].line_r) {
@@ -228,7 +228,7 @@ if (columns_form != '') { %>
 		  if (delete_reg) {%>
 			<paper-item on-click="delete" style="min-height:20px;line-height:35px;"><%= srv(crud, "Delete")%></paper-item><%
 		  }%>
-<%= user_point.list_detail_menu %>
+#up_list_detail_menu
 		</paper-menu>
 	</paper-dialog>
 	<table id="data_table" class="table_list" style="width:100%">
@@ -287,7 +287,7 @@ Polymer({
 		//cur_filter: {}
 	},
 	ready: function() {
-<%= user_point.list_start_ready %>
+#up_list_start_ready
 		// For Sharepoint
 		if (typeof String.prototype.startsWith != 'function') {
 			// see below for better implementation!
@@ -331,7 +331,7 @@ Polymer({
 				intro.start()
 			}, 600);	
 		}, false);*/
-<%= user_point.list_end_ready %>
+#up_list_end_ready
 	},
 	help: function() {
 <% if (ga) {%>		ga('send', 'event', '<%= model%>', '<%= model%>_help')<% }%>
@@ -761,7 +761,7 @@ Polymer({
 	console.log(this.$.ajax.lastError)
 	alert("<%= srv(crud, "Error Processing Request: ")%>", this.$.ajax.lastError)
   }
-<%= user_point.list_functions %>
+#up_list_functions
 });
 </script>
 </dom-module><%

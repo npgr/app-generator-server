@@ -41,7 +41,7 @@
 		open_delete_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
-<%= user_point.open_delete_dialog %>
+#up_open_delete_dialog
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -54,7 +54,7 @@
 			this.$.submit_delete.click()
 		},
 		delete: function() {
-<%= user_point.before_delete %>
+#up_before_delete
 			this.$.ajax.url = config_server() + "<%= model%>/"+this.item.id
 			this.$.ajax.generateRequest()
 		},
@@ -65,7 +65,7 @@
 				alert(this.$.ajax.lastResponse.auth_msg)
 				return
 			}
-<%= user_point.record_deleted %>
+#up_record_deleted
 			alert("<%= srv(crud, "Record Deleted")%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -74,7 +74,7 @@
 			console.log(this.$.ajax.lastError)
 			alert("<%= srv(crud, "Error Processing Request: ")%>", this.$.ajax.lastError)
 		}
-<%= user_point.delete_functions %>
+#up_delete_functions 
 	})
 </script>
 </dom-module>

@@ -48,7 +48,7 @@
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
-<%= user_point.open_edit_dialog %>
+#up_open_edit_dialog
 			this.$.dialog.open()
 		},
 		set_select_fields(item) {
@@ -73,7 +73,7 @@
 			this.$[this.field].key = this.$[e.srcElement.id].item.key
 		},
 		submit_form: function() {
-<%= user_point.validate_before_update %>
+#up_validate_before_update
 			this.$.submit_update.click()
 		},
 		update: function() {
@@ -101,7 +101,7 @@
 			record.<%= keys[i]%> = Number(this.$.<%= keys[i]%>.value)<% 		
 			}}}}%>
 			this.$.ajax.url = config_server() + "<%= model%>/" +record.<%= key.name%>
-<%= user_point.before_update %>
+#up_before_update
 			this.$.ajax.params = record
 			this.$.ajax.generateRequest()
 		},
@@ -112,7 +112,7 @@
 				alert(this.$.ajax.lastResponse.auth_msg)
 				return
 			}
-<%= user_point.record_updated %>
+#up_record_updated
 			alert("<%= srv(crud, "Record Updated")%>")
 			this.$.dialog.close()
 			this.fire('close')
@@ -121,7 +121,7 @@
 			console.log(this.$.ajax.lastError)
 			alert("<%= srv(crud, "Error Processing Request: ")%>", this.$.ajax.lastError)
 		}
-<%= user_point.edit_functions %>
+#up_edit_functions
 	})
 </script>
 </dom-module>

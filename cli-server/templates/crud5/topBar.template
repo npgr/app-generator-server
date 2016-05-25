@@ -126,8 +126,7 @@
 			  <hr>
 			  <li class="dropdown-item"><iron-icon icon="drafts"></iron-icon>Messages</li>
 			  <li class="dropdown-item"><iron-icon icon="settings"></iron-icon>Preferences</li>-->
-<!-- USER POINT - User Menu -->
-<!-- END USER POINT - User Menu -->
+#up_user_menu
 			  <hr>
 			  <li class="dropdown-item" on-click="edit_profile"><iron-icon icon="perm-identity"></iron-icon><%= lng('Profile') %></li>
 			  <li class="dropdown-item" on-click="signout"><iron-icon icon="exit-to-app"></iron-icon><%= lng('Log Out') %></li>
@@ -172,8 +171,7 @@
 		this.user.usr = this.user.user
 		this.$.user_edit_profile.open_dialog(this.user)
 	}
-/** USER POINT - Top Bar Functions **/
-/** END USER POINT - Top Bar Functions **/
+#up_top_bar_functions
 	})
 </script>
 </dom-module>
@@ -243,8 +241,7 @@
 		open_dialog: function(item) {
 			this.item = item
 			this.set_select_fields(item)
-/** USER POINT - Open Edit Dialog **/
-/** END USER POINT - Open Edit Dialog **/
+#up_edit_profile_open_dialog
 			this.$.dialog_profile.open()
 		},
 		set_select_fields(item) {
@@ -284,8 +281,7 @@
 		record_updated: function() {
 			/** Validate Resource Authorized **/
 			alert(this.$.ajax.lastResponse.auth_msg)
-/** USER POINT - Record Updated **/
-/** END USER POINT - Record Updated **/
+#up_edit_profile_updated
 			if (typeof this.$.ajax.lastResponse.err === 'undefined')
 			{
 				this.$.dialog_profile.close()
@@ -296,8 +292,7 @@
 			console.log(this.$.ajax.lastError)
 			alert("<%= lng('Error Processing Request: ')%>", this.$.ajax.lastError)
 		}
-/** USER POINT - Edit Functions **/
-/** END USER POINT - Edit Functions **/
+#up_edit_profile_functions
 	})
 </script>
 </dom-module>

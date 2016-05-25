@@ -371,184 +371,6 @@ function generate_model_select(model, display, key, description, crud) {
 	//else  console.log('File '+path+' already Exist')
 }
 
-function get_user_points(){
-	user_point = {
-		'include_libs': '<!-- USER POINT - Include Libraries, Styles & Components -->\n'+
-						'<!-- END USER POINT - Include Libraries, Styles & Components -->',
-		'general_style': '/** USER POINT - General Style **/\n'+
-						 '/** END USER POINT - General Style **/',
-		'list_style': '<!--USER POINT - List Style-->\n'+
-					  '<!--END USER POINT - List Style-->',
-		'list_header': '<!--USER POINT - List Header-->\n'+
-					  '<!--END USER POINT - List Header-->',
-		'list_detail_menu': '<!--USER POINT - List Detail Menu-->\n'+
-							'<!--END USER POINT - List Detail Menu-->',
-		'list_start_ready': '//USER POINT - List Start Ready\n'+
-						  '//END USER POINT - List Start Ready',
-		'list_end_ready': '//USER POINT - List End Ready\n'+
-						  '//END USER POINT - List End Ready',
-		'list_functions': '//USER POINT - List Functions\n'+
-						  '//END USER POINT - List Functions',
-		'open_delete_dialog': '/** USER POINT - Open Delete Dialog **/\n'+
-						    '/** END USER POINT - Open Delete Dialog **/',	
-		'record_deleted': '/** USER POINT - Record Deleted **/\n'+
-						'/** END USER POINT - Record Deleted **/',
-		'delete_functions': '/** USER POINT - Delete Functions **/\n'+
-						  '/** END USER POINT - Delete Functions **/',
-		'open_display_dialog': '/** USER POINT - Open Display Dialog **/\n'+
-							'/** END USER POINT - Open Display Dialog **/',
-		'display_functions': '/** USER POINT - Display Functions **/\n'+
-						   '/** END USER POINT - Display Functions **/', 
-		'open_edit_dialog': '/** USER POINT - Open Edit Dialog **/\n'+
-						  '/** END USER POINT - Open Edit Dialog **/',
-		'validate_before_update': '/** USER POINT - Validate Before Update **/\n'+
-							   '/** END USER POINT - Validate Before Update **/',	   
-		'record_updated': '/** USER POINT - Record Updated **/\n'+
-						'/** END USER POINT - Record Updated **/',
-		'edit_functions': '/** USER POINT - Edit Functions **/\n'+
-						'/** END USER POINT - Edit Functions **/',
-		'open_new_dialog': '/** USER POINT - Open New Dialog **/\n'+
-						'/** END USER POINT - Open New Dialog **/',
-		'validate_before_create': '/** USER POINT - Validate Before Create **/\n'+
-								'/** END USER POINT - Validate Before Create **/',
-		'record_created': '/** USER POINT - Record Created **/\n'+
-						'/** END USER POINT - Record Created **/',
-		'new_functions': '/** USER POINT - New Functions **/\n'+
-						'/** END USER POINT - New Functions **/',
-		'before_create': '/** USER POINT - Before Create **/\n'+
-						'/** END USER POINT - Before Create **/',
-		'before_update': '/** USER POINT - Before Update **/\n'+
-						'/** END USER POINT - Before Update **/',
-		'before_delete': '/** USER POINT - Before Delete **/\n'+
-						'/** END USER POINT - Before Delete **/'				
-	}
-	
-	if (fs.existsSync('./views/'+model+'/list.ejs'))
-	{
-		var list_file = fs.readFileSync('./views/'+model+'/list.ejs', 'utf8');
-		
-		var start = list_file.indexOf("<!-- USER POINT - Include Libraries, Styles & Components -->")
-		var end = list_file.indexOf("<!-- END USER POINT - Include Libraries, Styles & Components -->")		
-		if (end != -1)
-			user_point.include_libs = list_file.substring(start, end+64)
-		
-		var start = list_file.indexOf("/** USER POINT - General Style **/")
-		var end = list_file.indexOf("/** END USER POINT - General Style **/")		
-		if (end != -1)
-			user_point.general_style = list_file.substring(start, end+38)
-		
-		var start = list_file.indexOf("<!--USER POINT - List Style-->")
-		var end = list_file.indexOf("<!--END USER POINT - List Style-->")		
-		if (end != -1)
-			user_point.list_style = list_file.substring(start, end+34)
-			
-		var start = list_file.indexOf("<!--USER POINT - List Header-->")
-		var end = list_file.indexOf("<!--END USER POINT - List Header-->")		
-		if (end != -1)
-			user_point.list_header = list_file.substring(start, end+35)
-		
-		var start = list_file.indexOf("<!--USER POINT - List Detail Menu-->")
-		var end = list_file.indexOf("<!--END USER POINT - List Detail Menu-->")		
-		if (end != -1)
-			user_point.list_detail_menu = list_file.substring(start, end+40)
-
-		start = list_file.indexOf("//USER POINT - List Start Ready")
-		end = list_file.indexOf("//END USER POINT - List Start Ready")
-		if (end != -1)
-			user_point.list_start_ready = list_file.substring(start, end+35)
-			
-		start = list_file.indexOf("//USER POINT - List End Ready")
-		end = list_file.indexOf("//END USER POINT - List End Ready")
-		if (end != -1)
-			user_point.list_end_ready = list_file.substring(start, end+33)
-			
-		start = list_file.indexOf("//USER POINT - List Functions")
-		end = list_file.indexOf("//END USER POINT - List Functions")
-		if (end != -1)
-			user_point.list_functions = list_file.substring(start, end+33)
-		
-		start = list_file.indexOf("/** USER POINT - Open Delete Dialog **/")
-		end = list_file.indexOf("/** END USER POINT - Open Delete Dialog **/")
-		if (end != -1)
-			user_point.open_delete_dialog = list_file.substring(start, end+43)
-		
-		start = list_file.indexOf("/** USER POINT - Record Deleted **/")
-		end = list_file.indexOf("/** END USER POINT - Record Deleted **/")
-		if (end != -1)
-			user_point.record_deleted = list_file.substring(start, end+39)
-		
-		start = list_file.indexOf("/** USER POINT - Delete Functions **/")
-		end = list_file.indexOf("/** END USER POINT - Delete Functions **/")
-		if (end != -1)
-			user_point.delete_functions = list_file.substring(start, end+41)
-		
-		start = list_file.indexOf("/** USER POINT - Open Display Dialog **/")
-		end = list_file.indexOf("/** END USER POINT - Open Display Dialog **/")
-		if (end != -1)
-			user_point.open_display_dialog = list_file.substring(start, end+44)
-		
-		start = list_file.indexOf("/** USER POINT - Display Functions **/")
-		end = list_file.indexOf("/** END USER POINT - Display Functions **/")
-		if (end != -1)
-			user_point.display_functions = list_file.substring(start, end+42)
-		
-		start = list_file.indexOf("/** USER POINT - Open Edit Dialog **/")
-		end = list_file.indexOf("/** END USER POINT - Open Edit Dialog **/")
-		if (end != -1)
-			user_point.open_edit_dialog = list_file.substring(start, end+41)
-		
-		start = list_file.indexOf("/** USER POINT - Validate Before Update **/")
-		end = list_file.indexOf("/** END USER POINT - Validate Before Update **/")
-		if (end != -1)
-			user_point.validate_before_update = list_file.substring(start, end+47)
-		
-		start = list_file.indexOf("/** USER POINT - Record Updated **/")
-		end = list_file.indexOf("/** END USER POINT - Record Updated **/")
-		if (end != -1)
-			user_point.record_updated = list_file.substring(start, end+39)
-		
-		start = list_file.indexOf("/** USER POINT - Edit Functions **/")
-		end = list_file.indexOf("/** END USER POINT - Edit Functions **/")
-		if (end != -1)
-			user_point.edit_functions = list_file.substring(start, end+39)
-		
-		start = list_file.indexOf("/** USER POINT - Open New Dialog **/")
-		end = list_file.indexOf("/** END USER POINT - Open New Dialog **/")
-		if (end != -1)
-			user_point.open_new_dialog = list_file.substring(start, end+40)
-		
-		start = list_file.indexOf("/** USER POINT - Validate Before Create **/")
-		end = list_file.indexOf("/** END USER POINT - Validate Before Create **/")
-		if (end != -1)
-			user_point.validate_before_create = list_file.substring(start, end+47)
-		
-		start = list_file.indexOf("/** USER POINT - Record Created **/")
-		end = list_file.indexOf("/** END USER POINT - Record Created **/")
-		if (end != -1)
-			user_point.record_created = list_file.substring(start, end+39)
-		
-		start = list_file.indexOf("/** USER POINT - New Functions **/")
-		end = list_file.indexOf("/** END USER POINT - New Functions **/")
-		if (end != -1)
-			user_point.new_functions = list_file.substring(start, end+38)
-			
-		start = list_file.indexOf("/** USER POINT - Before Create **/")
-		end = list_file.indexOf("/** END USER POINT - Before Create **/")
-		if (end != -1)
-			user_point.before_create = list_file.substring(start, end+38)
-			
-		start = list_file.indexOf("/** USER POINT - Before Update **/")
-		end = list_file.indexOf("/** END USER POINT - Before Update **/")
-		if (end != -1)
-			user_point.before_update = list_file.substring(start, end+38)
-			
-		start = list_file.indexOf("/** USER POINT - Before Delete **/")
-		end = list_file.indexOf("/** END USER POINT - Before Delete **/")
-		if (end != -1)
-			user_point.before_display = list_file.substring(start, end+38)
-	}
-}
-
 function generate_list_page(keys, key, title, crud, card_width, dialog_width, btn_left, columns, download, print, new_reg, edit, delete_reg, display, ga) {
 	var LIST_TEMPLATE = fs.readFileSync('./templates/crud5/list.template', 'utf8');
 	var compiled_List = _.template(LIST_TEMPLATE)
@@ -601,7 +423,7 @@ function generate_list_page(keys, key, title, crud, card_width, dialog_width, bt
 	
 	//var TOPBAR = fs.readFileSync('./templates/crud5/topBar.template', 'utf8');
 	
-	var list_template = compiled_List({ 'title': title , 'attrs': attrs, 'model': model, 'import_form': IMPORT_FORM, 'columns_form': COLUMNS_FORM, 'new_form': NEW_FORM, 'display_form': DISPLAY_FORM, 'edit_form': EDIT_FORM, 'delete_form': DELETE_FORM, 'select_forms': SELECT_FORMS, 'key': key, 'keys': keys, 'jsondata': jsondata, 'crud': crud, 'card_width': card_width, 'dialog_width': dialog_width, 'btn_left': btn_left, 'columns': columns, 'download': download, 'print': print, 'new_reg': new_reg, 'edit': edit, 'delete_reg': delete_reg, 'display': display, 'ga': ga, 'user_point': user_point})
+	var list_template = compiled_List({ 'title': title , 'attrs': attrs, 'model': model, 'import_form': IMPORT_FORM, 'columns_form': COLUMNS_FORM, 'new_form': NEW_FORM, 'display_form': DISPLAY_FORM, 'edit_form': EDIT_FORM, 'delete_form': DELETE_FORM, 'select_forms': SELECT_FORMS, 'key': key, 'keys': keys, 'jsondata': jsondata, 'crud': crud, 'card_width': card_width, 'dialog_width': dialog_width, 'btn_left': btn_left, 'columns': columns, 'download': download, 'print': print, 'new_reg': new_reg, 'edit': edit, 'delete_reg': delete_reg, 'display': display, 'ga': ga})
 	
 	//list_template = list_template.replace('>%', '<%')
 	//list_template = list_template.replace('%<', '%>')
@@ -713,14 +535,13 @@ exports.generate = function(crud) {
 	EDIT_FORM = ''
 	COLUMNS_FORM = ''
 	
-	get_user_points()
 	if (new_reg) generate_new_form(keys, key, title, crud)
 	if (display) generate_display_form(keys, key, title, crud)
 	if (delete_reg) generate_delete_form(keys, key, title, crud)	
 	if (edit) generate_edit_form(keys, key, title, crud)
-	
+
 	if (columns) generate_list_columns(keys, title, crud)
-	
+
 	SELECT_FORMS = ''
 	for (i=0; i<relation.length; i++)
 		generate_model_select(relation[i].model, relation[i].display, relation[i].key, relation[i].description, crud)
