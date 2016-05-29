@@ -82,9 +82,8 @@ module.exports = function(req, res, next) {
 				return next()
 			}
 		})*/
-		
 		var resource = _.find(req.session.resources, { 'path': path, 'method': req.method.toLowerCase() })
-		if (resource)
+		if (resource || req.session.aut_all)
 		{
 			req.options.resource = resource
 			console.log(colors.green(time + req.method+' '+req.originalUrl+' Authorized for user '+req.session.user))
